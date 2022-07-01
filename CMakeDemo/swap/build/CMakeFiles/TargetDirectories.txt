@@ -1,0 +1,3 @@
+/home/ubuntu/yao/CMakeDemo/swap/build/CMakeFiles/swap_make.dir
+/home/ubuntu/yao/CMakeDemo/swap/build/CMakeFiles/edit_cache.dir
+/home/ubuntu/yao/CMakeDemo/swap/build/CMakeFiles/rebuild_cache.dir
