@@ -3,8 +3,8 @@ https://docs.opencv.org/4.x/d9/df8/tutorial_root.html
 
 按照顺序实现官方文档代码，更新中
 
-更新时间：2022.7.1
-进度：1_7
+更新时间：2022.7.3
+进度：2_8
 
 ## Win 安装 OpenCV
 https://docs.opencv.org/4.x/d3/d52/tutorial_windows_install.html
@@ -37,5 +37,18 @@ https://docs.opencv.org/4.x/dd/d6e/tutorial_windows_visual_studio_opencv.html
 * 1_7_DiscreteFourierTransform.cpp
   * 离散傅里叶变换
 
-**2、Image Processing (imgproc module) - image processing functions**
-
+**2、Image Processing (imgproc module)**
+* https://docs.opencv.org/4.x/d7/da8/tutorial_table_of_content_imgproc.html
+* 2_1_BasicDrawing.cpp
+  * 基本绘图功能
+* 2_3_SmoothingImages.cpp
+  * 图像平滑 blur() GaussianBlur() medianBlur() bilateralFilter()
+* 2_4_ErodingDilating.cpp
+  * 腐蚀和膨胀
+* 2_5_MoreMorphologyTransformations.cpp
+  * 形态学操作 Opening, Closing, Morphological Gradient, Top Hat, Black Hat 
+* 2_6_HitOrMss.cpp
+  * 击中或击不中变换
+* 2_7_ExtractHorizontalAndVerticalLines.cpp
+  * 提取水平和垂直特征
+* 2_8_
