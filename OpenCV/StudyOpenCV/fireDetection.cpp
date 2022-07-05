@@ -106,11 +106,12 @@ int main(int argc, char** argv)
 
 		int codec = VideoWriter::fourcc('m','p','4','v');
 		double fps = 25.0;
-		Size size = Size(capture.get(CAP_PROP_FRAME_WIDTH), capture.get(CAP_PROP_FRAME_HEIGHT));
+		Size size = Size(int(capture.get(CAP_PROP_FRAME_WIDTH)), int(capture.get(CAP_PROP_FRAME_HEIGHT)));
 		string save_path = argv[2];
 		writer.open(save_path, codec, fps, size, true);
 		
 		writer.write(frame);
+		//writer << frame;
 		
 		if (!writer.isOpened()){
 			cout << "failed to open the video" << endl;
