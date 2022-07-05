@@ -53,7 +53,7 @@ int main(int argc, char** argv)
 		capture >> frame;
 		if (frame.empty())
 			break;
-		namedWindow("Control", CV_WINDOW_AUTOSIZE);
+		//namedWindow("Control", CV_WINDOW_AUTOSIZE);
 	
 		// hsv阈值分割
 		//Mat mask, hsv = hsv_to_mask(frame, hl, hh, sl, sh, vl, vh);
@@ -99,17 +99,19 @@ int main(int argc, char** argv)
 				cout << "area:" << area << endl;
 				cout << "length:" << length << endl;
 				cout << "roundIndex:" << roundIndex << endl;
-
 			}
 		}
 
-		cv::imshow("contours", frame);
+		cv::imshow("result", frame);
 
 		int codec = VideoWriter::fourcc('m','p','4','v');
 		double fps = 25.0;
+		Size size = Size(capture.get(CAP_PROP_FRAME_WIDTH), capture.get(CAP_PROP_FRAME_HEIGHT));
 		string save_path = argv[2];
-		writer.open(save_path, codec, fps, frame.size(), true);
-
+		writer.open(save_path, codec, fps, size, true);
+		
+		writer.write(frame);
+		
 		if (!writer.isOpened()){
 			cout << "failed to open the video" << endl;
 			return -1;
@@ -119,8 +121,7 @@ int main(int argc, char** argv)
 			cout << "detection done!" << endl;
 			break;
 		}
-
-		writer.write(frame);
+				
 
 		char c = waitKey(50);
 		if (c == 27){
