@@ -6,7 +6,6 @@
 #include <iostream>
 #include <opencv2/highgui/highgui_c.h>
 #include <vector>
-//#include <errno.h>
 #include <stdio.h>
 #include <string.h>
 #include <algorithm>
@@ -27,7 +26,7 @@ Mat imgopen(Mat mask, int kernal_size);
 static void help(char* progName){
 	cout << endl
 		 << "Usage:" << endl
-		 << progName << "[video_path -- default day.mp4] [save_path -- day_out.mp4]" << endl << endl;
+		 << progName << " [video_path -- default day.mp4] [save_path -- default day_out.mp4] " << endl << endl;
 }
 
 int main(int argc, char** argv)
@@ -41,8 +40,7 @@ int main(int argc, char** argv)
 	}
 
 	// VideoCapture capture(video_path);
-    
-	Mat frame;
+    	
 	// frame = imread(video_path);
 	// frame = imread( argv[1], 1 );
 	VideoCapture capture(argv[1]);
@@ -50,6 +48,7 @@ int main(int argc, char** argv)
 
 	while (1)
 	{
+		Mat frame;
 		capture >> frame;
 		if (frame.empty())
 			break;
@@ -104,14 +103,11 @@ int main(int argc, char** argv)
 
 		cv::imshow("result", frame);
 
-		int codec = VideoWriter::fourcc('m','p','4','v');
+		int codec = VideoWriter::fourcc('m', 'p', '4', 'v');
 		double fps = 25.0;
 		Size size = Size(int(capture.get(CAP_PROP_FRAME_WIDTH)), int(capture.get(CAP_PROP_FRAME_HEIGHT)));
 		string save_path = argv[2];
 		writer.open(save_path, codec, fps, size, true);
-		
-		writer.write(frame);
-		//writer << frame;
 		
 		if (!writer.isOpened()){
 			cout << "failed to open the video" << endl;
@@ -122,17 +118,16 @@ int main(int argc, char** argv)
 			cout << "detection done!" << endl;
 			break;
 		}
-				
+		
+		// writer.write(frame);
+		writer << frame;
 
 		char c = waitKey(50);
-		if (c == 27){
-			break;
-		}
-
+		if (c == 27) break;
 	}
 	
 	capture.release();
-	//writer.release();
+	writer.release();
 
 	return 0;
 }
