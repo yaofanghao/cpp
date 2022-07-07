@@ -9,17 +9,19 @@
 #include <stdio.h>
 #include <string.h>
 #include <algorithm>
-//#include "easylogging++.h"
+#include "easylogging++.h"
 
-//#define _CRT_SECURE_NO_WARNINGS 1
+#define _CRT_SECURE_NO_WARNINGS 1
 
-//INITIALIZE_EASYLOGGINGPP
+INITIALIZE_EASYLOGGINGPP
 
-using namespace cv;
+using namespace el;
 using namespace std;
+using namespace cv;
+
 
 // string video_path = "1.jpg";
-int hl = 0, hh = 30, sl = 100, sh = 255, vl = 200, vh = 255; // hsv阈值范围
+int hl = 0, hh = 50, sl = 100, sh = 255, vl = 200, vh = 255; // hsv阈值范围
 int kernal_size = 5; // 开运算核尺寸
 double conturs_ratio = 0.00001; // 轮廓参数设置
 double round_low = 0.2; 
@@ -39,16 +41,24 @@ int main(int argc, char** argv)
 	
 	help(argv[0]);
 
-	//// 配置日志信息
-	//// https://github.com/amrayn/easyloggingpp
-	//// Load configuration from file
+	// 配置日志信息
+	// https://github.com/amrayn/easyloggingpp
+	//time_t t = time(0);
+	//std::stringstream ss;
+	//ss << std::put_time(std::localtime(&t), "%F %X");
+	el::Configurations defaultConf;
+	defaultConf.setToDefault();
+	//defaultConf.setGlobally(
+	//	el::ConfigurationType::Filename, ss.str());
+	el::Loggers::reconfigureLogger("default", defaultConf);	
+	el::Logger* defaultLogger = el::Loggers::getLogger("default");
+
+	// 以下几句有问题，未解决
 	//el::Configurations conf("myconfiguration_file");
-	//// Reconfigure single logger
 	//el::Loggers::reconfigureLogger("default", conf);
-	//// Actually reconfigure all loggers instead
 	//el::Loggers::reconfigureAllLoggers(conf);
-	//// Now all the loggers will use configuration from file
-	//LOG(INFO) << "My First Easylog!";
+
+	LOG(INFO) << "My First Easylog!";
 
 	if (argc<=2){
 		cout<<"please enter the save_path"<<endl;
@@ -105,6 +115,7 @@ int main(int argc, char** argv)
 				Rect rect = boundingRect(contours[i]);
 				rectangle(frame, rect, (255, 0, 0), 5);
 
+				LOG(INFO) << "Find fire.";
 				string text = "Warning!";
 				cv::Point origin;
 				origin.x = frame.cols / 2 ;
@@ -114,6 +125,9 @@ int main(int argc, char** argv)
 				cout << "area:" << area << endl;
 				cout << "length:" << length << endl;
 				cout << "roundIndex:" << roundIndex << endl;
+			}
+			else {
+				LOG(INFO) << "No fire.";
 			}
 		}
 
