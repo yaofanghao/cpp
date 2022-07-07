@@ -1,6 +1,13 @@
 ## 代码解析
 ## yolo_detection_demo.cc
 
+部分代码参考自：
+https://github.com/PaddlePaddle/Paddle-Lite-Demo/tree/master/PaddleLite-armlinux-demo/yolo_detection_demo
+
+https://april.eecs.umich.edu/software/apriltag.html
+
+https://github.com/AprilRobotics/apriltag
+
 * 482 main函数
 ->
 * 487 日志easylogging初始化
@@ -25,6 +32,6 @@
         * B0 预测，调用process函数，在其中又调用了preprocess函数
             参考：https://github.com/PaddlePaddle/Paddle-Lite-Demo/tree/master/PaddleLite-armlinux-demo/object_detection_demo
         * B1 测距，调用runFunctionB1Distance函数，在其中又调用了apriltag_measurement函数
-        * B2 Hoist check，调用runFunctionB2Hoist函数
+        * B2 Apriltag Hoist check 标定模式，调用runFunctionB2Hoist函数
 
 ->

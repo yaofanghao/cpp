@@ -9,6 +9,11 @@
 #include <stdio.h>
 #include <string.h>
 #include <algorithm>
+//#include "easylogging++.h"
+
+//#define _CRT_SECURE_NO_WARNINGS 1
+
+//INITIALIZE_EASYLOGGINGPP
 
 using namespace cv;
 using namespace std;
@@ -33,6 +38,17 @@ int main(int argc, char** argv)
 {
 	
 	help(argv[0]);
+
+	//// 配置日志信息
+	//// https://github.com/amrayn/easyloggingpp
+	//// Load configuration from file
+	//el::Configurations conf("myconfiguration_file");
+	//// Reconfigure single logger
+	//el::Loggers::reconfigureLogger("default", conf);
+	//// Actually reconfigure all loggers instead
+	//el::Loggers::reconfigureAllLoggers(conf);
+	//// Now all the loggers will use configuration from file
+	//LOG(INFO) << "My First Easylog!";
 
 	if (argc<=2){
 		cout<<"please enter the save_path"<<endl;
