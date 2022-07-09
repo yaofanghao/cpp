@@ -3,8 +3,11 @@ https://docs.opencv.org/4.x/d9/df8/tutorial_root.html
 
 按照顺序实现官方文档代码，更新中
 
-更新时间：2022.7.3
-进度：2_8
+更新时间：2022.7.8
+
+进度：
+* 官方文档 2_8 
+* b站up 小刘老赖 图像金字塔
 
 ## Win 安装 OpenCV
 https://docs.opencv.org/4.x/d3/d52/tutorial_windows_install.html
@@ -15,8 +18,13 @@ https://docs.opencv.org/4.x/d7/d9f/tutorial_linux_install.html
 ## VS 配置 OpenCV
 https://docs.opencv.org/4.x/dd/d6e/tutorial_windows_visual_studio_opencv.html
 
+## VScode 配置 OpenCV
+https://github.com/microsoft/vscode-cmake-tools
+https://www.bilibili.com/video/BV1gu411X7BP?share_source=copy_web
+http://t.csdn.cn/bFXcX
+
 ## 代码说明
-* 0_GettingStratedwithImages.cpp
+**0_GettingStratedwithImages.cpp**
   * https://docs.opencv.org/4.x/db/deb/tutorial_display_image.html
   * 读取图片
 
@@ -52,3 +60,8 @@ https://docs.opencv.org/4.x/dd/d6e/tutorial_windows_visual_studio_opencv.html
 * 2_7_ExtractHorizontalAndVerticalLines.cpp
   * 提取水平和垂直特征
 * 2_8_
+
+**B站学习资料**
+**1、小刘老赖 从零实现opencv-c++**
+* https://space.bilibili.com/509929183/
+* Threshold 文件夹 图像处理的阈值操作 https://www.bilibili.com/video/BV1y54y1X7wz?share_source=copy_web

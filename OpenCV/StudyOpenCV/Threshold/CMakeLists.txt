@@ -1,13 +1,18 @@
+# opencv for vscode 的标准模板
 cmake_minimum_required(VERSION 3.1)
 
-project( fire )
+project(otsu)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+
+# 设置成包含OpenCVconfig.cmake所在的路径
+set(OpenCV_DIR E:\\OpenCV\\opencv\\build)
 
 message(STATUS "TARGET ARCH ABI: ${TARGET_ARCH_ABI}")
 message(STATUS "OpenCV_INCLUDE_DIRS: ${OpenCV_INCLUDE_DIRS}")
 
-find_package(OpenCV REQUIRED)
+# E:\\OpenCV\\opencv\\build
+find_package(OpenCV REQUIRED) 
 if(OpenCV_FOUND OR OpenCV_CXX_FOUND)
     include_directories(${OpenCV_INCLUDE_DIRS})
     message(STATUS "OpenCV library status:")
@@ -19,10 +24,7 @@ else()
     return()
 endif()
 
-include_directories(${PROJECT_SOURCE_DIR}/external_module)
-add_subdirectory (external_module) 
-add_executable(fire fireDetecion.cpp)
+add_executable(otsu Otsu.cpp)
 
-target_link_libraries(fire ${OpenCV_LIBS} external_module)
+target_link_libraries(otsu ${OpenCV_LIBS})
 
-SET(CMAKE_BUILD_TYPE "Debug")
