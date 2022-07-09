@@ -1,13 +1,14 @@
-## 参考资料 OpenCV官方文档
+## 参考资料 
+OpenCV官方文档
 https://docs.opencv.org/4.x/d9/df8/tutorial_root.html
 
 按照顺序实现官方文档代码，更新中
 
-更新时间：2022.7.8
+# 进度
+更新时间：2022.7.9
 
-进度：
-* 官方文档 2_8 
-* b站up 小刘老赖 图像金字塔
+* 官方文档 2_13
+* b站up 小刘老赖 
 
 ## Win 安装 OpenCV
 https://docs.opencv.org/4.x/d3/d52/tutorial_windows_install.html
@@ -47,6 +48,8 @@ http://t.csdn.cn/bFXcX
 
 **2、Image Processing (imgproc module)**
 * https://docs.opencv.org/4.x/d7/da8/tutorial_table_of_content_imgproc.html
+
+* -------**Basic部分**
 * 2_1_BasicDrawing.cpp
   * 基本绘图功能
 * 2_3_SmoothingImages.cpp
@@ -59,7 +62,18 @@ http://t.csdn.cn/bFXcX
   * 击中或击不中变换
 * 2_7_ExtractHorizontalAndVerticalLines.cpp
   * 提取水平和垂直特征
-* 2_8_
+* 2_8_ImagePyramids.cpp
+  * 图像金字塔 pyrUp pyrDown
+* 2_9_BasicThresholdingOperations.cpp
+  * 基本阈值操作 cv::threshold
+* 2_10_ThresholdingOperationsUsing_inRange.cpp
+  * inRange函数阈值操作
+* -------**Transformations部分**
+* 2_11_LinearFilters.cpp
+  * 线性滤波器
+* 2_12_AddingBorders.cpp
+  * 添加边界
+* 2_13_
 
 **B站学习资料**
 **1、小刘老赖 从零实现opencv-c++**

@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "iostream": "cpp"
+    },
+    "c-cpp-compile-run.run-in-external-terminal": true
+}
