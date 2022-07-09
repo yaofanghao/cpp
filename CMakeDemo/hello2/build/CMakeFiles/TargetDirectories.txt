@@ -1,3 +1,0 @@
-E:/MyGithub/Cpp/CMakeDemo/hello2/build/CMakeFiles/helloWorld_cmake.dir
-E:/MyGithub/Cpp/CMakeDemo/hello2/build/CMakeFiles/ALL_BUILD.dir
-E:/MyGithub/Cpp/CMakeDemo/hello2/build/CMakeFiles/ZERO_CHECK.dir

@@ -1,3 +1,0 @@
-/home/ubuntu/yao/hello/build/CMakeFiles/helloWorld_cmake.dir
-/home/ubuntu/yao/hello/build/CMakeFiles/edit_cache.dir
-/home/ubuntu/yao/hello/build/CMakeFiles/rebuild_cache.dir

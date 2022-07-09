@@ -15,7 +15,7 @@ https://github.com/AprilRobotics/apriltag
 * 498 摄像头cap初始化
 ->
 * 513 串口serial初始化
-    * 57600波特率，8数据位，无奇偶校验位，1停止位
+    * 115200波特率，8数据位，无奇偶校验位，1停止位
     serialPort("/dev/ttyACM0", 13000)
 ->
 * 523 模型model初始化
