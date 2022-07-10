@@ -1,29 +1,34 @@
+## 进度
+学习时间：2022.6.5 起 - 
+更新时间：2022.7.10
+
+* 官方文档 2_23
+* b站up 小刘老赖 
+
 ## 参考资料 
 OpenCV官方文档
 https://docs.opencv.org/4.x/d9/df8/tutorial_root.html
 
+官方示例代码
+https://docs.opencv.org/4.x/examples.html
+
 按照顺序实现官方文档代码，更新中
 
-# 进度
-更新时间：2022.7.9
-
-* 官方文档 2_13
-* b站up 小刘老赖 
-
-## Win 安装 OpenCV
+* Win 安装 OpenCV
 https://docs.opencv.org/4.x/d3/d52/tutorial_windows_install.html
 
-## Linux 安装 OpenCV
+* Linux 安装 OpenCV
 https://docs.opencv.org/4.x/d7/d9f/tutorial_linux_install.html
 
-## VS 配置 OpenCV
+* VS 配置 OpenCV
 https://docs.opencv.org/4.x/dd/d6e/tutorial_windows_visual_studio_opencv.html
 
-## VScode 配置 OpenCV
+* VScode 配置 OpenCV
 https://github.com/microsoft/vscode-cmake-tools
 https://www.bilibili.com/video/BV1gu411X7BP?share_source=copy_web
 http://t.csdn.cn/bFXcX
 
+---
 ## 代码说明
 **0_GettingStratedwithImages.cpp**
   * https://docs.opencv.org/4.x/db/deb/tutorial_display_image.html
@@ -49,7 +54,7 @@ http://t.csdn.cn/bFXcX
 **2、Image Processing (imgproc module)**
 * https://docs.opencv.org/4.x/d7/da8/tutorial_table_of_content_imgproc.html
 
-* -------**Basic部分**
+* -------**Basic**
 * 2_1_BasicDrawing.cpp
   * 基本绘图功能
 * 2_3_SmoothingImages.cpp
@@ -68,13 +73,40 @@ http://t.csdn.cn/bFXcX
   * 基本阈值操作 cv::threshold
 * 2_10_ThresholdingOperationsUsing_inRange.cpp
   * inRange函数阈值操作
-* -------**Transformations部分**
+* -------**Transformations**
 * 2_11_LinearFilters.cpp
   * 线性滤波器
 * 2_12_AddingBorders.cpp
   * 添加边界
-* 2_13_
+* 2_13_Sobel.cpp
+  * Sobel边缘检测
+* 2_14_Laplace.cpp
+  * 拉普拉斯算子
+* 2_15_Canny.cpp
+  * Canny边缘检测
+* 2_16_HoughLine.cpp
+  * 霍夫变换-线
+* 2_17_HoughCircle.cpp
+  * 霍夫变换-圆
+* 2_18_Remapping.cpp
+  * 重映射
+* 2_19_Affine.cpp
+  * 仿射变换
+* -------**Histograms** 
+* 2_20_HistogramEqualization.cpp
+  * 直方图均衡化
+* 2_21_HistogramCalculation.cpp
+  * 直方图计算 cv::calcHist 
+* 2_22_HistogramComparison.cpp
+  * 直方图比较 cv::compareHist 相关性、卡方、交集、Bhattacharyya距离
+* 2_23_BackProjection.cpp
+  * 反投影
+* 2_24_TemplateMatching.cpp
+  * 模板匹配
+* -------**Contours**
+* 2_25_ 
 
+---
 **B站学习资料**
 **1、小刘老赖 从零实现opencv-c++**
 * https://space.bilibili.com/509929183/
