@@ -1,8 +1,7 @@
 ## 进度
 学习时间：2022.6.5 起 - 
-更新时间：2022.7.10
-
-* 官方文档 2_23
+更新时间：2022.7.13
+* 官方文档 5_1
 * b站up 小刘老赖 
 
 ## 参考资料 
@@ -104,7 +103,48 @@ http://t.csdn.cn/bFXcX
 * 2_24_TemplateMatching.cpp
   * 模板匹配
 * -------**Contours**
-* 2_25_ 
+* 2_25_FindingContours.cpp
+* 2_26_ConvexHull.cpp
+  * 凸包
+* 2_27_BoundingBoxesAndCircles.cpp
+  * 绘制边界框和圆形框
+* 2_28_BoundingRotatedBoxesAndEllipses.cpp
+* 2_29_ImageMomnts.cpp
+* 2_30_PointPolygon.cpp
+  * 绘制多边形
+* -------**Others**
+* 2_31_DistanceTransformAndWatershedAlgorithm.cpp
+  * 距离变换和分水岭算法进行图像分割
+* 2_32_OutOfFocusDeblur.cpp
+  * 失焦去模糊滤镜
+* 2_33_MotionDeblur.cpp
+  * 运动去模糊滤镜
+* 2_34_GradientStructureTensor.cpp
+  * 梯度结构张量的各向异性图像分割
+* 2_35_PeriodicNoiseRemoving.cpp
+  * 周期性去噪滤波器
+
+**3、Application utils(highgui, imgcodecs, videoio modules)**
+* https://docs.opencv.org/4.x/de/d3d/tutorial_table_of_content_app.html
+* 3_1_Trackbar.cpp
+  * 添加进度条
+* 3_2 略
+* 3_3_VideoInputAndSimilarityMeasurement.cpp
+  * 读取视频并测量相似度
+* 3_4_CreatVideo.cpp
+  * 创建视频
+* 3_5 Kinect 略
+* 3_6 Orbbec Astra 3D 略
+* 3_7 Senz3D 略
+
+**4、Camera calibration and 3D reconstruction (calib3d module)**
+* https://docs.opencv.org/4.x/d6/d55/tutorial_table_of_content_calib3d.html
+* 相机标定和3D重建 略
+* 需要使用再查阅
+
+**5、2D Features framework (feature2d module)**
+* 5_1_Harris.cpp
+  * 
 
 ---
 **B站学习资料**
