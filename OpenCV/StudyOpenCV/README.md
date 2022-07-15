@@ -1,7 +1,7 @@
 ## 进度
 学习时间：2022.6.5 起 - 
-更新时间：2022.7.13
-* 官方文档 5_1
+更新时间：2022.7.15
+* 官方文档 5_7
 * b站up 小刘老赖 
 
 ## 参考资料 
@@ -144,7 +144,20 @@ http://t.csdn.cn/bFXcX
 
 **5、2D Features framework (feature2d module)**
 * 5_1_Harris.cpp
+  * Harris 角点检测
+* 5_2_ShiTomasi.cpp
+  * ShiTomasi 角点检测
+* 5_3_CustomCorner.cpp
+  * 自定义角点检测器
+* 5_4_Subpixels.cpp
+  * 子像素角点检测
+* 5_5_FeatureDetection.cpp
+  * 特征检测 surf算子
+* 5_6_FeatureDescription.cpp
+  * 特征匹配 surf算子
+* 5_7_FLANN.cpp
   * 
+
 
 ---
 **B站学习资料**
