@@ -12,3 +12,5 @@
 2022.6- OpenCV
 
 2022.6- CMake
+
+2022.7- OpenNI
