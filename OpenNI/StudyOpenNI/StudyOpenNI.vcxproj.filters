@@ -14,4 +14,23 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="openni_cookbook_code\chapter2\6_OpenFileAsDevice\OpenNI2Project.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="openni_cookbook_code\chapter2\6_OpenFileAsDevice\stdafx.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="openni_cookbook_code\chapter2\6_OpenFileAsDevice\stdafx.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="openni_cookbook_code\chapter2\6_OpenFileAsDevice\targetver.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="openni_cookbook_code\chapter2\6_OpenFileAsDevice\MultipleHands_From_OpenNIorg.oni" />
+  </ItemGroup>
 </Project>
