@@ -1,9 +1,9 @@
 import cv2
 import os
 
-video_name = 'night'
+video_name = 'day'
 
-output_dir = 'imgnight/'
+output_dir = 'imgday/'
 
 vc = cv2.VideoCapture(video_name + '.mp4')  # 读入视频文件
 
