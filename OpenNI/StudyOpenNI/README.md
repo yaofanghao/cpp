@@ -2,6 +2,8 @@
 * 2022.7.27- 起
 * 更新进度：2022.7.31
 
+----------
+
 ## 参考资料
 * 参考书 **openni cookbook**
 * https://structure.io/openni 各种环境的SDK下载
@@ -35,45 +37,54 @@ OpenCV对深度相机的处理
 Primesense 传感器并将校准文件写入 InfiniTAM 格式的工具
 * https://github.com/carlren/OpenNICalibTool
 
+----------
 
 ## 学习记录
 * opennitest.cpp 
 	已经在win环境运行成功
 * SimpleRead 文件夹
 	已经在win环境运行成功
-	-- main.cpp 
+	- main.cpp 
+
 * openni_cookbook_code 文件夹
--- 来源 https://www.packtpub.com/support/code-downloads
--- chapter2
-	-- 0_OpenNI2Project_EmptyProject 
-		空项目
-	-- 0_OpenNI2Project_EmptyProjectwithNiTE 
-		空项目
-	-- 1_Basics 入门介绍
-		openni::OpenNI::getVersion() 读取OpenNI版本 
-		status = openni::OpenNI::initialize(); 确认OpenNI状态 
-		**bool HandleStatus(Status status) 判断OpenNI状态是否正常的函数**
-			Status 是枚举类型，默认为0，即STATUS_OK
-	--2_ListOfDevices 读取设备列表
-		openni::Array<openni::DeviceInfo> listOfDevices;
-		openni::OpenNI::enumerateDevices(&listOfDevices);
-		DeviceInfo 类 
-			包含设备id、制造商、usb、uri等信息
-	--3_InitVideoStream **创建视频流**
-		Device 类
-			device.hasSensor(SensorTypre) 检查是否支持该设备读取深度信息
-				其中SensorTypre是枚举类型，可以填写SENSOR_COLOR\SENSOR_DEPTH\SENSOR_IR，读取rgb、深度、ir三种信息
-		VideoStream 类
-			sensor.create(device, SensorTypre) 创建视频流
-		VideoMode 类
-			设置帧数、分辨率、深度格式精度等信息
-			sensor.setVideoMode(depthVM)
-			sensor.start() 创建连接
-	--4_SelectDevice 选择指定设备（不重要，略）
-	--5_ListenToOpenNIEvents **监视设备连接和断开事件** （7.31 没怎么看懂）
-		struct OurOpenNIEventMonitorer 定义事件监视结构体
-	--5_2_VideoModes
-		显示设备可能支持的VideoModes
-	--6_OpenFileAsDevice **读取现有的ONI格式数据，而不是通过摄像头**
-		Deivce 类
-			device.open(addressOfFile) 打开oni文件
+  * 来源-- https://www.packtpub.com/support/code-downloads
+
+  * chapter2
+    - 0_OpenNI2Project_EmptyProject 
+		- 空项目
+	- 0_OpenNI2Project_EmptyProjectwithNiTE 
+		- 空项目
+	- 1_Basics 入门介绍
+		- OpenNI::getVersion() 读取OpenNI版本 
+		- status = OpenNI::initialize(); 确认OpenNI状态 
+		- **bool HandleStatus(Status status) 判断OpenNI状态是否正常的函数**
+    		- Status 是枚举类型，默认为0，即STATUS_OK
+	- 2_ListOfDevices 读取设备列表
+		- Array<openni::DeviceInfo> listOfDevices;
+		- OpenNI::enumerateDevices(&listOfDevices);
+		- DeviceInfo 类 
+    		- 包含设备id、制造商、usb、uri等信息
+	- 3_InitVideoStream **创建视频流**
+		- Device 类
+			- device.hasSensor(SensorTypre) 检查是否支持该设备读取深度信息
+				- **其中SensorTypre是枚举类型，可以填写- - SENSOR_COLOR\SENSOR_DEPTH\SENSOR_IR，读取rgb、深度、ir三种信息**
+		- VideoStream 类
+			- sensor.create(device, SensorTypre) 创建视频流
+		- VideoMode 类
+			- 设置帧数、分辨率、深度格式精度等信息
+			- sensor.setVideoMode(depthVM)
+			- sensor.start() 创建连接
+	- 4_SelectDevice 选择指定设备（不重要，略）
+	- 5_ListenToOpenNIEvents **监视设备连接和断开事件** （7.31 没怎么看懂）
+		- struct OurOpenNIEventMonitorer 定义事件监视结构体
+	- 5_2_VideoModes
+		- 显示设备可能支持的VideoMode
+	- 6_OpenFileAsDevice **读取现有的ONI格式数据**，而不是通过摄像头
+		- Deivce 类
+			- device.open(addressOfFile) 打开oni文件
+
+  * chapter3 Using Low-level Data
+	- VideoFrameRef 类 OpenNI2.x版本中，只需这个类就可以读取传感器数据
+	- **VideoFrameRef::getData() 返回这一帧图像第一个像素的未定义数据类型指针void***
+	- **openni::VideoFrameRef::getStrideInBytes()  返回图像每一行的bytes数**
+	- ![重点关注](openni_cookbook_code/chapter3/videoFrame.png "VideoFrame类原理")
