@@ -23,6 +23,7 @@
     <ClInclude Include="glut\GL\glext.h" />
     <ClInclude Include="glut\GL\glut.h" />
     <ClInclude Include="glut\GL\wglext.h" />
+    <ClInclude Include="MWClosestPointApp\OniSampleUtilities.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="glut\glut32.dll" />
@@ -33,7 +34,7 @@
     <Library Include="glut\glut64.lib" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="test_device.cpp" />
+    <ClCompile Include="getDataStream.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

@@ -27,6 +27,9 @@
     <ClInclude Include="glut\GL\wglext.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="MWClosestPointApp\OniSampleUtilities.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="glut\glut32.dll" />
@@ -37,7 +40,7 @@
     <Library Include="glut\glut64.lib" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="test_device.cpp">
+    <ClCompile Include="getDataStream.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
