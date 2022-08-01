@@ -44,7 +44,7 @@ Primesense 传感器并将校准文件写入 InfiniTAM 格式的工具
 	已经在win环境运行成功
 * SimpleRead 文件夹
 	已经在win环境运行成功
-	- main.cpp 
+	- main.cpp 读取深度信息，单位mm
 
 * openni_cookbook_code 文件夹
   * 来源-- https://www.packtpub.com/support/code-downloads
@@ -74,11 +74,11 @@ Primesense 传感器并将校准文件写入 InfiniTAM 格式的工具
 			- 设置帧数、分辨率、深度格式精度等信息
 			- sensor.setVideoMode(depthVM)
 			- sensor.start() 创建连接
+	- 3_2_VideoModes
+		- 显示设备可能支持的VideoMode 分辨率、帧数等信息，并选择其中一种
 	- 4_SelectDevice 选择指定设备（不重要，略）
 	- 5_ListenToOpenNIEvents **监视设备连接和断开事件** （7.31 没怎么看懂）
 		- struct OurOpenNIEventMonitorer 定义事件监视结构体
-	- 5_2_VideoModes
-		- 显示设备可能支持的VideoMode
 	- 6_OpenFileAsDevice **读取现有的ONI格式数据**，而不是通过摄像头
 		- Deivce 类
 			- device.open(addressOfFile) 打开oni文件
@@ -88,3 +88,4 @@ Primesense 传感器并将校准文件写入 InfiniTAM 格式的工具
 	- **VideoFrameRef::getData() 返回这一帧图像第一个像素的未定义数据类型指针void***
 	- **openni::VideoFrameRef::getStrideInBytes()  返回图像每一行的bytes数**
 	- ![重点关注](openni_cookbook_code/chapter3/videoFrame.png "VideoFrame类原理")
+	- OpenGL 易于迁移到其他平台

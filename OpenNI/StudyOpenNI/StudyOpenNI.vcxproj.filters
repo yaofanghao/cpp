@@ -15,22 +15,39 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="openni_cookbook_code\chapter2\6_OpenFileAsDevice\OpenNI2Project.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="openni_cookbook_code\chapter2\6_OpenFileAsDevice\stdafx.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="openni_cookbook_code\chapter2\6_OpenFileAsDevice\stdafx.h">
+    <ClInclude Include="glut\GL\gl.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="openni_cookbook_code\chapter2\6_OpenFileAsDevice\targetver.h">
+    <ClInclude Include="glut\GL\glext.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="glut\GL\glut.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="glut\GL\wglext.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="openni_cookbook_code\chapter3\Chapter 3 - Depth\OpenNI2Project\stdafx.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="openni_cookbook_code\chapter3\Chapter 3 - Depth\OpenNI2Project\targetver.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="openni_cookbook_code\chapter2\6_OpenFileAsDevice\MultipleHands_From_OpenNIorg.oni" />
+    <None Include="glut\glut32.dll" />
+    <None Include="glut\glut64.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="glut\glut32.lib" />
+    <Library Include="glut\glut64.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="openni_cookbook_code\chapter3\Chapter 3 - Depth\OpenNI2Project\OpenNI2Project.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="openni_cookbook_code\chapter3\Chapter 3 - Depth\OpenNI2Project\stdafx.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
