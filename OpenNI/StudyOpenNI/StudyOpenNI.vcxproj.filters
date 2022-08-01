@@ -27,12 +27,6 @@
     <ClInclude Include="glut\GL\wglext.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="openni_cookbook_code\chapter3\Chapter 3 - Depth\OpenNI2Project\stdafx.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="openni_cookbook_code\chapter3\Chapter 3 - Depth\OpenNI2Project\targetver.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="glut\glut32.dll" />
@@ -43,10 +37,7 @@
     <Library Include="glut\glut64.lib" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="openni_cookbook_code\chapter3\Chapter 3 - Depth\OpenNI2Project\OpenNI2Project.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="openni_cookbook_code\chapter3\Chapter 3 - Depth\OpenNI2Project\stdafx.cpp">
+    <ClCompile Include="test_device.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

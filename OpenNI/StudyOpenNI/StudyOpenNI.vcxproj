@@ -23,8 +23,6 @@
     <ClInclude Include="glut\GL\glext.h" />
     <ClInclude Include="glut\GL\glut.h" />
     <ClInclude Include="glut\GL\wglext.h" />
-    <ClInclude Include="openni_cookbook_code\chapter3\Chapter 3 - Depth\OpenNI2Project\stdafx.h" />
-    <ClInclude Include="openni_cookbook_code\chapter3\Chapter 3 - Depth\OpenNI2Project\targetver.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="glut\glut32.dll" />
@@ -35,8 +33,7 @@
     <Library Include="glut\glut64.lib" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="openni_cookbook_code\chapter3\Chapter 3 - Depth\OpenNI2Project\OpenNI2Project.cpp" />
-    <ClCompile Include="openni_cookbook_code\chapter3\Chapter 3 - Depth\OpenNI2Project\stdafx.cpp" />
+    <ClCompile Include="test_device.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

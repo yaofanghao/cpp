@@ -42,18 +42,20 @@ Primesense 传感器并将校准文件写入 InfiniTAM 格式的工具
 ## 学习记录
 * opennitest.cpp 
 	已经在win环境运行成功
+
+* test_device.cpp
+	已经在win环境运行成功
+	- 读取设备列表，包含设备id、制造商、usb、uri等信息
+
 * SimpleRead 文件夹
 	已经在win环境运行成功
 	- main.cpp 读取深度信息，单位mm
 
 * openni_cookbook_code 文件夹
   * 来源-- https://www.packtpub.com/support/code-downloads
+  * 以下列出的均已经在win环境运行成功
 
   * chapter2
-    - 0_OpenNI2Project_EmptyProject 
-		- 空项目
-	- 0_OpenNI2Project_EmptyProjectwithNiTE 
-		- 空项目
 	- 1_Basics 入门介绍
 		- OpenNI::getVersion() 读取OpenNI版本 
 		- status = OpenNI::initialize(); 确认OpenNI状态 
@@ -88,4 +90,8 @@ Primesense 传感器并将校准文件写入 InfiniTAM 格式的工具
 	- **VideoFrameRef::getData() 返回这一帧图像第一个像素的未定义数据类型指针void***
 	- **openni::VideoFrameRef::getStrideInBytes()  返回图像每一行的bytes数**
 	- ![重点关注](openni_cookbook_code/chapter3/videoFrame.png "VideoFrame类原理")
-	- OpenGL 易于迁移到其他平台
+	- 需要配置 OpenGL 或 freeglut等 易于迁移到其他平台
+	- 1_Color&IR
+		- **读取颜色和IR红外光信息**
+		- esc退出，C/c设置为color模式，I/i设置为IR模式
+
