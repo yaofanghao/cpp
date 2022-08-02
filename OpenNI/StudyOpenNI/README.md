@@ -1,6 +1,6 @@
 ﻿## OpenNI2 学习记录
 * 2022.7.27- 起
-* 更新进度：2022.7.31
+* 更新进度：2022.8.2
 
 ----------
 
@@ -55,7 +55,13 @@ Primesense 传感器并将校准文件写入 InfiniTAM 格式的工具
 	- 读取深度和彩色rgb信息流
 
 * SimpleRead 文件夹
-	- main.cpp 读取深度信息，单位mm
+	- SimpleRead.cpp 读取深度信息，单位mm
+
+* openni_convert_to_opencv 文件夹
+	- openni_convert_to_opencv2.cpp 
+		- 将深度和彩色数据转换为OpenCV读取的格式并显示
+		- 例如 const cv::Mat mImageDepth(frameDepth.getHeight(), frameDepth.getWidth(), CV_16UC1, (void*)frameDepth.getData());
+		- 问题：程序运行卡死，画面静止不动
 
 * openni_cookbook_code 文件夹
   * 来源-- https://www.packtpub.com/support/code-downloads

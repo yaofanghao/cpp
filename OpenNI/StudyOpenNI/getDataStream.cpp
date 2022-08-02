@@ -1,13 +1,12 @@
-//开始之前，让我们自己开始再熟练熟练OpenNI 2的基本使用，主要包括以下几个步骤：
 //1. 初始化OpenNI环境： openni::OpenNI::initialize();
 //2. 声明并打开Device设备： openni::Device devAnyDevice; devAnyDevice.open(openni::ANY_DEVICE);
-//3. 创建并打开深度数据流：openni::VideoStream streamDepth; streamDepth.create(devAnyDevice, openni::SENSOR_DEPTH); streamDepth.start();
+//3. 创建并打开深度数据流：openni::VideoStream streamDepth;
+//      streamDepth.create(devAnyDevice, openni::SENSOR_DEPTH); streamDepth.start();
 //4. 读取数据流信息并保存在VideoFrameRef中：openni::VideoFrameRef frameDepth; streamDepth.readFrame(&frameDepth);
-//5. 获取深度（或颜色等）数据，开始我们自己的开发之旅： const openni::DepthPixel * pDepth = (const openni::DepthPixel*)frameDepth.getData();
+//5. 获取深度（或颜色等）数据，这些数据可以用于进一步处理： const openni::DepthPixel * pDepth = (const openni::DepthPixel*)frameDepth.getData();
 //6. 当结束使用数据时，首先关闭、销毁数据流：streamDepth.destroy();
 //7. 接着关闭设备： devAnyDevice.close();
 //8. 最后关闭OpenNI：  openni::OpenNI::shutdown();
-//具体代码如下（环境配置在之前的博文中提及了，这里省去）
 
 #include <iostream>
 #include "OpenNI.h"

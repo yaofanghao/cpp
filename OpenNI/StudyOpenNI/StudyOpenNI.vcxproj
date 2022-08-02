@@ -19,27 +19,16 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="glut\GL\gl.h" />
-    <ClInclude Include="glut\GL\glext.h" />
-    <ClInclude Include="glut\GL\glut.h" />
-    <ClInclude Include="glut\GL\wglext.h" />
-    <ClInclude Include="MWClosestPointApp\OniSampleUtilities.h" />
+    <ClCompile Include="openni_convert_to_opencv\openni_convert_to_opencv2.cpp" />
+    <ClCompile Include="openni_convert_to_opencv\stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="glut\glut32.dll" />
-    <None Include="glut\glut64.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <Library Include="glut\glut32.lib" />
-    <Library Include="glut\glut64.lib" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="getDataStream.cpp" />
+    <ClInclude Include="openni_convert_to_opencv\stdafx.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{d785cfdd-6757-4700-9d29-f36cf3346080}</ProjectGuid>
+    <ProjectGuid>{e2d8ccfd-35f0-4780-a286-215565cda522}</ProjectGuid>
     <RootNamespace>StudyOpenNI</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -86,13 +75,9 @@
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="opencv455_release_x64.props" />
+    <Import Project="openni_and_opencv_release_win64.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>E:\MyGithub\Cpp\OpenNI\StudyOpenNI\glut;E:\OpenNI\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>E:\MyGithub\Cpp\OpenNI\StudyOpenNI\glut;E:\OpenNI\Lib;$(LibraryPath)</LibraryPath>
-  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -141,13 +126,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <Optimization>Disabled</Optimization>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>OpenNI2.lib;glut64.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
