@@ -15,16 +15,43 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="openni_convert_to_opencv\openni_convert_to_opencv2.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="openni_convert_to_opencv\stdafx.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="openni_convert_to_opencv\stdafx.h">
+    <ClInclude Include="openni2_wrapper_opencv\src\opencv_frame_listener.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="openni2_wrapper_opencv\src\openni2_frame_listener.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="openni2_wrapper_opencv\src\openni2_wrapper.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="openni_cookbook_code\chapter3\1_Color&amp;IR\glut.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="openni_cookbook_code\chapter3\1_Color&amp;IR\stdafx.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="openni_cookbook_code\chapter3\1_Color&amp;IR\targetver.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="glut\GL\gl.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="glut\GL\glext.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="glut\GL\glut.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="glut\GL\wglext.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="openni_cookbook_code\chapter3\1_Color&amp;IR\ColorAndIR.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="openni_cookbook_code\chapter3\1_Color&amp;IR\stdafx.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

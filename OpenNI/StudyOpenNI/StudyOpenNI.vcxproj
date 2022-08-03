@@ -19,11 +19,20 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="openni_convert_to_opencv\openni_convert_to_opencv2.cpp" />
-    <ClCompile Include="openni_convert_to_opencv\stdafx.cpp" />
+    <ClInclude Include="glut\GL\gl.h" />
+    <ClInclude Include="glut\GL\glext.h" />
+    <ClInclude Include="glut\GL\glut.h" />
+    <ClInclude Include="glut\GL\wglext.h" />
+    <ClInclude Include="openni2_wrapper_opencv\src\opencv_frame_listener.h" />
+    <ClInclude Include="openni2_wrapper_opencv\src\openni2_frame_listener.h" />
+    <ClInclude Include="openni2_wrapper_opencv\src\openni2_wrapper.h" />
+    <ClInclude Include="openni_cookbook_code\chapter3\1_Color&amp;IR\glut.h" />
+    <ClInclude Include="openni_cookbook_code\chapter3\1_Color&amp;IR\stdafx.h" />
+    <ClInclude Include="openni_cookbook_code\chapter3\1_Color&amp;IR\targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="openni_convert_to_opencv\stdafx.h" />
+    <ClCompile Include="openni_cookbook_code\chapter3\1_Color&amp;IR\ColorAndIR.cpp" />
+    <ClCompile Include="openni_cookbook_code\chapter3\1_Color&amp;IR\stdafx.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -78,6 +87,9 @@
     <Import Project="openni_and_opencv_release_win64.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LibraryPath>E:\MyGithub\Cpp\OpenNI\StudyOpenNI\glut;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -133,6 +145,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>glut64.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -104,4 +104,12 @@ Primesense 传感器并将校准文件写入 InfiniTAM 格式的工具
 	- 需要配置 OpenGL 或 freeglut等 易于迁移到其他平台
 	- 1_Color&IR  **读取颜色和IR红外光信息**
 		- esc退出，C/c设置为color模式，I/i设置为IR模式
+		- void SetActiveSensor(SensorType sensorType, Device* device) 切换现有模式
+		- void gl_DisplayCallback() 清除opengl缓冲区，写入新数据，设置opengl显示的信息，构建 texture map 
+			- 关键部分 double resizeFactor = min(.....)
+			- ![重点关注](openni_cookbook_code/chapter3/resizeFactor.png "缩放因子")
+
+
+
+
 
