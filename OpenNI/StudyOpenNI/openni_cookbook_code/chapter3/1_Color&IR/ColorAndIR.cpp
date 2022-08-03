@@ -246,7 +246,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	SetActiveSensor(SENSOR_COLOR, &device);
 
 	printf("Press C for color sensor and I for IR sensor.\r\n");
-	glutMainLoop(); // 循环读取
+	glutMainLoop(); // 循环读取，opengl开始工作
 
 	return 0;
 }

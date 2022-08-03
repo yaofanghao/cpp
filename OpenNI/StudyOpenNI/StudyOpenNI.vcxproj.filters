@@ -24,15 +24,6 @@
     <ClInclude Include="openni2_wrapper_opencv\src\openni2_wrapper.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="openni_cookbook_code\chapter3\1_Color&amp;IR\glut.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="openni_cookbook_code\chapter3\1_Color&amp;IR\stdafx.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="openni_cookbook_code\chapter3\1_Color&amp;IR\targetver.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="glut\GL\gl.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -45,13 +36,5 @@
     <ClInclude Include="glut\GL\wglext.h">
       <Filter>头文件</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="openni_cookbook_code\chapter3\1_Color&amp;IR\ColorAndIR.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="openni_cookbook_code\chapter3\1_Color&amp;IR\stdafx.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
   </ItemGroup>
 </Project>

@@ -26,13 +26,6 @@
     <ClInclude Include="openni2_wrapper_opencv\src\opencv_frame_listener.h" />
     <ClInclude Include="openni2_wrapper_opencv\src\openni2_frame_listener.h" />
     <ClInclude Include="openni2_wrapper_opencv\src\openni2_wrapper.h" />
-    <ClInclude Include="openni_cookbook_code\chapter3\1_Color&amp;IR\glut.h" />
-    <ClInclude Include="openni_cookbook_code\chapter3\1_Color&amp;IR\stdafx.h" />
-    <ClInclude Include="openni_cookbook_code\chapter3\1_Color&amp;IR\targetver.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="openni_cookbook_code\chapter3\1_Color&amp;IR\ColorAndIR.cpp" />
-    <ClCompile Include="openni_cookbook_code\chapter3\1_Color&amp;IR\stdafx.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

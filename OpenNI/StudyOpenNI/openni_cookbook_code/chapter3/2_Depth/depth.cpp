@@ -8,7 +8,7 @@
 #include <OpenNI.h> 
 using namespace openni;
 // GLUT headers
-#include <gl/glut.h>
+#include "glut.h"
 
 int window_w = 640;
 int window_h = 480;
@@ -103,6 +103,8 @@ void gl_DisplayCallback()
 					depthSensor.getMinPixelValue();
 				unsigned short minDepth =
 					depthSensor.getMaxPixelValue();
+
+				// 遍历查找最大深度值 maxDepth 和最小深度值 minDepth
 				for	(int y = 0; y < newFrame.getHeight(); ++y)
 				{
 					DepthPixel* depthCell = (DepthPixel*)(
@@ -126,6 +128,8 @@ void gl_DisplayCallback()
 
 				int depthHistogram[65536];
 				int numberOfPoints = 0;
+
+				// 直方图归一化处理
 				if (histogram_enable)
 				{
 					memset(depthHistogram, 0,
@@ -147,7 +151,6 @@ void gl_DisplayCallback()
 							}
 						}
 					}
-
 					for (int nIndex=1;
 					nIndex < sizeof(depthHistogram) / sizeof(int);
 					nIndex++)
@@ -156,8 +159,6 @@ void gl_DisplayCallback()
 							depthHistogram[nIndex-1];
 					}
 				}
-
-
 
 				double resizeFactor = min(
 					(window_w / (double)newFrame.getWidth()),
@@ -195,6 +196,7 @@ void gl_DisplayCallback()
 						{
 							char depthValue = ((float)lastPixel / 
 								maxDepth) * 255;
+							// 转换色彩空间，获取更多细节
 							if (color_enable)
 							{
 								float colorPaletteFactor = 
@@ -216,7 +218,6 @@ void gl_DisplayCallback()
 								texturePixel->g = 255 - depthValue;
 								texturePixel->r = 255 - depthValue;
 							}
-
 						}
 						else
 						{
