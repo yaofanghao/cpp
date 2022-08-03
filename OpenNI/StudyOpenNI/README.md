@@ -117,7 +117,8 @@ Primesense 传感器并将校准文件写入 InfiniTAM 格式的工具
 		- color_enable 转换色彩空间，获取更多细节
 		- blackfill_enable 阴影填充
 	- 3_PlayControl 重放功能-略
-	- 4
+	- 4_RecordToONI 记录至oni格式文件
+	- 5_EventRead 
 
 
 
