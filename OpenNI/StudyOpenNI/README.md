@@ -54,14 +54,22 @@ Primesense 传感器并将校准文件写入 InfiniTAM 格式的工具
 * getDataStream.cpp
 	- 读取深度和彩色rgb信息流
 
-* SimpleRead 文件夹
-	- SimpleRead.cpp 读取深度信息，单位mm
-
 * openni_convert_to_opencv 文件夹
 	- openni_convert_to_opencv2.cpp 
 		- 将深度和彩色数据转换为OpenCV读取的格式并显示
 		- 例如 const cv::Mat mImageDepth(frameDepth.getHeight(), frameDepth.getWidth(), CV_16UC1, (void*)frameDepth.getData());
 		- 问题：程序运行卡死，画面静止不动
+
+* Sample 文件夹-存放了openni官方的示例 bin 和源码 
+	- 1_SimpleRead 文件夹 
+		- 读取深度信息，单位mm
+	- 2_Color 文件夹
+		- 实时显示color模式的图像
+	- 3_Depth 文件夹
+		- 实时显示depth模式的图像
+
+
+
 
 * openni_cookbook_code 文件夹
   * 来源-- https://www.packtpub.com/support/code-downloads
@@ -117,8 +125,17 @@ Primesense 传感器并将校准文件写入 InfiniTAM 格式的工具
 		- color_enable 转换色彩空间，获取更多细节
 		- blackfill_enable 阴影填充
 	- 3_PlayControl 重放功能-略
-	- 4_RecordToONI 记录至oni格式文件
-	- 5_EventRead 
+	- 4_RecordToONI 记录至oni格式文件-略
+	- 5_EventRead 事件读取数据的基本实现-略
 
-
-
+  * chapter4 More about Low-level Outputs
+	- 本章重点：深度和色彩图匹配 overlaying the depth frame over the image frame
+	- openni::Device object 开启或禁用图像配准
+		- This class contains methods to enable and disable depth and image frame syncing and depth-over-image registration. 
+		- In other words, any enhancements that have an effect on two or more sensors are included with this class.
+	- openni::VideoStream object 能够镜像或裁剪图片指定区域
+		- Methods to enable the mirroring of frame data and the cropping of a specific area in frames are part of this class.
+		- openni::VideoStreamis home to methods that are responsible for customizing each frame of data.
+	- openni::CoordinateConverter **将深度像素位置和值转换为真实真实位置、距离或颜色**
+		- If you want to convert the position and value of a depth pixel into the real-world position,distance, or color of that pixel, you need to start using theopenni::CoordinateConverterclass. 
+		- This class is a standalone class that contains static methods for these sorts of operations.

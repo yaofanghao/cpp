@@ -19,13 +19,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="glut\GL\gl.h" />
-    <ClInclude Include="glut\GL\glext.h" />
-    <ClInclude Include="glut\GL\glut.h" />
-    <ClInclude Include="glut\GL\wglext.h" />
-    <ClInclude Include="openni2_wrapper_opencv\src\opencv_frame_listener.h" />
-    <ClInclude Include="openni2_wrapper_opencv\src\openni2_frame_listener.h" />
-    <ClInclude Include="openni2_wrapper_opencv\src\openni2_wrapper.h" />
+    <ClCompile Include="Sample\3_Depth\device.cpp" />
+    <ClCompile Include="Sample\3_Depth\Depth.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Sample\3_Depth\device.h" />
+    <ClInclude Include="Sample\3_Depth\util.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

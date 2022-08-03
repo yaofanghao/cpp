@@ -15,25 +15,18 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="openni2_wrapper_opencv\src\opencv_frame_listener.h">
+    <ClCompile Include="Sample\3_Depth\device.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Sample\3_Depth\Depth.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Sample\3_Depth\device.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="openni2_wrapper_opencv\src\openni2_frame_listener.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="openni2_wrapper_opencv\src\openni2_wrapper.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="glut\GL\gl.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="glut\GL\glext.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="glut\GL\glut.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="glut\GL\wglext.h">
+    <ClInclude Include="Sample\3_Depth\util.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
