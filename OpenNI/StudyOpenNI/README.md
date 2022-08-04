@@ -63,13 +63,17 @@ Primesense 传感器并将校准文件写入 InfiniTAM 格式的工具
 * Sample 文件夹-存放了openni官方的示例 bin 和源码 
 	- 1_SimpleRead 文件夹 
 		- 读取深度信息，单位mm
-	- 2_SimpleViewer 文件夹
+	- 2_SimpleViewer 文件夹  失败 // error C2065: “GL_GENERATE_MIPMAP”: 未声明的标识符
 		- 
 	- 3_Depth 文件夹
 		- 实时显示depth模式的图像
 	- 4_Color 文件夹
 		- 实时显示color模式的图像
-
+	- 5_Infrared 文件夹
+		- 实时显示IR模式的图像
+		- 但是显示全黑
+	- 6_ClosestPointViewer 文件夹
+		- 获取三维空间中最近点坐标
 
 
 * openni_cookbook_code 文件夹

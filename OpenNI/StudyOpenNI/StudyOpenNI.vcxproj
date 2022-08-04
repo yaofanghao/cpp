@@ -19,31 +19,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Sample\2_SimpleViewer\glh\glh_array.h" />
-    <ClInclude Include="Sample\2_SimpleViewer\glh\glh_convenience.h" />
-    <ClInclude Include="Sample\2_SimpleViewer\glh\glh_cube_map.h" />
-    <ClInclude Include="Sample\2_SimpleViewer\glh\glh_extensions.h" />
-    <ClInclude Include="Sample\2_SimpleViewer\glh\glh_genext.h" />
-    <ClInclude Include="Sample\2_SimpleViewer\glh\glh_glut.h" />
-    <ClInclude Include="Sample\2_SimpleViewer\glh\glh_glut2.h" />
-    <ClInclude Include="Sample\2_SimpleViewer\glh\glh_glut_callfunc.h" />
-    <ClInclude Include="Sample\2_SimpleViewer\glh\glh_glut_replay.h" />
-    <ClInclude Include="Sample\2_SimpleViewer\glh\glh_glut_text.h" />
-    <ClInclude Include="Sample\2_SimpleViewer\glh\glh_interactors.h" />
-    <ClInclude Include="Sample\2_SimpleViewer\glh\glh_linear.h" />
-    <ClInclude Include="Sample\2_SimpleViewer\glh\glh_mipmaps.h" />
-    <ClInclude Include="Sample\2_SimpleViewer\glh\glh_obs.h" />
-    <ClInclude Include="Sample\2_SimpleViewer\glh\glh_text.h" />
-    <ClInclude Include="Sample\2_SimpleViewer\GL\gl.h" />
-    <ClInclude Include="Sample\2_SimpleViewer\GL\glext.h" />
-    <ClInclude Include="Sample\2_SimpleViewer\GL\glut.h" />
-    <ClInclude Include="Sample\2_SimpleViewer\GL\wglext.h" />
-    <ClInclude Include="Sample\2_SimpleViewer\OniSampleUtilities.h" />
-    <ClInclude Include="Sample\2_SimpleViewer\Viewer.h" />
+    <ClCompile Include="Sample\5_Infrared\device.cpp" />
+    <ClCompile Include="Sample\5_Infrared\IR.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Sample\2_SimpleViewer\SimpleViewer.cpp" />
-    <ClCompile Include="Sample\2_SimpleViewer\Viewer.cpp" />
+    <ClInclude Include="Sample\5_Infrared\device.h" />
+    <ClInclude Include="Sample\5_Infrared\util.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
