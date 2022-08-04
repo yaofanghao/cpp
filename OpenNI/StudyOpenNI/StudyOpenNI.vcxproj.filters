@@ -15,19 +15,82 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Sample\5_Infrared\device.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Sample\5_Infrared\IR.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
+    <ClInclude Include="Sample\2_SimpleViewer\GL\gl.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Sample\2_SimpleViewer\GL\glext.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Sample\2_SimpleViewer\GL\glut.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Sample\2_SimpleViewer\GL\wglext.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Sample\2_SimpleViewer\glh\glh_array.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Sample\2_SimpleViewer\glh\glh_convenience.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Sample\2_SimpleViewer\glh\glh_cube_map.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Sample\2_SimpleViewer\glh\glh_extensions.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Sample\2_SimpleViewer\glh\glh_genext.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Sample\2_SimpleViewer\glh\glh_glut.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Sample\2_SimpleViewer\glh\glh_glut_callfunc.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Sample\2_SimpleViewer\glh\glh_glut_replay.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Sample\2_SimpleViewer\glh\glh_glut_text.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Sample\2_SimpleViewer\glh\glh_glut2.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Sample\2_SimpleViewer\glh\glh_interactors.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Sample\2_SimpleViewer\glh\glh_linear.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Sample\2_SimpleViewer\glh\glh_mipmaps.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Sample\2_SimpleViewer\glh\glh_obs.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Sample\2_SimpleViewer\glh\glh_text.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Sample\2_SimpleViewer\OniSampleUtilities.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Sample\2_SimpleViewer\Viewer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Sample\PointCloud\device.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Sample\PointCloud\util.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Sample\5_Infrared\device.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Sample\5_Infrared\util.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
+    <ClCompile Include="Sample\PointCloud\device.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Sample\PointCloud\main.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

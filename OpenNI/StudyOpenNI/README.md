@@ -73,7 +73,7 @@ Primesense 传感器并将校准文件写入 InfiniTAM 格式的工具
 		- 实时显示IR模式的图像
 		- 但是显示全黑
 	- 6_ClosestPointViewer 文件夹
-		- 获取三维空间中最近点坐标
+		- 获取三维空间中最近点坐标  失败 // error C2065: “GL_GENERATE_MIPMAP”: 未声明的标识符
 
 
 * openni_cookbook_code 文件夹
