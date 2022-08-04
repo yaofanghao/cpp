@@ -59,6 +59,14 @@ Primesense 传感器并将校准文件写入 InfiniTAM 格式的工具
 		- 将深度和彩色数据转换为OpenCV读取的格式并显示
 		- 例如 const cv::Mat mImageDepth(frameDepth.getHeight(), frameDepth.getWidth(), CV_16UC1, (void*)frameDepth.getData());
 		- 问题：程序运行卡死，画面静止不动
+	- test2.cpp
+		- 将深度数据转换为OpenCV读取的格式并显示
+		- 问题：可以显示，但非常卡
+			- openni::DepthPixel* dData = (openni::DepthPixel*)frame.getData();
+			- Mat depthMat(rows, cols, CV_16UC1, dData);
+			- Mat depthShow;
+			- const float scaleFactor = 0.05f;
+			- depthMat.convertTo(depthShow, CV_8UC1, scaleFactor);
 
 * Sample 文件夹-存放了openni官方的示例 bin 和源码 
 	- 1_SimpleRead 文件夹 

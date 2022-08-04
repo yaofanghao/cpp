@@ -78,18 +78,9 @@
     <ClInclude Include="Sample\2_SimpleViewer\Viewer.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Sample\PointCloud\device.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Sample\PointCloud\util.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Sample\PointCloud\device.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Sample\PointCloud\main.cpp">
+    <ClCompile Include="getbuildinfo.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

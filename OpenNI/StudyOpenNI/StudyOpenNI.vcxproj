@@ -40,12 +40,9 @@
     <ClInclude Include="Sample\2_SimpleViewer\GL\wglext.h" />
     <ClInclude Include="Sample\2_SimpleViewer\OniSampleUtilities.h" />
     <ClInclude Include="Sample\2_SimpleViewer\Viewer.h" />
-    <ClInclude Include="Sample\PointCloud\device.h" />
-    <ClInclude Include="Sample\PointCloud\util.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Sample\PointCloud\device.cpp" />
-    <ClCompile Include="Sample\PointCloud\main.cpp" />
+    <ClCompile Include="getbuildinfo.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
