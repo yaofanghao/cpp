@@ -41,9 +41,6 @@
     <ClInclude Include="Sample\2_SimpleViewer\OniSampleUtilities.h" />
     <ClInclude Include="Sample\2_SimpleViewer\Viewer.h" />
   </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="openni_convert_to_opencv\test2.cpp" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>

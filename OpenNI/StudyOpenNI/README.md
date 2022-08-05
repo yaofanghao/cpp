@@ -1,6 +1,6 @@
 ﻿## OpenNI2 学习记录
 * 2022.7.27- 起
-* 更新进度：2022.8.2
+* 更新进度：2022.8.5
 
 ----------
 
@@ -56,18 +56,19 @@ Primesense 传感器并将校准文件写入 InfiniTAM 格式的工具
 	- 读取深度和彩色rgb信息流
 
 * openni_convert_to_opencv 文件夹
+	- 具体说明见文件夹中的README.md
+	- 8.4起测试代码均放在此处
+
 	- convert_to_opencv.cpp 
 		- 将深度和彩色数据转换为OpenCV读取的格式并显示
 		- 例如 const cv::Mat mImageDepth(frameDepth.getHeight(), frameDepth.getWidth(), CV_16UC1, (void*)frameDepth.getData());
 		- 问题：程序运行卡死，画面静止不动
-	- test2.cpp
-		- 将深度数据转换为OpenCV读取的格式并显示
-		- 问题：可以显示，但非常卡
-			- openni::DepthPixel* dData = (openni::DepthPixel*)frame.getData();
-			- Mat depthMat(rows, cols, CV_16UC1, dData);
-			- Mat depthShow;
-			- const float scaleFactor = 0.05f;
-			- depthMat.convertTo(depthShow, CV_8UC1, scaleFactor);
+	- test.cpp
+		- 8.4 测试 能否转成OpenCV格式进行基本的图像处理
+		- 理论上没有问题，但是在我的电脑分辨率640x480时候卡死，无法运行；320x240正常
+		- 参考自 https://kheresy.wordpress.com/2013/01/09/%e7%94%a8-opencv-%e7%95%ab%e5%87%ba-openni-2-%e7%9a%84%e6%b7%b1%e5%ba%a6%e3%80%81%e5%bd%a9%e8%89%b2%e5%bd%b1%e5%83%8f/
+
+
 
 * Sample 文件夹-存放了openni官方的示例 bin 和源码 
 	- 1_SimpleRead 文件夹 
