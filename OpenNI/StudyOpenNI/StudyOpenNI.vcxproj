@@ -42,7 +42,7 @@
     <ClInclude Include="Sample\2_SimpleViewer\Viewer.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="getbuildinfo.cpp" />
+    <ClCompile Include="openni_convert_to_opencv\test2.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

@@ -33,6 +33,8 @@ OpenCV对深度相机的处理
 其他参考资料
 * https://github.com/AmmarkoV/RGBDAcquisition
 * https://github.com/leaveitout/asus_xtion_intrinsic_calibration  用于校准 
+* https://kheresy.wordpress.com/index_of_openni_and_kinect/documents-of-openni-2-x/
+
 
 Primesense 传感器并将校准文件写入 InfiniTAM 格式的工具
 * https://github.com/carlren/OpenNICalibTool
@@ -40,7 +42,6 @@ Primesense 传感器并将校准文件写入 InfiniTAM 格式的工具
 ----------
 
 ## 学习记录
-* 以下列出的均已经在win环境运行成功
 
 * open_default_camera.cpp
 	- opencv 打开笔记本默认摄像头
@@ -55,7 +56,7 @@ Primesense 传感器并将校准文件写入 InfiniTAM 格式的工具
 	- 读取深度和彩色rgb信息流
 
 * openni_convert_to_opencv 文件夹
-	- openni_convert_to_opencv2.cpp 
+	- convert_to_opencv.cpp 
 		- 将深度和彩色数据转换为OpenCV读取的格式并显示
 		- 例如 const cv::Mat mImageDepth(frameDepth.getHeight(), frameDepth.getWidth(), CV_16UC1, (void*)frameDepth.getData());
 		- 问题：程序运行卡死，画面静止不动
@@ -149,8 +150,18 @@ Primesense 传感器并将校准文件写入 InfiniTAM 格式的工具
 	- openni::VideoStream object 能够镜像或裁剪图片指定区域
 		- Methods to enable the mirroring of frame data and the cropping of a specific area in frames are part of this class.
 		- openni::VideoStreamis home to methods that are responsible for customizing each frame of data.
-	- openni::CoordinateConverter **将深度像素位置和值转换为真实真实位置、距离或颜色**
+	- openni::CoordinateConverter **将深度像素位置和值转换为真实位置、距离或颜色**
 		- If you want to convert the position and value of a depth pixel into the real-world position,distance, or color of that pixel, you need to start using theopenni::CoordinateConverterclass. 
 		- This class is a standalone class that contains static methods for these sorts of operations.
 	- 1_Cropping & Mirroring 裁剪、镜像操作-略
-	- 2_
+	- 2_FrameSync 同步图像和深度流-略
+	- 3_DepthOverImage **深度和图像帧叠加**
+		- device.getImageRegistrationMode 
+		- 运行失败，空白不显示
+	- 4_CenterDistanceInMillimeter **深度信息转化为mm值-重要!**
+		- openni::CoordinateConverter 类 转换成真实世界的mm值
+			- https://documentation.help/OpenNI-2.0/classopenni_1_1_coordinate_converter.html
+			- https://kheresy.wordpress.com/2013/01/14/coordinate-converter-in-openni-2/
+			- **static Status convertDepthToWorld(const VideoStream& depthStream, float depthX, float depthY, float depthZ, float* pWorldX, float* pWorldY, float* pWorldZ)** 
+			- 从深度到世界坐标的转换在计算上是相对昂贵的。将整个原始深度图转换为世界坐标通常是不切实际的。更好的方法是让算法尽可能长时间地在深度坐标中工作，并且在输出之前仅将几个特定点转换为世界坐标。
+	- 5_ColorOfNearestPixel
