@@ -1,113 +1,46 @@
-from openni import openni2
-import numpy as np
+# python 3.7
+import numpy
 import cv2
-import sys
-import time
-
-def depth2mi(depthValue):
-    return depthValue * 0.001
-
-def depth2xyz(u, v, depthValue):
-    fx = 577.54679
-    fy = 578.63325
-    cx = 310.24326
-    cy = 253.65539
-
-    # depth = depth2mi(depthValue)
-    depth = depthValue * 0.001
-    z = float(depth)
-    x = float((u - cx) * z) / fx
-    y = float((v - cy) * z) / fy
-
-    result = [x, y, z]
-    return result
-
-def onmouse_pick_points(event, x, y, flags, param):
-    if event == cv2.EVENT_LBUTTONDBLCLK:
-        print(y, x, dpt[y, x])
-        arr = np.array(dpt)
-        depthValue = float(arr[y, x])
-        coordinate = depth2xyz(x, y, depthValue)
-        print("coordinate:", coordinate)
+# import openni
+from openni import openni2
 
 
-def test(x, y):
-    print(y, x, dpt[y, x])
-    arr = np.array(dpt)
-    depthValue = float(arr[y, x])
-    coordinate = depth2xyz(x, y, depthValue)
-    print("coordinate:", coordinate)
-
-def test2(event, x, y, flags, param):
-    if event == cv2.EVENT_LBUTTONDBLCLK:
-        print(y, x, dpt[y, x])
-        # arr = np.array(dpt)
-        # depthValue = float(arr[y, x])
-        # coordinate = depth2xyz(x, y, depthValue)
-        # print("coordinate:", coordinate)
+def show_depth_value(event, x, y, flags, param):
+    global depth
+    print(depth[y, x])
 
 
-if __name__ == "__main__":
-
+if __name__ == '__main__':
     openni2.initialize('E:\OpenNI\Redist')  # can also accept the path of the OpenNI redistribution
-
     dev = openni2.Device.open_any()
-    print(dev.get_device_info())
-
     depth_stream = dev.create_depth_stream()
-    color_stream = dev.create_color_stream()
     depth_stream.start()
+    color_stream = dev.create_color_stream()
     color_stream.start()
+    depth_scale_factor = 255.0 / depth_stream.get_max_pixel_value()
+    print(depth_stream.get_max_pixel_value())
+    cv2.namedWindow('depth')
+    cv2.setMouseCallback('depth', show_depth_value)
 
     while True:
-        # 显示深度图
-        frame = depth_stream.read_frame()
-        dframe_data = np.array(frame.get_buffer_as_triplet()).reshape([240, 320, 2])
-        dpt1 = np.asarray(dframe_data[:, :, 0], dtype='float32')
-        dpt2 = np.asarray(dframe_data[:, :, 1], dtype='float32')
-        dpt2 *= 255
-        dpt = dpt1 + dpt2
+        # Get depth
+        depth_frame = depth_stream.read_frame()
+        h, w = depth_frame.height, depth_frame.width
+        depth = numpy.ctypeslib.as_array(
+            depth_frame.get_buffer_as_uint16()).reshape(h, w)
+        depth_uint8 = cv2.convertScaleAbs(depth, alpha=depth_scale_factor)
+        depth_colored = cv2.applyColorMap(depth_uint8, cv2.COLORMAP_HSV)
+        # Get color
+        color_frame = color_stream.read_frame()
+        color = numpy.ctypeslib.as_array(color_frame.get_buffer_as_uint8()).reshape(h, w, 3)
+        color = cv2.cvtColor(color, cv2.COLOR_RGB2BGR)
 
-        WIN_NAME = 'depth'
-        cv2.namedWindow(WIN_NAME, 0)
-
-        # test(50,30)
-
-        # while(True):
-            # cv2.setMouseCallback(WIN_NAME, onmouse_pick_points)
-        cv2.imshow(WIN_NAME, dpt)
-        cv2.setMouseCallback(WIN_NAME, test2)
-
-
-        # # 显示RGB图像
-        cframe = color_stream.read_frame()
-        cframe_data = np.array(cframe.get_buffer_as_triplet()).reshape([240, 320, 3])
-        R = cframe_data[:, :, 0]
-        G = cframe_data[:, :, 1]
-        B = cframe_data[:, :, 2]
-        cframe_data = np.transpose(np.array([B, G, R]), [1, 2, 0])
-        # print(cframe_data.shape)
-        cv2.imshow('color', cframe_data)
-
-        #--------------
-        cannyout = cv2.Canny(cframe_data,100,200)
-        cv2.imshow('out',cannyout)
-
-        i = 0
-        # while(1):
-        #    ret,frame = cframe_data.read()
-        if cv2.waitKey(1) == ord('s'):
-            cv2.imwrite('./%d.jpg' % i, cframe_data)  # %d 十进制数
-            i += 1
-        # waitKey()函数在一个给定的时间内(单位ms)等待用户按键触发;如果用户没有按下 键,则接续等待(循环)
-
-        # 按下q键退出循环
-        key = cv2.waitKey(1)
-        if int(key) == ord('q'):
+        # Display
+        cv2.imshow('depth', depth_uint8)
+        cv2.imshow('depth colored', depth_colored)
+        cv2.imshow('color', color)
+        k = cv2.waitKey(10) & 0xff
+        if k == 27:
             break
-    cv2.destroyAllWindows()
-
-    # 关闭设备
     depth_stream.stop()
-    color_stream.stop()
-    dev.close()
+    openni2.unload()

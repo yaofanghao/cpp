@@ -95,6 +95,12 @@ int main(int argc, char** argv)
             return -1;
         }
     }
+    else
+    {
+        cerr << "ERROR: This device does not have color sensor" << endl;
+        return -1;
+    }
+
 
     // 5. create OpenCV Window
     cv::namedWindow("Depth Image", cv::WindowFlags::WINDOW_AUTOSIZE);
