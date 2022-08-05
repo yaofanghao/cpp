@@ -1,0 +1,10 @@
+#!/bin/bash
+convert *.pnm *.jpg
+ls | grep jpg > cam0_images
+echo "Trying first intrinsic calibration"
+./calibration -w 6 -h 9 -oe -o cam0_output cam0_images
+ 
+  
+
+rm *.jpg
+exit 0

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="ImageOperations" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="./libImageOperations" prefix_auto="0" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="obj/Debug/" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-Wall" />
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="./libImageOperations" prefix_auto="0" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="obj/Release/" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-Wall" />
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Unit filename="../Primitives/image.h" />
+		<Unit filename="bilateralFilter.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="bilateralFilter.h" />
+		<Unit filename="compareQuality.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="compareQuality.h" />
+		<Unit filename="convolutionFilter.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="convolutionFilter.h" />
+		<Unit filename="depthClassifier.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="depthClassifier.h" />
+		<Unit filename="findSubImage.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="findSubImage.h" />
+		<Unit filename="imageFilters.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="imageFilters.h" />
+		<Unit filename="imageOps.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="imageOps.h" />
+		<Unit filename="joinMPO.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="learnImage.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="learnImage.h" />
+		<Unit filename="medianFilter.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="medianFilter.h" />
+		<Unit filename="ocr.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ocr.h" />
+		<Unit filename="patchComparison.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="patchComparison.h" />
+		<Unit filename="patternSets.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="patternSets.h" />
+		<Unit filename="projection.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="projection.h" />
+		<Unit filename="resize.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="resize.h" />
+		<Unit filename="special/constantTimeBilateralFiltering.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="special/constantTimeBilateralFiltering.h" />
+		<Unit filename="special/dericheRecursiveGaussian.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="special/dericheRecursiveGaussian.h" />
+		<Unit filename="splitMPO.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="summedAreaTables.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="summedAreaTables.h" />
+		<Unit filename="tools/imageMatrix.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="tools/imageMatrix.h" />
+		<Extensions>
+			<envvars />
+			<code_completion />
+			<lib_finder disable_auto="1" />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

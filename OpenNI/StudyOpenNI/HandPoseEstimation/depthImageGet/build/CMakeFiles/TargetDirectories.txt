@@ -1,0 +1,3 @@
+/home/u/yao/openni/HandPoseEstimation/depthImageGet/build/CMakeFiles/rebuild_cache.dir
+/home/u/yao/openni/HandPoseEstimation/depthImageGet/build/CMakeFiles/TestOpenNI.dir
+/home/u/yao/openni/HandPoseEstimation/depthImageGet/build/CMakeFiles/edit_cache.dir

@@ -1,0 +1,32 @@
+I0131 00:44:17.282369  4592 solver.cpp:404]     Test net output #0: DeepHandModelxyzloss = 1.11568 (* 1 = 1.11568 loss)
+I0131 00:44:17.376622  4592 solver.cpp:228] Iteration 0, loss = 1.54941
+I0131 00:44:17.376647  4592 solver.cpp:244]     Train net output #0: DeepHandModelxyzloss = 1.54941 (* 1 = 1.54941 loss)
+I0131 00:44:17.376654  4592 sgd_solver.cpp:106] Iteration 0, lr = 0.01
+I0131 00:45:01.608306  4592 solver.cpp:228] Iteration 100, loss = 0.605415
+I0131 00:45:01.608336  4592 solver.cpp:244]     Train net output #0: DeepHandModelxyzloss = 0.605415 (* 1 = 0.605415 loss)
+I0131 00:45:01.608345  4592 sgd_solver.cpp:106] Iteration 100, lr = 0.01
+I0131 00:45:45.847512  4592 solver.cpp:228] Iteration 200, loss = 0.296037
+I0131 00:45:45.847540  4592 solver.cpp:244]     Train net output #0: DeepHandModelxyzloss = 0.296037 (* 1 = 0.296037 loss)
+I0131 00:45:45.847548  4592 sgd_solver.cpp:106] Iteration 200, lr = 0.01
+I0131 00:46:30.075860  4592 solver.cpp:228] Iteration 300, loss = 0.221832
+I0131 00:46:30.075889  4592 solver.cpp:244]     Train net output #0: DeepHandModelxyzloss = 0.221832 (* 1 = 0.221832 loss)
+I0131 00:46:30.075896  4592 sgd_solver.cpp:106] Iteration 300, lr = 0.01
+I0131 00:47:14.324766  4592 solver.cpp:228] Iteration 400, loss = 0.185069
+I0131 00:47:14.324796  4592 solver.cpp:244]     Train net output #0: DeepHandModelxyzloss = 0.185069 (* 1 = 0.185069 loss)
+I0131 00:47:14.324803  4592 sgd_solver.cpp:106] Iteration 400, lr = 0.01
+I0131 00:47:58.585927  4592 solver.cpp:228] Iteration 500, loss = 0.149325
+I0131 00:47:58.585955  4592 solver.cpp:244]     Train net output #0: DeepHandModelxyzloss = 0.149325 (* 1 = 0.149325 loss)
+I0131 00:47:58.585963  4592 sgd_solver.cpp:106] Iteration 500, lr = 0.01
+
+
+
+I0131 00:49:20.155187  4674 solver.cpp:404]     Test net output #0: DeepHandModelxyzloss = 1.11568 (* 1 = 1.11568 loss)
+I0131 00:49:20.250536  4674 solver.cpp:228] Iteration 0, loss = 1.61577
+I0131 00:49:20.250555  4674 solver.cpp:244]     Train net output #0: DeepHandModelxyzloss = 1.61577 (* 1 = 1.61577 loss)
+I0131 00:49:20.250561  4674 sgd_solver.cpp:106] Iteration 0, lr = 0.01
+I0131 00:50:04.519254  4674 solver.cpp:228] Iteration 100, loss = 0.68404
+I0131 00:50:04.519282  4674 solver.cpp:244]     Train net output #0: DeepHandModelxyzloss = 0.68404 (* 1 = 0.68404 loss)
+I0131 00:50:04.519287  4674 sgd_solver.cpp:106] Iteration 100, lr = 0.01
+I0131 00:50:48.356266  4674 solver.cpp:228] Iteration 200, loss = nan
+I0131 00:50:48.356294  4674 solver.cpp:244]     Train net output #0: DeepHandModelxyzloss = nan (* 1 = nan loss)
+I0131 00:50:48.356302  4674 sgd_solver.cpp:106] Iteration 200, lr = 0.01

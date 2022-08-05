@@ -1,0 +1,16 @@
+#version 130
+
+in  vec3 vertexPosition_modelspace;
+in  vec3 vertexColor;
+
+//in  vec4 vPosition;
+//in  vec4 vColor;
+out vec4 color;
+
+uniform mat4 MVP;
+
+void main() 
+{
+  gl_Position = MVP * vec4(vertexPosition_modelspace,1);
+  color = vec4(vertexColor,0.5);
+}   

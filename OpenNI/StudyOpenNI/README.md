@@ -152,3 +152,5 @@ Primesense 传感器并将校准文件写入 InfiniTAM 格式的工具
 	- openni::CoordinateConverter **将深度像素位置和值转换为真实真实位置、距离或颜色**
 		- If you want to convert the position and value of a depth pixel into the real-world position,distance, or color of that pixel, you need to start using theopenni::CoordinateConverterclass. 
 		- This class is a standalone class that contains static methods for these sorts of operations.
+	- 1_Cropping & Mirroring 裁剪、镜像操作-略
+	- 2_

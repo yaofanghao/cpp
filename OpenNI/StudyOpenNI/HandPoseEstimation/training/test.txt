@@ -1,0 +1,2 @@
+/home/gtayx/handPose/NYUdata/PalmRandomWithNoise/test_normal.h5
+

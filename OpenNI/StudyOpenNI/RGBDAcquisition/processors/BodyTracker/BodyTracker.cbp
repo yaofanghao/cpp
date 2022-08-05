@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="BodyTracker" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="./libBodyTracker" prefix_auto="0" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-Wall" />
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="./libBodyTracker" prefix_auto="0" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-Wall" />
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-fPIC" />
+		</Compiler>
+		<Linker>
+			<Add library="forth_skeleton_tracker_redist/libFORTHUpperBodyGestureTrackerAdapter.so" />
+			<Add library="forth_skeleton_tracker_redist/libBodyTrackerLib.so" />
+			<Add library="forth_skeleton_tracker_redist/libHandTrackerLib.so" />
+			<Add library="forth_skeleton_tracker_redist/libArticulatedTracking.so" />
+			<Add library="forth_skeleton_tracker_redist/libParticleFilter.so" />
+			<Add library="forth_skeleton_tracker_redist/libLibraries.so" />
+			<Add library="forth_skeleton_tracker_redist/libRendering.so" />
+			<Add library="forth_skeleton_tracker_redist/libOptimization.so" />
+			<Add library="forth_skeleton_tracker_redist/libDecoding.so" />
+			<Add library="forth_skeleton_tracker_redist/libCore.so" />
+			<Add library="forth_skeleton_tracker_redist/libAcquisition.so" />
+			<Add library="forth_skeleton_tracker_redist/libOpenMeshCore.so.3.3" />
+			<Add library="forth_skeleton_tracker_redist/libBulletDynamics.so.2.81" />
+			<Add library="forth_skeleton_tracker_redist/libLinearMath.so.2.81" />
+			<Add library="forth_skeleton_tracker_redist/libBulletCollision.so.2.81" />
+		</Linker>
+		<Unit filename="../../tools/ImageOperations/imageOps.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../tools/ImageOperations/imageOps.h" />
+		<Unit filename="BodyTracker.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="BodyTracker.h" />
+		<Unit filename="forth_skeleton_tracker_redist/headers/FORTHUpperBodyGestureTrackerLib.h" />
+		<Unit filename="forth_skeleton_tracker_redist/headers/fubgtCalibrationDataStructures.h" />
+		<Extensions>
+			<envvars />
+			<code_completion />
+			<lib_finder disable_auto="1" />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

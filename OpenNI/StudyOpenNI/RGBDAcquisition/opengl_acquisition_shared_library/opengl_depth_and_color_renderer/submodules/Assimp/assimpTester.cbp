@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="assimpTester" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="./assimpTester" prefix_auto="0" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="./assimpTester" prefix_auto="0" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-fexceptions" />
+			<Add option="-std=gnu++0x" />
+			<Add option="-DUSE_JPG_FILES" />
+			<Add option="-DENABLE_JPG" />
+			<Add option="-DUSE_PNG_FILES" />
+			<Add option="-DENABLE_PNG" />
+		</Compiler>
+		<Linker>
+			<Add option="-lpng" />
+			<Add option="-ljpeg" />
+			<Add library="assimp" />
+		</Linker>
+		<Unit filename="../../../../tools/Codecs/asciiInput.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../../../tools/Codecs/asciiInput.h" />
+		<Unit filename="../../../../tools/Codecs/bmpInput.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../../../tools/Codecs/bmpInput.h" />
+		<Unit filename="../../../../tools/Codecs/codecs.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../../../tools/Codecs/codecs.h" />
+		<Unit filename="../../../../tools/Codecs/jpgExifexternal.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../../../tools/Codecs/jpgExifexternal.h" />
+		<Unit filename="../../../../tools/Codecs/jpgExiforient_embed.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../../../tools/Codecs/jpgExiforient_embed.h" />
+		<Unit filename="../../../../tools/Codecs/jpgInput.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../../../tools/Codecs/jpgInput.h" />
+		<Unit filename="../../../../tools/Codecs/pfmInput.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../../../tools/Codecs/pfmInput.h" />
+		<Unit filename="../../../../tools/Codecs/pngInput.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../../../tools/Codecs/pngInput.h" />
+		<Unit filename="../../../../tools/Codecs/ppmInput.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../../../tools/Codecs/ppmInput.h" />
+		<Unit filename="../../src/Library/ModelLoader/model_loader_tri.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../src/Library/ModelLoader/model_loader_tri.h" />
+		<Unit filename="assimp_bvh.cpp" />
+		<Unit filename="assimp_bvh.h" />
+		<Unit filename="assimp_loader.cpp" />
+		<Unit filename="assimp_loader.h" />
+		<Unit filename="assimp_main.cpp" />
+		<Extensions>
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

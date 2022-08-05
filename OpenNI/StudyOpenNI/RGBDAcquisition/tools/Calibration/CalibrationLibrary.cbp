@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="CalibrationLibrary" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="./libCalibrationLibrary" prefix_auto="0" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="obj/Debug/" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-Wall" />
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="./libCalibrationLibrary" prefix_auto="0" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="obj/Release/" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add option="-Wall" />
+					<Add option="-fPIC" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-fPIC" />
+		</Compiler>
+		<Unit filename="../AmMatrix/collisions.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../AmMatrix/collisions.h" />
+		<Unit filename="../AmMatrix/matrix3x3Tools.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../AmMatrix/matrix3x3Tools.h" />
+		<Unit filename="../AmMatrix/matrix4x4Tools.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../AmMatrix/matrix4x4Tools.h" />
+		<Unit filename="../AmMatrix/matrixCalculations.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../AmMatrix/matrixCalculations.h" />
+		<Unit filename="../AmMatrix/matrixOpenGL.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../AmMatrix/matrixOpenGL.h" />
+		<Unit filename="../AmMatrix/matrixTools.h" />
+		<Unit filename="../AmMatrix/ocvStaging.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../AmMatrix/ocvStaging.h" />
+		<Unit filename="../AmMatrix/quaternions.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../AmMatrix/quaternions.h" />
+		<Unit filename="../AmMatrix/solveHomography.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../AmMatrix/solveHomography.h" />
+		<Unit filename="../AmMatrix/solveLinearSystemGJ.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../AmMatrix/solveLinearSystemGJ.h" />
+		<Unit filename="calibration.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="calibration.h" />
+		<Unit filename="transform.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="transform.h" />
+		<Unit filename="undistort.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="undistort.h" />
+		<Extensions>
+			<envvars />
+			<code_completion />
+			<debugger />
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
