@@ -19,6 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="openni2_wrapper_opencv\opencv_frame_listener.h" />
+    <ClInclude Include="openni2_wrapper_opencv\openni2_frame_listener.h" />
+    <ClInclude Include="openni2_wrapper_opencv\openni2_wrapper.h" />
     <ClInclude Include="Sample\2_SimpleViewer\glh\glh_array.h" />
     <ClInclude Include="Sample\2_SimpleViewer\glh\glh_convenience.h" />
     <ClInclude Include="Sample\2_SimpleViewer\glh\glh_cube_map.h" />
@@ -42,7 +45,15 @@
     <ClInclude Include="Sample\2_SimpleViewer\Viewer.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="openni_convert_to_opencv\8_5.cpp" />
+    <ClCompile Include="openni2_wrapper_opencv\main_wrapper.cpp" />
+    <ClCompile Include="openni2_wrapper_opencv\opencv_frame_listener.cpp" />
+    <ClCompile Include="openni2_wrapper_opencv\openni2_frame_listener.cpp" />
+    <ClCompile Include="openni2_wrapper_opencv\openni2_wrapper.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="HandPoseEstimation\depthImageGet\build\CMakeFiles\3.10.2\CMakeDetermineCompilerABI_C.bin" />
+    <None Include="HandPoseEstimation\depthImageGet\build\CMakeFiles\3.10.2\CMakeDetermineCompilerABI_CXX.bin" />
+    <None Include="HandPoseEstimation\depthImageGet\build\CMakeFiles\feature_tests.bin" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

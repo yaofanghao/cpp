@@ -1,6 +1,0 @@
-#ifndef JPGEXIFEXTERNAL_H_INCLUDED
-#define JPGEXIFEXTERNAL_H_INCLUDED
-
-int scanJPGFileForExifTags(char * filename);
-
-#endif // JPGEXIFEXTERNAL_H_INCLUDED

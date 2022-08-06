@@ -1,7 +1,0 @@
-#!/bin/bash
-echo "Compiling calibration.cpp using OpenCV libs"
- g++ -ggdb `pkg-config --cflags opencv` -o extrinsicCalibration "main.cpp" `pkg-config --libs opencv`;
- 
- 
-echo "Done"
-exit 0
