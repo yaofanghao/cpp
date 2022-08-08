@@ -7,7 +7,9 @@
 // OpenNI2 headers
 #include <OpenNI.h> 
 #include <conio.h>
+#include <iostream>
 using namespace openni;
+using namespace std;
 
 char ReadLastCharOfLine()
 {
@@ -96,6 +98,7 @@ int _tmain(int argc, _TCHAR* argv[])
 			printf("Center Pixel's distance is %gmm "
 				"located at %gmmx%gmm\r\n",
 				wZ, wX, wY);
+			cout << *centerPixel << endl;
 		}
 		Sleep(100);
 	}
