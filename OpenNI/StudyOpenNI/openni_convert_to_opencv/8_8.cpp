@@ -39,7 +39,6 @@ bool HandleStatus(Status status)
     return false;
 }
 
-
 int main(int argc, char** argv)
 {
     // 1. Initial OpenNI
@@ -154,8 +153,77 @@ int main(int argc, char** argv)
                 // 7d. show image
 
                 //cv::Canny(cImageBGR, cImageBGR, 50, 200, 3);
-                cv::imshow("Color Image", cImageBGR);
+                //cv::imshow("Color Image", cImageBGR);
                 //cv::imshow("Canny Image", cImageBGR);
+                
+                 if (mDepthStream.readFrame(&mDepthFrame) == STATUS_OK)
+                {
+                    // 在rgb上画出图像中心点深度值
+                    const cv::Mat mImageDepth(mDepthFrame.getHeight(), mDepthFrame.getWidth(), CV_16UC1, (void*)mDepthFrame.getData());
+                    openni::DepthPixel* pDepth = (DepthPixel*)mDepthFrame.getData();  // 指向图像第一个像素的指针  
+                    DepthPixel* centerPixel =
+                        (DepthPixel*)((char*)mDepthFrame.getData() +
+                            (mDepthFrame.getHeight() * mDepthFrame.getStrideInBytes() / 2)) +
+                        (mDepthFrame.getWidth() / 2);
+                    float wX, wY, wZ;
+                    status = CoordinateConverter::convertDepthToWorld(
+                        mDepthStream,
+                        (float)(mDepthFrame.getWidth() / 2),
+                        (float)(mDepthFrame.getHeight() / 2),
+                        (float)(*centerPixel),
+                        &wX, &wY, &wZ);
+                    if (!HandleStatus(status)) return 1;
+                    printf("Center pixel's at distance is %gmm "
+                        "located at %gmmx%gmm\r\n",
+                        wZ, wX, wY);
+
+                    // 显示图像中心点深度值
+                    circle(cImageBGR, Point2d(mDepthFrame.getWidth() / 2, mDepthFrame.getHeight() / 2), 5, Scalar(0, 0, 255), 2); // 给人脸中心点画圆
+                    putText(cImageBGR, to_string(wZ), Point2d(mDepthFrame.getWidth() / 2, mDepthFrame.getHeight() / 2), FONT_HERSHEY_PLAIN, 2, Scalar(0, 0, 255));
+                    cv::imshow("Image Center", cImageBGR);
+
+                    // 在rgb上画出鼠标任意点击处的深度值
+                    setMouseCallback("Image Center", onMouse);
+                    if (lButtonDown)
+                    {
+                        // 读取鼠标点击处坐标、深度值
+                        // 采用上述方法2的原理实现
+                        DepthPixel* buttonPixel =
+                            (DepthPixel*)((char*)mDepthFrame.getData() +
+                                (p.y * mDepthFrame.getStrideInBytes())) +
+                            (p.x * mDepthFrame.getStrideInBytes() / mDepthFrame.getWidth());
+                        //cout << p.x << ", " << p.y << endl;
+                        //cout << mDepthFrame.getStrideInBytes() << endl; //640
+                        //cout << mDepthFrame.getHeight() << endl; //240
+                        //cout << mDepthFrame.getWidth() << endl; //320
+
+                        int dX2, dY2, dZ2;
+                        dX2 = p.x;
+                        dY2 = p.y;
+                        dZ2 = *buttonPixel;
+                        float wX2, wY2, wZ2;
+                        status = CoordinateConverter::convertDepthToWorld(
+                            mDepthStream,
+                            dX2, dY2, dZ2,
+                            &wX2, &wY2, &wZ2);
+                        if (!HandleStatus(status)) return 1;
+                        cout << "pixel is at " << dX2 << "," << dY2 << "," << dZ2 << endl;
+                        //cout << "located at " << wX << "," << wY << endl; // 目前暂不清楚x y具体表示的所在位置
+                        cout << "distance is " << wZ2 << "mm" << endl;
+                        //cout << *buttonPixel << endl;
+                        cout << "-----------" << endl;
+
+                        circle(cImageBGR, Point2d(dX2, dY2), 5, Scalar(255, 0, 0), 2); // 给人脸中心点画圆
+                        putText(cImageBGR, to_string(wZ2), Point2d(dX2, dY2), FONT_HERSHEY_PLAIN, 1, Scalar(0, 0, 255));
+                        cv::imshow("Image Center", cImageBGR);
+
+                        if (cv::waitKey(1) == 'q')
+                            break;
+                        //lButtonDown = false;
+                    }
+
+                }
+                //------------
             }
         }
 
@@ -170,65 +238,65 @@ int main(int argc, char** argv)
             // 8d. show image
             cv::imshow("Depth Image", mScaledDepth);
 
-            openni::DepthPixel* pDepth = (DepthPixel*)mDepthFrame.getData();  // 指向图像第一个像素的指针  
-            //// ---------读取图像某点深度的两种方法，以中心点为例：        
-            //// 方法1 访问该处元素值
-            //int middleIndex = (mDepthFrame.getHeight() + 1) * mDepthFrame.getWidth() / 2;                  
-            //// 方法2 指针偏移至该处
-            //DepthPixel* centerPixel =
-            //    (DepthPixel*)((char*)mDepthFrame.getData() +
-            //    (mDepthFrame.getHeight() * mDepthFrame.getStrideInBytes() / 2)) + 
-            //    (mDepthFrame.getWidth() / 2);
-            //// 两种方法对比输出，结果相等
-            //cout << "method1: depth is " << pDepth[middleIndex] << endl;
-            //cout << "method2: depth is " << *centerPixel << endl;
-            //cout << "-----------" << endl;
+            //openni::DepthPixel* pDepth = (DepthPixel*)mDepthFrame.getData();  // 指向图像第一个像素的指针  
+            ////// ---------读取图像某点深度的两种方法，以中心点为例：        
+            ////// 方法1 访问该处元素值
+            ////int middleIndex = (mDepthFrame.getHeight() + 1) * mDepthFrame.getWidth() / 2;                  
+            ////// 方法2 指针偏移至该处
+            ////DepthPixel* centerPixel =
+            ////    (DepthPixel*)((char*)mDepthFrame.getData() +
+            ////    (mDepthFrame.getHeight() * mDepthFrame.getStrideInBytes() / 2)) + 
+            ////    (mDepthFrame.getWidth() / 2);
+            ////// 两种方法对比输出，结果相等
+            ////cout << "method1: depth is " << pDepth[middleIndex] << endl;
+            ////cout << "method2: depth is " << *centerPixel << endl;
+            ////cout << "-----------" << endl;
 
-            // //float wX, wY, wZ;
-            //status = CoordinateConverter::convertDepthToWorld(
-            //    mDepthStream,
-            //    (float)(mDepthFrame.getWidth() / 2),
-            //    (float)(mDepthFrame.getHeight() / 2),
-            //    (float)(*centerPixel),
-            //    &wX, &wY, &wZ);
-            //if (!HandleStatus(status)) return 1;
-            //printf("Center pixel's at distance is %gmm "
-            //    "located at %gmmx%gmm\r\n",
-            //    wZ, wX, wY);
+            //// //float wX, wY, wZ;
+            ////status = CoordinateConverter::convertDepthToWorld(
+            ////    mDepthStream,
+            ////    (float)(mDepthFrame.getWidth() / 2),
+            ////    (float)(mDepthFrame.getHeight() / 2),
+            ////    (float)(*centerPixel),
+            ////    &wX, &wY, &wZ);
+            ////if (!HandleStatus(status)) return 1;
+            ////printf("Center pixel's at distance is %gmm "
+            ////    "located at %gmmx%gmm\r\n",
+            ////    wZ, wX, wY);
 
-            // ---------------------
-            setMouseCallback("Depth Image", onMouse);
-            if (lButtonDown)
-            {
-                // 读取鼠标点击处坐标、深度值
-                // 采用上述方法2的原理实现
-                DepthPixel* buttonPixel =
-                    (DepthPixel*)((char*)mDepthFrame.getData() +
-                        (p.y * mDepthFrame.getStrideInBytes())) +
-                    (p.x * mDepthFrame.getStrideInBytes() / mDepthFrame.getWidth());
-                //cout << p.x << ", " << p.y << endl;
-                //cout << mDepthFrame.getStrideInBytes() << endl; //640
-                //cout << mDepthFrame.getHeight() << endl; //240
-                //cout << mDepthFrame.getWidth() << endl; //320
-                
-                int dX, dY, dZ;
-                dX = p.x;
-                dY = p.y;
-                dZ = *buttonPixel;
-                float wX, wY, wZ;
-                status = CoordinateConverter::convertDepthToWorld(
-                    mDepthStream,
-                    dX, dY, dZ,
-                    &wX, &wY, &wZ);
-                if (!HandleStatus(status)) return 1;
-                cout << "pixel is at " << dX << "," << dY << "," << dZ << endl;
-                //cout << "located at " << wX << "," << wY << endl; // 目前暂不清楚x y具体表示的所在位置
-                cout << "distance is " << wZ << "mm" << endl;
-                //cout << *buttonPixel << endl;
-                cout << "-----------" << endl;
+            //// ---------------------
+            //setMouseCallback("Depth Image", onMouse);
+            //if (lButtonDown)
+            //{
+            //    // 读取鼠标点击处坐标、深度值
+            //    // 采用上述方法2的原理实现
+            //    DepthPixel* buttonPixel =
+            //        (DepthPixel*)((char*)mDepthFrame.getData() +
+            //            (p.y * mDepthFrame.getStrideInBytes())) +
+            //        (p.x * mDepthFrame.getStrideInBytes() / mDepthFrame.getWidth());
+            //    //cout << p.x << ", " << p.y << endl;
+            //    //cout << mDepthFrame.getStrideInBytes() << endl; //640
+            //    //cout << mDepthFrame.getHeight() << endl; //240
+            //    //cout << mDepthFrame.getWidth() << endl; //320
+            //    
+            //    int dX, dY, dZ;
+            //    dX = p.x;
+            //    dY = p.y;
+            //    dZ = *buttonPixel;
+            //    float wX, wY, wZ;
+            //    status = CoordinateConverter::convertDepthToWorld(
+            //        mDepthStream,
+            //        dX, dY, dZ,
+            //        &wX, &wY, &wZ);
+            //    if (!HandleStatus(status)) return 1;
+            //    cout << "pixel is at " << dX << "," << dY << "," << dZ << endl;
+            //    //cout << "located at " << wX << "," << wY << endl; // 目前暂不清楚x y具体表示的所在位置
+            //    cout << "distance is " << wZ << "mm" << endl;
+            //    //cout << *buttonPixel << endl;
+            //    cout << "-----------" << endl;
 
-                lButtonDown = false;
-            }
+            //    lButtonDown = false;
+            //}
             Sleep(100);
 
         }

@@ -1,4 +1,6 @@
 #include <iostream>
+#include <vector>
+#include <string>
 
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
@@ -40,7 +42,6 @@ bool HandleStatus(Status status)
     //ReadLastCharOfLine();
     return false;
 }
-
 
 int main(int argc, char** argv)
 {
@@ -153,45 +154,51 @@ int main(int argc, char** argv)
                 cv::Mat cImageBGR;
                 cv::cvtColor(mImageRGB, cImageBGR, cv::COLOR_RGB2BGR);
                 //cv::cvtColor(mImageRGB, cImageBGR, cv::COLOR_RGB2GRAY);
+                
                 // 7d. show image
-
                 //cv::Canny(cImageBGR, cImageBGR, 50, 200, 3);
                 cv::imshow("Color Image", cImageBGR);
                 //cv::imshow("Canny Image", cImageBGR);
 
-                // 脸部检测示例
-                CascadeClassifier face_cascade;
-                CascadeClassifier eyes_cascade;                
-                string face_cascade_name = "haarcascade_frontalface_alt.xml";
-                string eyes_cascade_name = "haarcascade_eye_tree_eyeglasses.xml";
-/*                cout << face_cascade.load(face_cascade_name) << endl;
-                
-                if (!face_cascade.load(face_cascade_name))
+                // 脸部检测示例          
+                vector<Point2f> myFacePoint;
+                myFacePoint = detectAndDisplay(cImageBGR); // 8.9 返回人脸中心点坐标
+
+                for (int n = 0; n < myFacePoint.size(); n++)  // 读取出人脸中心点坐标 
                 {
-                    cout << "--(!)Error loading face cascade\n";
-                    return -1;
-                };
-                if (!eyes_cascade.load(eyes_cascade_name))
-                {
-                    cout << "--(!)Error loading eyes cascade\n";
-                    return -1;
-                };       */          
+                    cout << myFacePoint[n].x << "---" << myFacePoint[n].y << endl;
+                    cout << int(myFacePoint[n].x) << "---" << int(myFacePoint[n].y) << endl;
+                    if (mDepthStream.readFrame(&mDepthFrame) == STATUS_OK) // 读取人脸中心点对应深度值
+                    {
+                        int face_x = myFacePoint[n].x;
+                        int face_y = myFacePoint[n].y;
 
-                //face_cascade.load("E:/OpenCV/build/install/etc/haarcascadeshaarcascade_frontalface_alt2.xml");
-                //eyes_cascade.load("E:/OpenCV/build/install/etc/haarcascade_eye.xml");
+                        DepthPixel* faceCenterPixel = (DepthPixel*)((char*)mDepthFrame.getData() +
+                                (face_y * mDepthFrame.getStrideInBytes())) +
+                            (face_x * mDepthFrame.getStrideInBytes() / mDepthFrame.getWidth());
+                        int dX, dY, dZ;
+                        dX = face_x;
+                        dY = face_y;
+                        dZ = *faceCenterPixel;
+                        float wX, wY, wZ;
+                        status = CoordinateConverter::convertDepthToWorld( mDepthStream,
+                            dX, dY, dZ, &wX, &wY, &wZ);
+                        if (!HandleStatus(status)) return 1;
+                        cout << "pixel is at " << dX << "," << dY << "," << dZ << endl;
+                        cout << "distance is " << wZ << "mm" << endl;
+                        cout << "-----" << endl;
 
-                face_cascade.load(face_cascade_name);
-                eyes_cascade.load(eyes_cascade_name);
-
-                detectAndDisplay(cImageBGR);
-
-                if (waitKey(10) == 27)
-                {
-                    break; // escape
+                        //Mat FaceCenter;
+                        circle(cImageBGR, myFacePoint[n], 5, Scalar(0, 0, 255), 2); // 给人脸中心点画圆
+                        putText(cImageBGR, to_string(wZ), myFacePoint[n], FONT_HERSHEY_PLAIN, 2, Scalar(0, 0, 255));
+                        cv::imshow("Face Center", cImageBGR);
+                    }
+                    else
+                    {
+                        cerr << "ERROR: Do not open mDepthStream" << endl;
+                        return -1;
+                    }
                 }
-                //-------------------
-
-
             }
         }
 
