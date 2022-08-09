@@ -78,6 +78,9 @@
     <ClInclude Include="Sample\2_SimpleViewer\Viewer.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="openni_convert_to_opencv\faceDetection.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="HandPoseEstimation\depthImageGet\build\CMakeFiles\3.10.2\CMakeDetermineCompilerABI_C.bin">
@@ -91,7 +94,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="openni_convert_to_opencv\8_8.cpp">
+    <ClCompile Include="openni_convert_to_opencv\8_9.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
