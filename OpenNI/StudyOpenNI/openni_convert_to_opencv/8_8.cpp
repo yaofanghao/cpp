@@ -127,8 +127,9 @@ int main(int argc, char** argv)
     }
 
     // 5. create OpenCV Window
-    cv::namedWindow("Depth Image", cv::WindowFlags::WINDOW_AUTOSIZE);
-    cv::namedWindow("Color Image", cv::WindowFlags::WINDOW_AUTOSIZE);
+    cv::namedWindow("Depth Image", cv::WindowFlags::WINDOW_NORMAL);
+    cv::namedWindow("Color Image", cv::WindowFlags::WINDOW_NORMAL);
+    cv::namedWindow("Image Center", cv::WindowFlags::WINDOW_NORMAL);
 
     // 6. start
     VideoFrameRef  mColorFrame;
@@ -149,12 +150,8 @@ int main(int argc, char** argv)
                 // 7c. convert form RGB to BGR
                 cv::Mat cImageBGR;
                 cv::cvtColor(mImageRGB, cImageBGR, cv::COLOR_RGB2BGR);
-                //cv::cvtColor(mImageRGB, cImageBGR, cv::COLOR_RGB2GRAY);
                 // 7d. show image
-
-                //cv::Canny(cImageBGR, cImageBGR, 50, 200, 3);
                 //cv::imshow("Color Image", cImageBGR);
-                //cv::imshow("Canny Image", cImageBGR);
                 
                  if (mDepthStream.readFrame(&mDepthFrame) == STATUS_OK)
                 {
@@ -180,7 +177,7 @@ int main(int argc, char** argv)
                     // 显示图像中心点深度值
                     circle(cImageBGR, Point2d(mDepthFrame.getWidth() / 2, mDepthFrame.getHeight() / 2), 5, Scalar(0, 0, 255), 2); // 给人脸中心点画圆
                     putText(cImageBGR, to_string(wZ), Point2d(mDepthFrame.getWidth() / 2, mDepthFrame.getHeight() / 2), FONT_HERSHEY_PLAIN, 2, Scalar(0, 0, 255));
-                    cv::imshow("Image Center", cImageBGR);
+                    //cv::imshow("Image Center", cImageBGR);
 
                     // 在rgb上画出鼠标任意点击处的深度值
                     setMouseCallback("Image Center", onMouse);
@@ -215,13 +212,13 @@ int main(int argc, char** argv)
 
                         circle(cImageBGR, Point2d(dX2, dY2), 5, Scalar(255, 0, 0), 2); // 给人脸中心点画圆
                         putText(cImageBGR, to_string(wZ2), Point2d(dX2, dY2), FONT_HERSHEY_PLAIN, 1, Scalar(0, 0, 255));
-                        cv::imshow("Image Center", cImageBGR);
+
 
                         if (cv::waitKey(1) == 'q')
                             break;
                         //lButtonDown = false;
                     }
-
+                    cv::imshow("Image Center", cImageBGR);
                 }
                 //------------
             }

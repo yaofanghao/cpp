@@ -19,7 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="openni_convert_to_opencv\faceDetection.h" />
     <ClInclude Include="Sample\2_SimpleViewer\glh\glh_array.h" />
     <ClInclude Include="Sample\2_SimpleViewer\glh\glh_convenience.h" />
     <ClInclude Include="Sample\2_SimpleViewer\glh\glh_cube_map.h" />
@@ -48,7 +47,7 @@
     <None Include="HandPoseEstimation\depthImageGet\build\CMakeFiles\feature_tests.bin" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="openni_convert_to_opencv\8_9.cpp" />
+    <ClCompile Include="openni_convert_to_opencv\8_8.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -105,6 +104,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LibraryPath>E:\MyGithub\Cpp\OpenNI\StudyOpenNI\glut;$(LibraryPath)</LibraryPath>
+    <IncludePath>E:\OpenCV\opencv-4.5.5\opencv\sources\data;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

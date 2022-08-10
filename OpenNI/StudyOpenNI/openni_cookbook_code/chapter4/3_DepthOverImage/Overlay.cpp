@@ -11,8 +11,8 @@ using namespace openni;
 #include "glut.h"
 #include <math.h>
 
-int window_w = 640;
-int window_h = 480;
+int window_w = 600;
+int window_h = 450;
 OniRGB888Pixel* gl_texture;
 VideoStream depthSensor;
 VideoStream colorSensor;
@@ -227,7 +227,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	VideoMode vmod;
 	vmod.setFps(30);
 	vmod.setPixelFormat(PIXEL_FORMAT_DEPTH_1_MM);
-	vmod.setResolution(640, 480);
+	vmod.setResolution(window_w, window_h);
 	status = depthSensor.setVideoMode(vmod);
 	if (!HandleStatus(status)) return 1;
 	printf("Done.\r\n");
@@ -252,7 +252,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	printf("Setting video mode to 640x480x30 RGB888 ...\r\n");
 	vmod.setFps(30);
 	vmod.setPixelFormat(PIXEL_FORMAT_RGB888);
-	vmod.setResolution(640, 480);
+	vmod.setResolution(window_w, window_h);
 	status = colorSensor.setVideoMode(vmod);
 	if (!HandleStatus(status)) return 1;
 	printf("Done.\r\n");

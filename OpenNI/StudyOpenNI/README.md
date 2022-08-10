@@ -56,14 +56,12 @@ Primesense 传感器并将校准文件写入 InfiniTAM 格式的工具
 	- 读取深度和彩色rgb信息流
 
 * **openni_convert_to_opencv文件夹**
-	- 具体说明见文件夹中的README.md
-
+	- 具体说明见文件夹中的README.md 
 
 * Sample 文件夹-存放了openni官方的示例 bin 和源码 
 	- 1_SimpleRead 文件夹 
 		- 读取深度信息，单位mm
 	- 2_SimpleViewer 文件夹  失败 // error C2065: “GL_GENERATE_MIPMAP”: 未声明的标识符
-		- 
 	- 3_Depth 文件夹
 		- 实时显示depth模式的图像
 	- 4_Color 文件夹
@@ -74,7 +72,6 @@ Primesense 传感器并将校准文件写入 InfiniTAM 格式的工具
 	- 6_ClosestPointViewer 文件夹
 		- 获取三维空间中最近点坐标  失败 // error C2065: “GL_GENERATE_MIPMAP”: 未声明的标识符
 
-
 * openni_cookbook_code 文件夹
   * 来源-- https://www.packtpub.com/support/code-downloads
 
@@ -82,7 +79,7 @@ Primesense 传感器并将校准文件写入 InfiniTAM 格式的工具
 	- 1_Basics 入门介绍
 		- OpenNI::getVersion() 读取OpenNI版本 
 		- status = OpenNI::initialize(); 确认OpenNI状态 
-		- **bool HandleStatus(Status status) 判断OpenNI状态是否正常的函数**
+		- bool HandleStatus(Status status) 判断OpenNI状态是否正常的函数
     		- Status 是枚举类型，默认为0，即STATUS_OK
 	- 2_ListOfDevices 读取设备列表
 		- Array<openni::DeviceInfo> listOfDevices;
@@ -102,9 +99,9 @@ Primesense 传感器并将校准文件写入 InfiniTAM 格式的工具
 	- 3_2_VideoModes
 		- 显示设备可能支持的VideoMode 分辨率、帧数等信息，并选择其中一种
 	- 4_SelectDevice 选择指定设备（不重要，略）
-	- 5_ListenToOpenNIEvents **监视设备连接和断开事件** （7.31 没怎么看懂）
+	- 5_ListenToOpenNIEvents 监视设备连接和断开事件 （7.31 没怎么看懂）
 		- struct OurOpenNIEventMonitorer 定义事件监视结构体
-	- 6_OpenFileAsDevice **读取现有的ONI格式数据**，而不是通过摄像头
+	- 6_OpenFileAsDevice 读取现有的ONI格式数据，而不是通过摄像头
 		- Deivce 类
 			- device.open(addressOfFile) 打开oni文件
 
@@ -122,7 +119,7 @@ Primesense 传感器并将校准文件写入 InfiniTAM 格式的工具
 			- ![重点关注](openni_cookbook_code/chapter3/resizeFactor.png "缩放因子")
 	- 2_depth  **读取深度信息**	
 		- esc退出，H/h设置直方图归一化，F/f设置阴影填充 ，C/c设置彩色模式
-		- 深度信息 DepthPixel* depthCell
+		- **深度信息 DepthPixel\* depthCell** 
 		- **遍历查找最大深度值 maxDepth 和最小深度值 minDepth**
 		- 将depth信息转换为RGB，存放在 OniRGB888Pixel* texturePixel 中
 		- histogram_enable 直方图归一化处理
@@ -140,7 +137,7 @@ Primesense 传感器并将校准文件写入 InfiniTAM 格式的工具
 	- openni::VideoStream object 能够镜像或裁剪图片指定区域
 		- Methods to enable the mirroring of frame data and the cropping of a specific area in frames are part of this class.
 		- openni::VideoStreamis home to methods that are responsible for customizing each frame of data.
-	- openni::CoordinateConverter **将深度像素位置和值转换为真实位置、距离或颜色**
+	- **openni::CoordinateConverter 将深度像素位置和值转换为真实位置、距离或颜色**
 		- If you want to convert the position and value of a depth pixel into the real-world position,distance, or color of that pixel, you need to start using theopenni::CoordinateConverterclass. 
 		- This class is a standalone class that contains static methods for these sorts of operations.
 	- 1_Cropping & Mirroring 裁剪、镜像操作-略
@@ -152,6 +149,6 @@ Primesense 传感器并将校准文件写入 InfiniTAM 格式的工具
 		- openni::CoordinateConverter 类 转换成真实世界的mm值
 			- https://documentation.help/OpenNI-2.0/classopenni_1_1_coordinate_converter.html
 			- https://kheresy.wordpress.com/2013/01/14/coordinate-converter-in-openni-2/
-			- **static Status convertDepthToWorld(const VideoStream& depthStream, float depthX, float depthY, float depthZ, float* pWorldX, float* pWorldY, float* pWorldZ)** 
+			- **static Status convertDepthToWorld(const VideoStream& depthStream, float depthX, float depthY, float depthZ, float\* pWorldX, float\* pWorldY, float\* pWorldZ)** 
 			- 从深度到世界坐标的转换在计算上是相对昂贵的。将整个原始深度图转换为世界坐标通常是不切实际的。更好的方法是让算法尽可能长时间地在深度坐标中工作，并且在输出之前仅将几个特定点转换为世界坐标。
 	- 5_ColorOfNearestPixel

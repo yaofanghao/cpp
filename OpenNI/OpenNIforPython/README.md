@@ -6,3 +6,9 @@
 
 * test.py
     * 鼠标放置可以读取各点深度值（目前不太精确）
+  
+* medidapipe_objectron.py
+    * 对mediapipe-objectron模块的简单应用
+    * https://google.github.io/mediapipe/ 
+    * https://google.github.io/mediapipe/solutions/objectron
+    * https://www.youtube.com/watch?v=f-Ibri14KMY&t=226s
