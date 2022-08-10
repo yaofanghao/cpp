@@ -178,7 +178,7 @@ http://t.csdn.cn/bFXcX
 **8、Other tutorials (ml, objdetect, photo, stitching, video)**
 * https://docs.opencv.org/4.x/d3/dd5/tutorial_table_of_content_other.html
 * 8_1_HDR.cpp
-  * 高动态氛围处理照片
+  * 高动态范围处理照片
 * 8_2 High Level Stitching 略
 * **8_3_BackgroundSubtraction.cpp**
   * **背景提取技术**

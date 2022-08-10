@@ -167,7 +167,7 @@ int main(int argc, char** argv)
                 for (int n = 0; n < myFacePoint.size(); n++)  // 读取出人脸中心点坐标 
                 {
                     cout << myFacePoint[n].x << "---" << myFacePoint[n].y << endl;
-                    cout << int(myFacePoint[n].x) << "---" << int(myFacePoint[n].y) << endl;
+                    //cout << int(myFacePoint[n].x) << "---" << int(myFacePoint[n].y) << endl;
                     if (mDepthStream.readFrame(&mDepthFrame) == STATUS_OK) // 读取人脸中心点对应深度值
                     {
                         int face_x = myFacePoint[n].x;
@@ -185,6 +185,7 @@ int main(int argc, char** argv)
                             dX, dY, dZ, &wX, &wY, &wZ);
                         if (!HandleStatus(status)) return 1;
                         cout << "pixel is at " << dX << "," << dY << "," << dZ << endl;
+                        cout << "located at " << wX << "," << wY << endl; // 目前暂不清楚x y具体表示的所在位置
                         cout << "distance is " << wZ << "mm" << endl;
                         cout << "-----" << endl;
 
@@ -265,7 +266,7 @@ int main(int argc, char** argv)
                     &wX, &wY, &wZ);
                 if (!HandleStatus(status)) return 1;
                 cout << "pixel is at " << dX << "," << dY << "," << dZ << endl;
-                //cout << "located at " << wX << "," << wY << endl; // 目前暂不清楚x y具体表示的所在位置
+                cout << "located at " << wX << "," << wY << endl; // 目前暂不清楚x y具体表示的所在位置
                 cout << "distance is " << wZ << "mm" << endl;
                 //cout << *buttonPixel << endl;
                 cout << "-----------" << endl;

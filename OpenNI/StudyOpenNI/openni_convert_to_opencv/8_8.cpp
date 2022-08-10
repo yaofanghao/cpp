@@ -170,7 +170,7 @@ int main(int argc, char** argv)
                         (float)(*centerPixel),
                         &wX, &wY, &wZ);
                     if (!HandleStatus(status)) return 1;
-                    printf("Center pixel's at distance is %gmm "
+                    printf("Button pixel's at distance is %gmm "
                         "located at %gmmx%gmm\r\n",
                         wZ, wX, wY);
 

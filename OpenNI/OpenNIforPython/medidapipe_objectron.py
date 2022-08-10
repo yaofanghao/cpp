@@ -42,7 +42,7 @@ if __name__ == '__main__':
                                     max_num_objects=2,
                                     min_detection_confidence=0.5,
                                     min_tracking_confidence=0.8,
-                                    model_name='Cup') as objectron:
+                                    model_name='Chair') as objectron:
                 # while use_mediapipe:
             start = time.time()
             # image = cv2.cvtColor(color, cv2.COLOR_BGR2RGB)
