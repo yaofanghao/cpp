@@ -91,7 +91,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="getbuildinfo.cpp">
+    <ClCompile Include="openni_convert_to_opencv\FLANN.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
