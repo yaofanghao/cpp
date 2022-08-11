@@ -2,6 +2,7 @@
 // https://github.com/opencv/opencv/blob/4.x/samples/cpp/tutorial_code/features2D/feature_flann_matcher/SURF_FLANN_matching_Demo.cpp
 
 #include <iostream>
+#include <opencv2/opencv.hpp>
 #include "opencv2/core.hpp"
 #ifdef HAVE_OPENCV_XFEATURES2D
 #include "opencv2/highgui.hpp"
@@ -23,10 +24,13 @@ int main(int argc, char* argv[])
     //CommandLineParser parser(argc, argv, keys);
     //Mat img1 = imread(samples::findFile(parser.get<String>("input1")), IMREAD_GRAYSCALE);
     //Mat img2 = imread(samples::findFile(parser.get<String>("input2")), IMREAD_GRAYSCALE);
-    std::string img1_path = "E:/MyGithub/Cpp/OpenNI/StudyOpenNI/openni_convert_to_opencv/box.png";
-    std::string img2_path = "E:/MyGithub/Cpp/OpenNI/StudyOpenNI/openni_convert_to_opencv/box_in_scene.png";
+    std::string img1_path = "E:/MyGithub/Cpp/OpenNI/StudyOpenNI/openni_convert_to_opencv/redbox1.jpg";
+    std::string img2_path = "E:/MyGithub/Cpp/OpenNI/StudyOpenNI/openni_convert_to_opencv/redbox3.jpg";
     Mat img1 = imread(img1_path);
     Mat img2 = imread(img2_path);
+
+    cvtColor(img1, img1, COLOR_BGR2GRAY);
+    cvtColor(img2, img2, COLOR_BGR2GRAY);
 
     //cout << img1.empty() << endl;
 
@@ -52,7 +56,7 @@ int main(int argc, char* argv[])
     matcher->knnMatch(descriptors1, descriptors2, knn_matches, 2);
 
     //-- Filter matches using the Lowe's ratio test
-    const float ratio_thresh = 0.7f;
+    const float ratio_thresh = 0.5f; // 越小匹配点越少
     std::vector<DMatch> good_matches;
     for (size_t i = 0; i < knn_matches.size(); i++)
     {
@@ -68,8 +72,11 @@ int main(int argc, char* argv[])
         Scalar::all(-1), std::vector<char>(), DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS);
 
     //-- Show detected matches
+
+    Size dsize = Size(1000, 500);
+    resize(img_matches, img_matches, dsize, 0, 0);
     imshow("Good Matches", img_matches);
-    imwrite("box_result.png", img_matches);
+    imwrite("redbox_result.jpg", img_matches);
 
     waitKey();
     return 0;

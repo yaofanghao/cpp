@@ -122,7 +122,7 @@ int main( int argc, char* argv[] )
         capture.open( filename );
     else
     {
-        capture.open( CAP_OPENNI2);
+        capture.open(CAP_OPENNI2_ASUS);
         //capture.open(0);
         //capture.open(CAP_ANY);
         if( !capture.isOpened() )

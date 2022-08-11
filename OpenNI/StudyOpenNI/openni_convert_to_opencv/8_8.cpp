@@ -170,9 +170,9 @@ int main(int argc, char** argv)
                         (float)(*centerPixel),
                         &wX, &wY, &wZ);
                     if (!HandleStatus(status)) return 1;
-                    printf("Button pixel's at distance is %gmm "
-                        "located at %gmmx%gmm\r\n",
-                        wZ, wX, wY);
+                    //printf("Button pixel's at distance is %gmm "
+                    //    "located at %gmmx%gmm\r\n",
+                    //    wZ, wX, wY);
 
                     // 显示图像中心点深度值
                     circle(cImageBGR, Point2d(mDepthFrame.getWidth() / 2, mDepthFrame.getHeight() / 2), 5, Scalar(0, 0, 255), 2); // 给人脸中心点画圆
@@ -187,8 +187,9 @@ int main(int argc, char** argv)
                         // 采用上述方法2的原理实现
                         DepthPixel* buttonPixel =
                             (DepthPixel*)((char*)mDepthFrame.getData() +
-                                (p.y * mDepthFrame.getStrideInBytes())) +
-                            (p.x * mDepthFrame.getStrideInBytes() / mDepthFrame.getWidth());
+                            (p.y * mDepthFrame.getStrideInBytes())) +
+                            p.x ;
+                            //(p.x * mDepthFrame.getStrideInBytes() / mDepthFrame.getWidth());
                         //cout << p.x << ", " << p.y << endl;
                         //cout << mDepthFrame.getStrideInBytes() << endl; //640
                         //cout << mDepthFrame.getHeight() << endl; //240
@@ -205,14 +206,13 @@ int main(int argc, char** argv)
                             &wX2, &wY2, &wZ2);
                         if (!HandleStatus(status)) return 1;
                         cout << "pixel is at " << dX2 << "," << dY2 << "," << dZ2 << endl;
-                        //cout << "located at " << wX << "," << wY << endl; // 目前暂不清楚x y具体表示的所在位置
+                        cout << "located at " << wX2 << "," << wY2 << endl; // 目前暂不清楚x y具体表示的所在位置
                         cout << "distance is " << wZ2 << "mm" << endl;
                         //cout << *buttonPixel << endl;
                         cout << "-----------" << endl;
 
                         circle(cImageBGR, Point2d(dX2, dY2), 5, Scalar(255, 0, 0), 2); // 给人脸中心点画圆
                         putText(cImageBGR, to_string(wZ2), Point2d(dX2, dY2), FONT_HERSHEY_PLAIN, 1, Scalar(0, 0, 255));
-
 
                         if (cv::waitKey(1) == 'q')
                             break;
