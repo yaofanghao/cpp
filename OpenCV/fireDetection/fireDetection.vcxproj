@@ -131,13 +131,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="fireCascade.cpp" />
-  </ItemGroup>
-  <ItemGroup>
     <Xml Include="cascade.xml" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="fireCascade.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
