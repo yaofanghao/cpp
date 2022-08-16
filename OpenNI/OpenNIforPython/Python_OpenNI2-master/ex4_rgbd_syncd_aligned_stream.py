@@ -38,14 +38,14 @@ from primesense import _openni2 as c_api
 # OMAP
 #dist = '/home/carlos/Install/kinect/OpenNI2-Linux-ARM-2.2/Redist/'
 # Linux
-dist ='/home/carlos/Install/openni2/OpenNI-Linux-x64-2.2/Redist'
+dist ='E:\OpenNI\Redist'
 
 ## Initialize openni and check
 openni2.initialize(dist) #
 if (openni2.is_initialized()):
-    print "openNI2 initialized"
+    print ("openNI2 initialized")
 else:
-    print "openNI2 not initialized"
+    print ("openNI2 not initialized")
 
 ## Register the device
 dev = openni2.Device.open_any()
@@ -117,10 +117,10 @@ while not done:
     key = cv2.waitKey(1) & 255
     ## Read keystrokes
     if key == 27: # terminate
-        print "\tESC key detected!"
+        print ("\tESC key detected!")
         done = True
     elif chr(key) =='s': #screen capture
-        print "\ts key detected. Saving image {}".format(s)
+        print ("\ts key detected. Saving image {}".format(s))
         cv2.imwrite("ex4_"+str(s)+'.png', canvas)
         #s+=1 # uncomment for multiple captures
     #if

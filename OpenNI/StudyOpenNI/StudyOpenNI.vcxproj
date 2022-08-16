@@ -47,7 +47,7 @@
     <None Include="HandPoseEstimation\depthImageGet\build\CMakeFiles\feature_tests.bin" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="openni_convert_to_opencv\FLANN_my_test.cpp" />
+    <ClCompile Include="openni_convert_to_opencv\8_8_1.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
