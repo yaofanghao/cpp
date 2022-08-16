@@ -124,14 +124,22 @@ plt.show()
   paddlex --export_inference --model_dir=output/fastscnn/best_model/ --save_dir=inference_model
 ```
 
+* C++进行模型预测的小例子
+* 推理库安装 https://www.paddlepaddle.org.cn/inference/master/guides/install/download_lib.html#windows
+* 快速上手 https://www.paddlepaddle.org.cn/inference/master/guides/quick_start/cpp_demo.html
+* 语义分割示例 https://github.com/PaddlePaddle/PaddleX/blob/release/1.3/deploy/cpp/demo/segmenter.cpp
 
+# PaddleX Deployment部署方式 https://github.com/PaddlePaddle/PaddleX/blob/develop/deploy/cpp/docs/deployment.md
 
+# 树莓派部署paddlex https://paddlex.readthedocs.io/zh_CN/release-1.3/deploy/raspberry/index.html
 
 
 
 ## 5-重点！转换为.nb格式
 
-
+```
+paddle_lite_opt --model_dir=inference_model/inference_model --optimize_out=fastscnn_opt --optimize_out_type=naive_buffer --valid_target=arm
+```
 
 ## 5-重点！基于C++ API落地轻量化模型
 * https://github.com/PaddlePaddle/Paddle-Lite
