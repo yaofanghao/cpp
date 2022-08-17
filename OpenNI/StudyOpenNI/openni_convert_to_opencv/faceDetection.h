@@ -12,76 +12,15 @@
 using namespace std;
 using namespace cv;
 
-//void detectAndDisplay(Mat frame);
-
-/** Global variables */
 CascadeClassifier face_cascade;
 CascadeClassifier eyes_cascade;
+CascadeClassifier hand_cascade;
 
-/** @function main */
-//int main(int argc, const char** argv)
-//{
-//    CommandLineParser parser(argc, argv,
-//        "{help h||}"
-//        "{face_cascade|data/haarcascades/haarcascade_frontalface_alt.xml|Path to face cascade.}"
-//        "{eyes_cascade|data/haarcascades/haarcascade_eye_tree_eyeglasses.xml|Path to eyes cascade.}"
-//        "{camera|0|Camera device number.}");
-//
-//    parser.about("\nThis program demonstrates using the cv::CascadeClassifier class to detect objects (Face + eyes) in a video stream.\n"
-//        "You can use Haar or LBP features.\n\n");
-//    parser.printMessage();
-//
-//    String face_cascade_name = samples::findFile(parser.get<String>("face_cascade"));
-//    String eyes_cascade_name = samples::findFile(parser.get<String>("eyes_cascade"));
-//
-//    //-- 1. Load the cascades
-//    if (!face_cascade.load(face_cascade_name))
-//    {
-//        cout << "--(!)Error loading face cascade\n";
-//        return -1;
-//    };
-//    if (!eyes_cascade.load(eyes_cascade_name))
-//    {
-//        cout << "--(!)Error loading eyes cascade\n";
-//        return -1;
-//    };
-//
-//    int camera_device = parser.get<int>("camera");
-//    VideoCapture capture;
-//    //-- 2. Read the video stream
-//    capture.open(camera_device);
-//    if (!capture.isOpened())
-//    {
-//        cout << "--(!)Error opening video capture\n";
-//        return -1;
-//    }
-//
-//    Mat frame;
-//    while (capture.read(frame))
-//    {
-//        if (frame.empty())
-//        {
-//            cout << "--(!) No captured frame -- Break!\n";
-//            break;
-//        }
-//
-//        //-- 3. Apply the classifier to the frame
-//        detectAndDisplay(frame);
-//
-//        if (waitKey(10) == 27)
-//        {
-//            break; // escape
-//        }
-//    }
-//    return 0;
-//}
-
-/** @function detectAndDisplay */
 std::vector<Point2f>  detectAndDisplay(Mat frame)
 {
     // 8.9 修改
-    const char* face_cascade_name = "E:/OpenCV/opencv-4.5.5/opencv/sources/data/haarcascades/haarcascade_frontalface_alt.xml";
-    const char* eyes_cascade_name = "E:/OpenCV/opencv-4.5.5/opencv/sources/data/haarcascades/haarcascade_eye_tree_eyeglasses.xml";
+    const char* face_cascade_name = "E:/MyGithub/Cpp/OpenNI/StudyOpenNI/openni_convert_to_opencv/xml/haarcascade_frontalface_alt.xml";
+    const char* eyes_cascade_name = "E:/MyGithub/Cpp/OpenNI/StudyOpenNI/openni_convert_to_opencv/xml/haarcascade_eye_tree_eyeglasses.xml";
     //cout << face_cascade.load(face_cascade_name) << endl;
     if (!face_cascade.load(face_cascade_name))
     {
@@ -147,4 +86,55 @@ std::vector<Point2f>  detectAndDisplay(Mat frame)
     //-------------------
 
     return facePoint;
+}
+
+std::vector<Point2f>  detectAndDisplayHand(Mat frame)
+{
+    // 8.17 修改
+    const char* hand_cascade_name = "E:/MyGithub/Cpp/OpenNI/StudyOpenNI/openni_convert_to_opencv/xml/harr_fist.xml";
+    // cout << hand_cascade.load(hand_cascade_name) << endl;
+    if (!hand_cascade.load(hand_cascade_name))
+    {
+        cout << "--(!)Error loading hand cascade\n";
+        exit(0);
+    };
+
+    face_cascade.load(hand_cascade_name);
+
+    //----------------------
+    Mat frame_gray;
+    cvtColor(frame, frame_gray, COLOR_BGR2GRAY);
+    equalizeHist(frame_gray, frame_gray);
+
+    // 基于xml模型进行人脸检测
+    std::vector<Rect> hand;
+    face_cascade.detectMultiScale(frame_gray, hand);
+
+    std::vector<Point2f>handPoint; // 创建存放中心点坐标对的vector
+
+    for (size_t i = 0; i < hand.size(); i++)
+    {
+        Point center(hand[i].x + hand[i].width / 2, hand[i].y + hand[i].height / 2);
+        //ellipse(frame, center, Size(hand[i].width / 2, hand[i].height / 2), 0, 0, 360, Scalar(255, 0, 255), 4);
+        rectangle(frame, 
+            Point(hand[i].x, hand[i].y), 
+            Point(hand[i].x + hand[i].width, hand[i].y + hand[i].height),
+            Scalar(255, 0, 255), 1, 4);
+
+        cout << "Find hand!" << endl;
+        //cout << center << endl;
+        //cout << center.x << endl;
+        //cout << center.y << endl;
+        handPoint.push_back(Point2f(center.x, center.y));
+
+        //Mat handROI = frame_gray(faces[i]);
+
+    }
+
+    if (waitKey(10) == 27) // esc
+    {
+        exit(0);
+    }
+
+    return handPoint;
 }

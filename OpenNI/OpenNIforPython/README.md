@@ -13,6 +13,7 @@
     * https://google.github.io/mediapipe/solutions/objectron
     * https://www.youtube.com/watch?v=f-Ibri14KMY&t=226s
   
-* fastscnn_color_img.py
+* hand_detection_fastscnn.py
+    * openni转为opencv格式获取图像
     * 基于paddlex的FastSCNN模型对手部进行语义分割
   

@@ -69,6 +69,7 @@
 
 - 8_9.cpp faceDetection.h
 	- 基于Haar特征级联分类器的人脸检测
+	- 调用了faceDetection.h中的detectAndDisplay()函数
 	- （已解决该问题）：无法读取人脸检测xml
 		- 解决办法，xml目录写在头文件faceDetection.h而不是主函数中，且xml必须为完整路径
 	- 读取脸部中心处深度
@@ -84,5 +85,10 @@
 - MatchTemplate.cpp
 	- 对opencv六种模板匹配方式进行对比
 	- 比较理想，实际复杂情况时，旋转、缩放等变换就完全无法使用
+
+- 8_17.cpp faceDetection.h
+	- 基于Haar特征级联分类器的手部检测
+	- 调用了faceDetection.h中的detectAndDisplayHand()函数
+
 
 

@@ -109,7 +109,6 @@ plt.imshow(img2)
 # plt.imshow(img4)
 plt.show()
 ```
-
 * ![原图](test_result/118.jpg "原图")
 * ![预测](test_result/visualize_118.jpg "预测")
 
@@ -125,8 +124,6 @@ plt.show()
 * 推理库安装 https://www.paddlepaddle.org.cn/inference/master/guides/install/download_lib.html#windows
 * 快速上手 https://www.paddlepaddle.org.cn/inference/master/guides/quick_start/cpp_demo.html
 * 语义分割示例 https://github.com/PaddlePaddle/PaddleX/blob/release/1.3/deploy/cpp/demo/segmenter.cpp
-
-
 
 
 # PaddleX树莓派部署 https://github.com/PaddlePaddle/PaddleX/blob/develop/deploy/cpp/docs/deployment.md

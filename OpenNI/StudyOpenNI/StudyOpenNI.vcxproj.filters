@@ -91,8 +91,11 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="openni_convert_to_opencv\8_8_1.cpp">
+    <ClCompile Include="openni_convert_to_opencv\8_17.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="openni_convert_to_opencv\harr_fist.xml" />
   </ItemGroup>
 </Project>
