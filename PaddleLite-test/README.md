@@ -129,7 +129,7 @@ plt.show()
 
 
 
-# PaddleX Deployment部署方式 https://github.com/PaddlePaddle/PaddleX/blob/develop/deploy/cpp/docs/deployment.md
+# PaddleX树莓派部署 https://github.com/PaddlePaddle/PaddleX/blob/develop/deploy/cpp/docs/deployment.md
 
 
 
