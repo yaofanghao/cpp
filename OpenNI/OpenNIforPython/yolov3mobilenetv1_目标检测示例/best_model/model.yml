@@ -1,0 +1,76 @@
+Model: YOLOv3
+Transforms:
+- Resize:
+    interp: CUBIC
+    keep_ratio: false
+    target_size: !!python/tuple
+    - 640
+    - 640
+- Normalize:
+    is_scale: true
+    max_val:
+    - 255.0
+    - 255.0
+    - 255.0
+    mean:
+    - 0.485
+    - 0.456
+    - 0.406
+    min_val:
+    - 0
+    - 0
+    - 0
+    std:
+    - 0.229
+    - 0.224
+    - 0.225
+_Attributes:
+  eval_metrics:
+    bbox_map: 100.0
+  fixed_input_shape: null
+  labels:
+  - background
+  - hand
+  model_type: detector
+  num_classes: 2
+_init_params:
+  anchor_masks:
+  - - 6
+    - 7
+    - 8
+  - - 3
+    - 4
+    - 5
+  - - 0
+    - 1
+    - 2
+  anchors:
+  - - 10
+    - 13
+  - - 16
+    - 30
+  - - 33
+    - 23
+  - - 30
+    - 61
+  - - 62
+    - 45
+  - - 59
+    - 119
+  - - 116
+    - 90
+  - - 156
+    - 198
+  - - 373
+    - 326
+  backbone: MobileNetV1
+  ignore_threshold: 0.7
+  label_smooth: false
+  nms_iou_threshold: 0.45
+  nms_keep_topk: 100
+  nms_score_threshold: 0.01
+  nms_topk: 1000
+  num_classes: 2
+completed_epochs: 48
+status: Normal
+version: 2.0.0
