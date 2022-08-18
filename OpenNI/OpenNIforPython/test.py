@@ -1,14 +1,11 @@
 # python 3.7
 import numpy
 import cv2
-# import openni
 from openni import openni2
-
 
 def show_depth_value(event, x, y, flags, param):
     global depth
     print(depth[y, x])
-
 
 if __name__ == '__main__':
     openni2.initialize('E:\OpenNI\Redist')  # can also accept the path of the OpenNI redistribution
