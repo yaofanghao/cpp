@@ -1,7 +1,6 @@
 # python 3.7
 import numpy
 import cv2
-# import openni
 from openni import openni2
 import paddlex as pdx
 from paddlex import transforms as T
@@ -10,6 +9,9 @@ import os
 def show_depth_value(event, x, y, flags, param):
     global depth
     print(depth[y, x])
+
+video_save_path = "out.avi"
+video_fps = 5
 
 if __name__ == '__main__':
     openni2.initialize('E:\OpenNI\Redist')  # can also accept the path of the OpenNI redistribution
@@ -32,6 +34,12 @@ if __name__ == '__main__':
     # cv2.namedWindow('depth')
     # cv2.namedWindow('mix',cv2.WINDOW_NORMAL)
 
+    if video_save_path != "":
+        fourcc = cv2.VideoWriter_fourcc('X', 'V', 'I', 'D')
+        size = (320, 240)
+        out = cv2.VideoWriter(video_save_path, fourcc, video_fps, size)
+
+
     flag = 0
     model = pdx.load_model('best_model')
 
@@ -51,11 +59,11 @@ if __name__ == '__main__':
         flag += 1
 
         # if flag%10==0:
-        # yolov3模型目标检测
+        # 8.18 yolov3模型目标检测
         result = model.predict(color)
         print(result)
 
-        if len(result):#如果检测到框，读取坐标值在color上画矩形框
+        if len(result): #如果检测到框，读取坐标值在color上画矩形框
             a = result[0]
             b = a['bbox']
             # print(a)
@@ -63,15 +71,28 @@ if __name__ == '__main__':
             # print(b[0])
             cv2.rectangle(color,(int(b[0]),int(b[1])),(int(b[2]),int(b[3])),(0,0,255),5)
             print("find hand")
+
+            # 8.18 显示中心点深度值
+            center_x = int((b[0]+b[2])/2)
+            center_y = int((b[1]+b[3])/2)
+            cv2.putText(color,str(depth[center_y,center_x]),(center_x, center_y),
+                        cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
+
         else:
             print("no hand")
 
         cv2.imshow('color', color)
         cv2.setMouseCallback('color', show_depth_value)
 
+        out.write(color) # 保存视频
+
         k = cv2.waitKey(10) & 0xff
         if k == 27:
             break
+
+    if video_save_path != "":
+        print("Save processed video to the path :" + video_save_path)
+        out.release()
 
     cv2.destroyAllWindows()
     depth_stream.stop()
