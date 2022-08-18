@@ -137,7 +137,14 @@
     <Image Include="1.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="fireCascade.cpp" />
+    <ClCompile Include="8_17.cpp" />
+    <ClCompile Include="external_module\easylogging++.cc" />
+    <ClCompile Include="external_module\external_module\easylogging++.cc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="external_module\easylogging++.h" />
+    <ClInclude Include="external_module\external_module\easylogging++.h" />
+    <ClInclude Include="faceDetection.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

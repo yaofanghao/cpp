@@ -89,6 +89,8 @@
 - 8_17.cpp faceDetection.h
 	- 基于Haar特征级联分类器的手部检测
 	- 调用了faceDetection.h中的detectAndDisplayHand()函数
+	- harr_fist.xml --来源于github的手部检测，效果不太好
+	- my_cascade_test.xml --来源于自己收集处理的手部收集，效果极差
 
 
 
