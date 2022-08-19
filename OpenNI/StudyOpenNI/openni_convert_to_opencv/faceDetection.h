@@ -91,7 +91,7 @@ std::vector<Point2f>  detectAndDisplay(Mat frame)
 std::vector<Point2f>  detectAndDisplayHand(Mat frame)
 {
     // 8.17 ÐÞ¸Ä
-    const char* hand_cascade_name = "E:/MyGithub/Cpp/OpenNI/StudyOpenNI/openni_convert_to_opencv/xml/harr_fist.xml";
+    const char* hand_cascade_name = "E:/MyGithub/Cpp/OpenNI/StudyOpenNI/openni_convert_to_opencv/xml/hand.xml";
     // cout << hand_cascade.load(hand_cascade_name) << endl;
     if (!hand_cascade.load(hand_cascade_name))
     {
@@ -115,11 +115,14 @@ std::vector<Point2f>  detectAndDisplayHand(Mat frame)
     for (size_t i = 0; i < hand.size(); i++)
     {
         Point center(hand[i].x + hand[i].width / 2, hand[i].y + hand[i].height / 2);
-        //ellipse(frame, center, Size(hand[i].width / 2, hand[i].height / 2), 0, 0, 360, Scalar(255, 0, 255), 4);
-        rectangle(frame, 
-            Point(hand[i].x, hand[i].y), 
-            Point(hand[i].x + hand[i].width, hand[i].y + hand[i].height),
-            Scalar(255, 0, 255), 1, 4);
+        ellipse(frame, 
+            center, 
+            Size(hand[i].width / 2, hand[i].height / 2), 
+            0, 0, 360, Scalar(255, 0, 255), 4);
+        //rectangle(frame, 
+        //    Point(hand[i].x, hand[i].y), 
+        //    Point(hand[i].x + hand[i].width, hand[i].y + hand[i].height),
+        //    Scalar(255, 0, 255), 1, 4);
 
         cout << "Find hand!" << endl;
         //cout << center << endl;
