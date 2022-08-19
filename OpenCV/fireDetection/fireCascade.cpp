@@ -1,56 +1,114 @@
-// 2022.7.30 用训练完成的Haar级联分类器检测火焰
-// 官方的面部检测示例： https://github.com/opencv/opencv/blob/17234f82d025e3bbfbf611089637e5aa2038e7b8/samples/cpp/tutorial_code/objectDetection/objectDetection.cpp
-
-#include "opencv2/objdetect.hpp"
-#include "opencv2/highgui.hpp"
-#include "opencv2/imgproc.hpp"
-#include "opencv2/videoio.hpp"
+#include <opencv2/core.hpp>
+#include <opencv2/imgproc.hpp>
+#include <opencv2/opencv.hpp>
+#include <opencv2/highgui/highgui.hpp> 
+#include <opencv2/videoio.hpp>
 #include <iostream>
+#include <opencv2/highgui/highgui_c.h>
+#include <vector>
+#include <stdio.h>
+#include <string.h>
+#include <algorithm>
+#include "easylogging++.h"
 
-#include "fireDetection.h"
+#include "faceDetection.h"
 
+#define _CRT_SECURE_NO_WARNINGS 1
+
+INITIALIZE_EASYLOGGINGPP
+
+using namespace el;
 using namespace std;
 using namespace cv;
 
-/** @function main */
-int main(int argc, const char** argv)
-{
-    //string path = "E:/MyGithub/Cpp/OpenCV/fireDetection/cascade.xml";
-    ////-- 1. Load the cascades
-    //bool a = fire_cascade.load(path);
-    //printf("a=%d\n", a);
-    //if (!fire_cascade.load(path))
-    //{
-    //    cout << "--(!)Error loading cascade\n";
-    //    return -1;
-    //};
+// string video_path = "1.jpg";
+int hl = 0, hh = 50, sl = 100, sh = 255, vl = 200, vh = 255; // hsv阈值范围
+int kernal_size = 5; // 开运算核尺寸
+double conturs_ratio = 0.00001; // 轮廓参数设置
+double round_low = 0.2;
+int cntlen_low = 100;
 
-    while (true)
-    {
-        Mat srcImage = imread("1.jpg");
-        Size dsize = Size(800, 800);
-        resize(srcImage, srcImage, dsize, 0, 0);
-
-        printf("1");
-
-        vector<Point2f> myfirePoint;
-        myfirePoint = detectAndDisplay(srcImage);
-        for (int n = 0; n < myfirePoint.size(); n++)  // 读取出火焰中心点坐标 
-        {
-            cout << myfirePoint[n].x << "---" << myfirePoint[n].y << endl;
-            //cout << int(myFacePoint[n].x) << "---" << int(myFacePoint[n].y) << endl;
-            circle(srcImage, myfirePoint[n], 5, Scalar(0, 0, 255), 2); // 给中心点画圆
-            putText(srcImage, "warning!", myfirePoint[n], FONT_HERSHEY_PLAIN, 2, Scalar(0, 0, 255));
-            cv::imshow("Hand Center", srcImage);
-        }
-
-        printf("2");
-
-        if (waitKey(10) == 27)
-        {
-            break;
-        }
-    }
-
-    return 0;
+static void help(char* progName) {
+	cout << endl
+		<< "Usage:" << endl
+		<< progName << " [video_path -- default day.mp4] [save_path -- default out.mp4] " << endl << endl;
 }
+
+int main(int argc, char** argv)
+{
+	help(argv[0]);
+
+	// 配置日志信息
+	// https://github.com/amrayn/easyloggingpp
+	el::Configurations defaultConf;
+	defaultConf.setToDefault();
+	el::Loggers::reconfigureLogger("default", defaultConf);
+	el::Logger* defaultLogger = el::Loggers::getLogger("default");
+
+	LOG(INFO) << "Check video_path and save_path.";
+
+	if (argc <= 2) {
+		cout << "Fail to start. Please enter the video_path and save_path!" << endl;
+		return -1;
+	}
+
+	// VideoCapture capture(video_path);
+
+	// frame = imread(video_path);
+	// frame = imread( argv[1], 1 );
+	VideoCapture capture(argv[1]);
+	VideoWriter writer;
+	int codec = VideoWriter::fourcc('m', 'p', '4', 'v');
+	double fps = 25.0;
+	Size size = Size(int(capture.get(CAP_PROP_FRAME_WIDTH)), int(capture.get(CAP_PROP_FRAME_HEIGHT)));
+	string save_path = argv[2];
+	writer.open(save_path, codec, fps, size, true);
+
+	while (1)
+	{
+		Mat frame;
+		capture >> frame;
+		if (frame.empty())
+			break;
+
+		// 火焰检测示例          
+		LOG(INFO) << "Detect start!";
+		LOG(INFO) << "Enter q to exit.";
+		
+		vector<Point2f> myfirePoint;
+		myfirePoint = detectAndDisplay(frame);
+
+		for (int n = 0; n < myfirePoint.size(); n++)
+		{
+			//cout << myfirePoint[n].x << "---" << myfirePoint[n].y << endl;
+			//cout << int(myfirePoint[n].x) << "---" << int(myfirePoint[n].y) << endl;
+
+			LOG(INFO) << "Find fire! At " << myfirePoint;
+
+			//Mat FaceCenter;
+
+			// 已在头文件中给识别目标画圆，在这里不需要再画
+			putText(frame, "warning!", myfirePoint[n], FONT_HERSHEY_PLAIN, 2, Scalar(0, 0, 255));
+
+		}
+		cv::imshow("Fire Center", frame);  
+
+		if (!writer.isOpened()) {
+			cout << "failed to open the video" << endl;
+			return -1;}
+		if (!capture.read(frame)) {
+			cout << "detection done!" << endl;
+			break;}
+
+		writer << frame;
+
+		char c = waitKey(50);
+		if (c == 27) break;
+	}
+	capture.release();
+	writer.release();
+
+	return 0;
+}
+
+
