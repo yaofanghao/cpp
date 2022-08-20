@@ -31,7 +31,7 @@ int cntlen_low = 100;
 static void help(char* progName) {
 	cout << endl
 		<< "Usage:" << endl
-		<< progName << " [video_path -- default day.mp4] [save_path -- default out.mp4] " << endl << endl;
+		<< progName << " [video_path --default day.mp4] [save_path --default out.mp4] " << endl << endl;
 }
 
 int main(int argc, char** argv)
@@ -47,21 +47,21 @@ int main(int argc, char** argv)
 
 	LOG(INFO) << "Check video_path and save_path.";
 
-	if (argc <= 2) {
-		cout << "Fail to start. Please enter the video_path and save_path!" << endl;
-		return -1;
-	}
+	//if (argc <= 2) {
+	//	cout << "Fail to start. Please enter the video_path and save_path!" << endl;
+	//	return -1;
+	//}
 
 	// VideoCapture capture(video_path);
-
 	// frame = imread(video_path);
 	// frame = imread( argv[1], 1 );
-	VideoCapture capture(argv[1]);
+
+	VideoCapture capture((argc > 2) ? argv[1] : "day.mp4");
 	VideoWriter writer;
 	int codec = VideoWriter::fourcc('m', 'p', '4', 'v');
 	double fps = 25.0;
 	Size size = Size(int(capture.get(CAP_PROP_FRAME_WIDTH)), int(capture.get(CAP_PROP_FRAME_HEIGHT)));
-	string save_path = argv[2];
+	string save_path = ((argc > 2) ? argv[2] : "out.mp4");
 	writer.open(save_path, codec, fps, size, true);
 
 	while (1)
@@ -73,7 +73,7 @@ int main(int argc, char** argv)
 
 		// »ðÑæ¼ì²âÊ¾Àý          
 		LOG(INFO) << "Detect start!";
-		LOG(INFO) << "Enter q to exit.";
+		LOG(INFO) << "Enter esc to exit.";
 		
 		vector<Point2f> myfirePoint;
 		myfirePoint = detectAndDisplay(frame);

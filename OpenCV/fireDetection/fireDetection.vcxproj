@@ -137,9 +137,9 @@
     <Image Include="1.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="8_17.cpp" />
     <ClCompile Include="external_module\easylogging++.cc" />
     <ClCompile Include="external_module\external_module\easylogging++.cc" />
+    <ClCompile Include="fireCascade.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="external_module\easylogging++.h" />
