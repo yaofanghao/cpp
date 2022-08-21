@@ -18,7 +18,7 @@ std::vector<Point2f>  detectAndDisplay(Mat frame)
 {
     // 8.19 ÐÞ¸Ä
     const char* fire_cascade_name = "E:/MyGithub/Cpp/OpenCV/fireDetection/cascade.xml";
-    // cout << hand_cascade.load(fire_cascade_name) << endl;
+    cout << fire_cascade.load(fire_cascade_name) << endl;
     if (!fire_cascade.load(fire_cascade_name))
     {
         cout << "--(!)Error loading cascade xml \n";

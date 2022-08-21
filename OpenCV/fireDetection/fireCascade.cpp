@@ -56,7 +56,7 @@ int main(int argc, char** argv)
 	// frame = imread(video_path);
 	// frame = imread( argv[1], 1 );
 
-	VideoCapture capture((argc > 2) ? argv[1] : "day.mp4");
+	VideoCapture capture((argc > 1) ? argv[1] : "day.mp4");
 	VideoWriter writer;
 	int codec = VideoWriter::fourcc('m', 'p', '4', 'v');
 	double fps = 25.0;
@@ -91,6 +91,7 @@ int main(int argc, char** argv)
 			putText(frame, "warning!", myfirePoint[n], FONT_HERSHEY_PLAIN, 2, Scalar(0, 0, 255));
 
 		}
+		cv::namedWindow("Fire Center", cv::WINDOW_NORMAL);
 		cv::imshow("Fire Center", frame);  
 
 		if (!writer.isOpened()) {
