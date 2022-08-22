@@ -1,4 +1,4 @@
-# C++和算法相关学习资料
+# C/C++/图像/算法相关学习资料
 持续更新中
 
 # 学习时间
@@ -17,4 +17,6 @@ CMake
 
 2022.7- C程序设计语言-K&R
 
-2022.7- PaddlePaddle系列
+2022.7- C++Primer
+
+2022.7- PaddlePaddle / Paddle-Lite
