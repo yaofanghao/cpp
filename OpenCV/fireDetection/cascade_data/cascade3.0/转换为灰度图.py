@@ -3,9 +3,9 @@ import pandas as pd
 import os
 import cv2
 
-base_dir = "./negative"  #要裁剪的图片的原文件夹位置
+base_dir = "./positive"  #要裁剪的图片的原文件夹位置
 
-output_dir = './negative-gray/'  #裁剪后存放的文件夹位置
+output_dir = './positive-gray/'  #裁剪后存放的文件夹位置
 if not os.path.exists(output_dir):
     os.makedirs(output_dir)
 

@@ -12,7 +12,7 @@ def renameall():
 	print(T)
 	currentpath = os.getcwd()		#得到进程当前工作目录
 	os.chdir(r"E:\MyGithub\Cpp\OpenCV\fireDetection\cascade_data\cascade3.0\0、数据准备3.0-8.21数据\positive1")		#将当前工作目录修改为待修改文件夹的位置
-	num = 473
+	num = 900
 	#名称变量
 	##顺序
 	filelist = os.listdir(saveBasePath)

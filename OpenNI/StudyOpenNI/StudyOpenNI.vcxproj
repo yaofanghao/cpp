@@ -51,7 +51,7 @@
     <Xml Include="openni_convert_to_opencv\harr_fist.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="openni_convert_to_opencv\8_17.cpp" />
+    <ClCompile Include="openni_convert_to_opencv\8_22.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

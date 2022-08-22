@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="cascade.xml" />
-  </ItemGroup>
-  <ItemGroup>
     <Image Include="1.jpg">
       <Filter>资源文件</Filter>
     </Image>

@@ -58,19 +58,24 @@ int main(int argc, char** argv)
 	//el::Loggers::reconfigureLogger("default", conf);
 	//el::Loggers::reconfigureAllLoggers(conf);
 
-	LOG(INFO) << "My First Easylog!";
+	//LOG(INFO) << "My First Easylog!";
 
-	if (argc<=2){
-		cout<<"please enter the save_path"<<endl;
-		return -1;
-	}
+	//if (argc<=2){
+	//	cout<<"please enter the save_path"<<endl;
+	//	return -1;
+	//}
 
-	// VideoCapture capture(video_path);
-    	
+	// VideoCapture capture(video_path);    	
 	// frame = imread(video_path);
 	// frame = imread( argv[1], 1 );
-	VideoCapture capture(argv[1]);
+
+	VideoCapture capture((argc > 1) ? argv[1] : "day.mp4");
 	VideoWriter writer;
+	int codec = VideoWriter::fourcc('m', 'p', '4', 'v');
+	double fps = 25.0;
+	Size size = Size(int(capture.get(CAP_PROP_FRAME_WIDTH)), int(capture.get(CAP_PROP_FRAME_HEIGHT)));
+	string save_path = ((argc > 2) ? argv[2] : "out.mp4");
+	writer.open(save_path, codec, fps, size, true);
 
 	while (1)
 	{
@@ -149,7 +154,6 @@ int main(int argc, char** argv)
 			break;
 		}
 		
-		// writer.write(frame);
 		writer << frame;
 
 		char c = waitKey(50);

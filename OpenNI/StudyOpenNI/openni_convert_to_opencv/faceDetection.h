@@ -91,7 +91,7 @@ std::vector<Point2f>  detectAndDisplay(Mat frame)
 std::vector<Point2f>  detectAndDisplayHand(Mat frame)
 {
     // 8.17 修改
-    const char* hand_cascade_name = "E:/MyGithub/Cpp/OpenNI/StudyOpenNI/openni_convert_to_opencv/xml/hand.xml";
+    const char* hand_cascade_name = "E:/MyGithub/Cpp/OpenNI/StudyOpenNI/openni_convert_to_opencv/xml/my_hand_819.xml";
     // cout << hand_cascade.load(hand_cascade_name) << endl;
     if (!hand_cascade.load(hand_cascade_name))
     {
@@ -108,7 +108,13 @@ std::vector<Point2f>  detectAndDisplayHand(Mat frame)
 
     // 基于xml模型进行人脸检测
     std::vector<Rect> hand;
-    face_cascade.detectMultiScale(frame_gray, hand);
+    double scaleFactor;
+    int minNeighbors, flags;
+    Size minSize = Size(50, 50);
+    face_cascade.detectMultiScale(frame_gray, hand,
+        scaleFactor = 1.2, minNeighbors = 5,
+        flags = 0, minSize);
+
 
     std::vector<Point2f>handPoint; // 创建存放中心点坐标对的vector
 

@@ -85,8 +85,6 @@ int main(int argc, char** argv)
 
 			LOG(INFO) << "Find fire! At " << myfirePoint;
 
-			//Mat FaceCenter;
-
 			// 已在头文件中给识别目标画圆，在这里不需要再画
 			putText(frame, "warning!", myfirePoint[n], FONT_HERSHEY_PLAIN, 2, Scalar(0, 0, 255));
 

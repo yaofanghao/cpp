@@ -86,12 +86,12 @@
 	- 对opencv六种模板匹配方式进行对比
 	- 比较理想，实际复杂情况时，旋转、缩放等变换就完全无法使用
 
-- 8_17.cpp faceDetection.h
+- 8_22.cpp faceDetection.h
 	- 基于Haar特征级联分类器的手部检测
 	- 调用了faceDetection.h中的detectAndDisplayHand()函数
 	- harr_fist.xml --来源于github的手拳头检测，效果不太好
 	- hand.xml --来源于github的手部检测，效果不太好
-	- my_hand_818.xml --来源于自己收集处理的手部收集，效果极差
+	- my_hand_819.xml --来源于自己收集处理的手部收集，效果极差
 
 
 

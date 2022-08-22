@@ -1,7 +1,7 @@
 import cv2
 import os
 
-video_name = '820fire'
+video_name = '820fire2'
 
 output_dir = 'img/'
 

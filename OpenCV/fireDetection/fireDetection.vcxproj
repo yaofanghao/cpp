@@ -131,9 +131,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Xml Include="cascade.xml" />
-  </ItemGroup>
-  <ItemGroup>
     <Image Include="1.jpg" />
   </ItemGroup>
   <ItemGroup>

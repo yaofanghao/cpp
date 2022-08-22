@@ -17,7 +17,7 @@ for i in range(0, len(filelist)):
     path = os.path.join(base_dir, filelist[i])
     img = cv2.imread(path, cv2.IMREAD_COLOR)
 
-    cropped = img[1660:1720, 1000:1060]
+    cropped = img[300:400, 550:650]
 
     save_path = output_dir + str(i+1) + '.jpg'  #保存至另一文件夹
     cv2.imwrite(save_path, cropped)
