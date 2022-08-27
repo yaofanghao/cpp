@@ -141,7 +141,7 @@
   <ItemGroup>
     <ClInclude Include="external_module\easylogging++.h" />
     <ClInclude Include="external_module\external_module\easylogging++.h" />
-    <ClInclude Include="faceDetection.h" />
+    <ClInclude Include="fireDetection.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

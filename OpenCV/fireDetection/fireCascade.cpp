@@ -11,7 +11,7 @@
 #include <algorithm>
 #include "easylogging++.h"
 
-#include "faceDetection.h"
+#include "fireDetection.h"
 
 #define _CRT_SECURE_NO_WARNINGS 1
 
