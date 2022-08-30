@@ -136,7 +136,7 @@
   <ItemGroup>
     <ClCompile Include="external_module\easylogging++.cc" />
     <ClCompile Include="external_module\external_module\easylogging++.cc" />
-    <ClCompile Include="fireCascade.cpp" />
+    <ClCompile Include="fireDetection.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="external_module\easylogging++.h" />

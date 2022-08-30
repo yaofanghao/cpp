@@ -56,7 +56,7 @@ int main(int argc, char** argv)
 	// frame = imread(video_path);
 	// frame = imread( argv[1], 1 );
 
-	VideoCapture capture((argc > 1) ? argv[1] : "day.mp4");
+	VideoCapture capture((argc > 1) ? argv[1] : "day2.mp4");
 	VideoWriter writer;
 	int codec = VideoWriter::fourcc('m', 'p', '4', 'v');
 	double fps = 25.0;

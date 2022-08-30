@@ -26,18 +26,18 @@
     <ClCompile Include="external_module\easylogging++.cc">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="fireCascade.cpp">
+    <ClCompile Include="fireDetection.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="fireDetection.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="external_module\external_module\easylogging++.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="external_module\easylogging++.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="fireDetection.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

@@ -5,7 +5,6 @@
 # 参考资料
 * **C程序设计语言-K&R**
 * C PrimerPlus
-* 数据结构与算法图解-杰伊·温格罗
 * * **数据结构C++-邓俊辉**  
 * **C++ Primer**
 * Essential C++
@@ -27,9 +26,6 @@
 * 0_wengkai
   * resizable_array.c 可变数组的应用
   * linked_list.c 链表的应用
-
-* 数据结构与算法图解
-  * 学习至5.1选择排序
 
 * 数据结构C++-邓俊辉 
 * 学习至第2章
