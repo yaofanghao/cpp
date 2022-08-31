@@ -11,27 +11,26 @@
 #include <algorithm>
 #include "easylogging++.h"
 
-#include "fireDetection.h"
-
 #define _CRT_SECURE_NO_WARNINGS 1
 
 INITIALIZE_EASYLOGGINGPP
 
 using namespace el;
-using namespace std;
 using namespace cv;
+using namespace std;
 
-// string video_path = "1.jpg";
 int hl = 0, hh = 50, sl = 100, sh = 255, vl = 200, vh = 255; // hsv阈值范围
 int kernal_size = 5; // 开运算核尺寸
-double conturs_ratio = 0.00001; // 轮廓参数设置
+double conturs_ratio = 0.000005; // 轮廓参数设置
 double round_low = 0.2;
 int cntlen_low = 100;
 
+Mat imgopen(Mat mask, int kernal_size);
+
 static void help(char* progName) {
-	//cout << endl
-	//	<< "Usage:" << endl;
-		//<< " [video_path --default day.mp4] [save_path --default out.mp4] " << endl << endl;
+	cout << endl
+		<< "Usage:" << endl
+		<< progName << " [video_path --default day.mp4] [save_path --default out.mp4]" << endl;
 }
 
 int main(int argc, char** argv)
@@ -40,24 +39,30 @@ int main(int argc, char** argv)
 
 	// 配置日志信息
 	// https://github.com/amrayn/easyloggingpp
+	//time_t t = time(0);
+	//std::stringstream ss;
+	//ss << std::put_time(std::localtime(&t), "%F %X");
 	el::Configurations defaultConf;
 	defaultConf.setToDefault();
+	//defaultConf.setGlobally(
+	//	el::ConfigurationType::Filename, ss.str());
 	el::Loggers::reconfigureLogger("default", defaultConf);
 	el::Logger* defaultLogger = el::Loggers::getLogger("default");
 
-	LOG(INFO) << "Check video_path and save_path.";
+	LOG(INFO) << "Start fire detect!";
 
 	//if (argc <= 2) {
-	//	cout << "Fail to start. Please enter the video_path and save_path!" << endl;
+	//	cout << "please enter the video_path and save_path" << endl;
 	//	return -1;
 	//}
 
-	// VideoCapture capture(video_path);
-	// frame = imread(video_path);
-	// frame = imread( argv[1], 1 );
-
 	VideoCapture capture((argc > 1) ? argv[1] : "day.mp4");
+
+	//VideoCapture capture;
+	//capture.open(0); // 读取摄像头
+
 	VideoWriter writer;
+
 	int codec = VideoWriter::fourcc('m', 'p', '4', 'v');
 	double fps = 25.0;
 	Size size = Size(int(capture.get(CAP_PROP_FRAME_WIDTH)), int(capture.get(CAP_PROP_FRAME_HEIGHT)));
@@ -71,45 +76,94 @@ int main(int argc, char** argv)
 		if (frame.empty())
 			break;
 
-		// 火焰检测示例          
-		LOG(INFO) << "Detect start!";
-		LOG(INFO) << "Enter esc to exit.";
+		//flag += 1;
+		//cout << flag << endl;
 
-		vector<Point2f> myfirePoint;
-		myfirePoint = detectAndDisplay(frame);
+		//namedWindow("Control", CV_WINDOW_AUTOSIZE);
 
-		for (int n = 0; n < myfirePoint.size(); n++)
+		// 对输入图frame进行缩放，提高速度
+		Size dsize = Size(800, 450);
+		resize(frame, frame, dsize, 0, 0, INTER_AREA);		
+
+		// hsv阈值分割
+		Mat img1, hsv, mask;
+		Mat kernel = getStructuringElement(MORPH_RECT, Size(3, 3));
+		dilate(frame, img1, kernel);
+		cvtColor(img1, hsv, CV_BGR2HSV);
+		Scalar lower(hl, sl, vl);
+		Scalar upper(hh, sh, vh);
+		inRange(hsv, lower, upper, mask);
+		//imshow("contours", mask);
+
+		// 开运算
+		mask = imgopen(mask, kernal_size);
+		//imshow("contours", mask);
+
+		// 融合
+
+		// 轮廓提取
+		vector<vector<Point>>contours;
+		vector<Vec4i>hierarchy;
+		findContours(mask, contours, hierarchy, RETR_LIST, CHAIN_APPROX_SIMPLE);
+		drawContours(frame, contours, -1, Scalar(0, 0, 255), 3);
+
+		int image_area = frame.rows * frame.cols;
+		for (int i = 0; i < contours.size(); i++)
 		{
-			//cout << myfirePoint[n].x << "---" << myfirePoint[n].y << endl;
-			//cout << int(myfirePoint[n].x) << "---" << int(myfirePoint[n].y) << endl;
+			double area = contourArea(contours[i]);
+			double length = arcLength(contours[i], true);
+			double roundIndex = 4 * 3.1415926 * area / (length * length + 0.00001);
 
-			LOG(INFO) << "Find fire! At " << myfirePoint;
+			if ((area > conturs_ratio * image_area) && (roundIndex > round_low) && (length > cntlen_low))
+			{
+				Rect rect = boundingRect(contours[i]);
+				rectangle(frame, rect, (255, 0, 0), 5);
 
-			// 已在头文件中给识别目标画圆，在这里不需要再画
-			putText(frame, "warning!", myfirePoint[n], FONT_HERSHEY_PLAIN, 2, Scalar(0, 0, 255));
-
+				LOG(INFO) << "Find fire.";
+				string text = "Warning!";
+				cv::Point origin;
+				origin.x = frame.cols / 2;
+				origin.y = frame.rows / 2;
+				putText(frame, text, origin, FONT_HERSHEY_SIMPLEX, 1, Scalar(0, 0, 255), 1);
+				cout << "-------------" << endl;
+				cout << "area:" << area << endl;
+				cout << "length:" << length << endl;
+				cout << "roundIndex:" << roundIndex << endl;
+			}
+			else {
+				LOG(INFO) << "No fire.";
+			}
 		}
-		cv::namedWindow("Fire Center", cv::WINDOW_NORMAL);
-		cv::imshow("Fire Center", frame);
+
+		cv::imshow("result", frame);
+
+		writer.write(frame);
+		//writer << frame;
 
 		if (!writer.isOpened()) {
 			cout << "failed to open the video" << endl;
 			return -1;
 		}
+
 		if (!capture.read(frame)) {
 			cout << "detection done!" << endl;
 			break;
 		}
 
-		writer << frame;
-
-		char c = waitKey(50);
+		int c = waitKey(50);
 		if (c == 27) break;
 	}
+
 	capture.release();
-	writer.release();
+	//writer.release();
 
 	return 0;
 }
 
-
+Mat imgopen(Mat mask, int kernal_size)
+{
+	Mat element, maskDst;
+	element = getStructuringElement(MORPH_RECT, Size(kernal_size, kernal_size));
+	morphologyEx(mask, maskDst, MORPH_OPEN, element);
+	return maskDst;
+}
