@@ -18,7 +18,7 @@ struct Node* createList(){
 // 创建结点
 struct Node* createNode(int data){
     struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
-    newNode->data = data;    
+    newNode->data = data;
     newNode->next = NULL;
     return newNode;
 }
