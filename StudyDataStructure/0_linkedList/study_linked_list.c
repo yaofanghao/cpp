@@ -74,6 +74,4 @@ int main(){
     deleteNodeByAppoin(list, 2);  
     printList(list);  // 3 1
     return 0;
-
-
 }
