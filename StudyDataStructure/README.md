@@ -21,12 +21,17 @@
   
 * 王道考研数据结构 https://www.bilibili.com/video/BV1b7411N798
 
+* 黑马程序员C++ https://www.bilibili.com/video/BV1et411b73Z
 
 ## 文件内容说明-代码和简介
 * 0_linkedList
   * resizable_array.c 可变数组的应用
   * linked_list.c 链表的应用
   * study_linked_list.c 链表的另一种写法，更简单易懂 9.1完成
+
+* 00_heima
+  * 黑马程序员C++网课学习记录
+  * 
 
 * 数据结构C++-邓俊辉 
 * 学习至第2章
