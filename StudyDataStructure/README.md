@@ -20,6 +20,7 @@
 * 深入浅出数据结构  https://www.bilibili.com/video/BV1Fv4y1f7T1 
   
 * 王道考研数据结构 https://www.bilibili.com/video/BV1b7411N798
+  * https://blog.csdn.net/qq_40679299/article/details/107721116 
 
 * 黑马程序员C++ https://www.bilibili.com/video/BV1et411b73Z
 
@@ -50,6 +51,8 @@
 * C
   * 链表
 * C++
+  * 顺序表
+  * 
   * 类和对象 构造函数 深拷贝和浅拷贝 成员变量 成员函数 this指针
   * 友元 运算符重载 
   * 继承
