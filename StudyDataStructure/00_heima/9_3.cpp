@@ -1,4 +1,3 @@
-// https://www.bilibili.com/video/BV1et411b73Z
 // 学习时间：9.3
 // p57-63 指针
 
