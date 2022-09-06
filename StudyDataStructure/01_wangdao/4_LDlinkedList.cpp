@@ -15,28 +15,35 @@ bool InitDLinkList(DLinkList& L) {
 	if (L == NULL) {
 		return false;
 	}
-	L->prior = NULL;
-	L->next = NULL;
+	L->prior = L;
+	L->next = L;
 	return true;
 }
  
 //判断双链表是否为空
 bool empty(DLinkList L) {
-	if (L->next = NULL) {
+	if (L->next = L) {
 		return true;
 	}
+	return false;
+}
+ 
+bool isTail(DLinkList L, DNode* p) {
+	if (p->next == L) return true;
 	return false;
 }
  
 //按位查找：返回第i个结点
 DNode* GetElem(DLinkList L, int i) {
 	if (i < 0) return NULL;
-	int j = 0;
-	DNode* p = L;
-	while (p != NULL && j < i) {
+	if (i == 0) return L;
+	int j = 1;
+	DNode* p = L->next;
+	while (p != L && j < i) {
 		p = p->next;
 		j++;
 	}
+	if (p == L) return NULL;
 	return p;
 }
  
@@ -45,9 +52,10 @@ DNode* LocateElem(DLinkList L, ElemType e) {
 	DNode* p = L;
 	if (p == NULL) return NULL;
 	p = p->next;
-	while (p != NULL && p->data != e) {
+	while (p != L && p->data != e) {
 		p = p->next;
 	}
+	if (p == L) return NULL;
 	return p;
 }
  
@@ -57,8 +65,7 @@ bool InsertNextDNode(DNode* p, DNode* s) {
 		return false;
 	}
 	s->next = p->next;
-	if(p->next != NULL)
-		p->next->prior = s;
+	p->next->prior = s;
 	s->prior = p;
 	p->next = s;
 }
@@ -69,12 +76,9 @@ bool InsertNextDNode(DNode* p, ElemType e) {
 	DNode* q = (DNode*)malloc(sizeof(DNode));
 	if (q == NULL) return false;
 	q->data = e;
-	q->next = NULL;
 	q->prior = p;
-	if (p->next != NULL) {
-		p->next->prior = q;
-		q->next = p->next;
-	}
+	p->next->prior = q;
+	q->next = p->next;
 	p->next = q;
 	return true;
 }
@@ -95,16 +99,15 @@ bool InsertDLinkList(DLinkList& L, int i, ElemType e) {
 bool DeleteNextNode(DNode* p) {
 	if (p == NULL) return false;
 	DNode* q = p->next;
-	if (q == NULL) return false;
 	p->next = q->next;
-	if (q->next != NULL) q->next->prior = p;
+	q->next->prior = p; 
 	free(q);
 	return true;
 }
  
 //销毁双链表
 bool DestoryList(DLinkList& L) {
-	while (L->next != NULL) {
+	while (L->next != L) {
 		DeleteNextNode(L);
 	}
 	free(L);
@@ -137,21 +140,20 @@ DLinkList List_HeadInsert(DLinkList& L) {
 int Length(DLinkList L) {
 	DNode* p = L;
 	int len = 0;
-	while (p->next != NULL) {
+	while (p->next != L) {
 		len++;
 		p = p->next;
 	}
 	return len;
-} 
+}
+ 
  
 //删除指定节点s
 bool DeleteNode(DNode* s) {
 	DNode* p;
 	p = s->prior;
 	p->next = s->next;
-	if (s->next != NULL) {
-		s->next->prior = p;
-	}
+	s->next->prior = p;
 	free(s);
 	return true;
 }
@@ -169,7 +171,7 @@ bool ListDelete(DLinkList& L, int i, ElemType& e) {
  
 void print(DLinkList L) {
 	DNode* p = L->next;
-	while (p != NULL) {
+	while (p != L) {
 		cout << p->data << " ";
 		p = p->next;
 	}
@@ -193,7 +195,7 @@ void testDLinkList() {
 	cout << "在最后一个位置插入元素6" << endl;
 	InsertDLinkList(L, 7, 6);
 	print(L);
-	
+ 
 	int e;
 	ListDelete(L, 1, e);
 	cout << "删除第一个节点：" << e << endl;
@@ -208,7 +210,8 @@ void testDLinkList() {
 	DestoryList(L);
 }
  
-int main() { 
+int main() {
+ 
 	testDLinkList();
 	return 0;
 }

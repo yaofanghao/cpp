@@ -11,3 +11,6 @@
 * 2_linkedList_nohead.cpp 单链表 / 不带头结点
 * 2_linkedList_withhead.cpp 单链表 / 带头结点
 * 3_DlinkedList.cpp 双链表
+* 4_LlinkedList_head.cpp 循环链表 / L指向表头
+* 4_LlinkedList_tail.cpp 循环链表 / L指向表尾
+* 4_LDlinkedList.cpp 循环双链表
