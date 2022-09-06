@@ -5,6 +5,7 @@
 # 参考资料
 * **C程序设计语言-K&R**
 * C PrimerPlus
+* 23王道考研数据结构
 * * **数据结构C++-邓俊辉**  
 * **C++ Primer**
 * Essential C++
