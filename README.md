@@ -8,15 +8,15 @@
 
 CMake
 
-2022.6- OpenCV
-
-2022.7- OpenNI / primesense
-
-2022.7- 深入理解计算机系统（CSAPP）
+2022.6-2022.9 OpenCV
 
 2022.7-2022.8 C程序设计语言-K&R 一刷
 
-2022.7- PaddlePaddle / Paddle-Lite
+2022.7-2022.9 OpenNI / primesense
+
+2022.7-2022.9 PaddlePaddle / Paddle-Lite
+
+2022.7- 深入理解计算机系统（CSAPP）
 
 2022.7- C++Primer
 
