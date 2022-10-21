@@ -1,2 +1,0 @@
-/home/teamhd/code/backup/heavy_car/PaddleLite-armlinux-demo/yolo_detection_demo/models/yolov3_mobilenet_v3_for_cpu/model.nb
-/home/teamhd/code/backup/heavy_car/PaddleLite-armlinux-demo/yolo_detection_demo/labels/label.txt
