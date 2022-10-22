@@ -1,4 +1,4 @@
-// p121- 运算符重载
+// p121-126 运算符重载
 // 对内置数据类型是不可能改变运算方式的
     // 1、加号 operator+
     // 2、左移 用全局函数实现 operator<< 用处不大
@@ -21,8 +21,6 @@ class Person{
         temp.m_B = this->m_B + p.m_B;
         return temp;
     }  
-
-
 
     int m_A;
     int m_B;
