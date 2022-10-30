@@ -10,7 +10,6 @@
     // 父类构造 - 子类构造 - 子类析构 - 父类析构
 
 #include <iostream>
-#include <string.h>
 using namespace std;
 
 // 父类

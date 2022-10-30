@@ -8,7 +8,6 @@
     // 6、函数调用
 
 #include <iostream>
-#include <string.h>
 using namespace std;
 
 class Person{

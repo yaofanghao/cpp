@@ -8,7 +8,6 @@
 // 菱形继承 -- 虚继承方法 略
 
 #include <iostream>
-#include <string.h>
 using namespace std;
 
 class Base{

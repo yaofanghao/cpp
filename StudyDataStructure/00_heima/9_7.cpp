@@ -5,7 +5,6 @@
     // 3、成员函数做友元 --略，未学习
 
 #include <iostream>
-#include <string.h>
 using namespace std;
 
 class Building{
