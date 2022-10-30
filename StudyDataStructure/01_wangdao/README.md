@@ -4,8 +4,8 @@
 * 23王道考研数据结构
 
 # 学习时间和进度记录
-* 9.5起-
-* 更新至10.22
+* 9.5起
+* 更新至10.29
 
 # 第2章 线性表
 * 1_sqList.cpp 顺序表 / 创建 销毁 增删改查
@@ -21,4 +21,13 @@
 * 6_shareStack.cpp 共享栈
 * 7_linkedStack_nohead.cpp 链栈 / 不带头结点
 * 7_linkedStack_withhead.cpp 链栈 / 带头结点
-* 8_sqQueu.cpp 顺序队列
+* 8_sqQueue.cpp 顺序队列
+* 9_sqQueue_exmaple.cpp
+* 9_sqQueue_exmaple2.cpp
+* 9_sqQueue_exmaple3.cpp
+* 9_sqQueue_exmaple4.cpp 
+  * 循环队列的几个例子
+* 10_linkQueue.cpp_withhead.cpp 链队列 / 带头结点
+
+# 第4章 串
+* 11_SString.cpp 串

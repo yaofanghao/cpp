@@ -25,11 +25,11 @@ int main(){
     cout<<"p1 age is "<<p1.age<<endl; // 18
 
     Person p2(20);
-    p2.PersonAddage(p1);
-    cout<<"p1 age add p2 age is "<<p2.age<<endl; // 20+18=38
+    // p2.PersonAddage(p1);
+    // cout<<"p1 age add p2 age is "<<p2.age<<endl; // 20+18=38
 
     p2.PersonAddage(p1).PersonAddage(p1); // 链式编程
-    cout<<"p1 age add p2 age is "<<p2.age<<endl; // 20+18+18=56?
+    cout<<"p1 age add p2 age is "<<p2.age<<endl; // 20+18+18=56
 
     return 0;
 }

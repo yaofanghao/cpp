@@ -23,9 +23,9 @@ class Building{
     string m_BedRoom;
 };
 
-class FriendClass{
+// class FriendClass{
 
-};
+// };
 
 void Stranger(Building *building){
     cout<<"go to "<<building->m_SittingRoom<<endl;  // 可以访问
