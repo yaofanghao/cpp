@@ -20,11 +20,11 @@ using namespace cv;
 using namespace std;
 
 // string video_path = "1.jpg";
-int hl = 0, hh = 50, sl = 100, sh = 255, vl = 200, vh = 255; // hsv阈值范围
-int kernal_size = 5; // 开运算核尺寸
-double conturs_ratio = 0.000005; // 轮廓参数设置
+int hl = 0, hh = 50, sl = 0, sh = 80, vl = 250, vh = 255; // hsv阈值范围
+int kernal_size = 3; // 开运算核尺寸
+double conturs_ratio = 0; // 轮廓参数设置
 double round_low = 0.2;
-int cntlen_low = 100;
+int cntlen_low = 10;
 
 Mat imgopen(Mat mask, int kernal_size);
 
@@ -60,7 +60,7 @@ int main(int argc, char** argv)
 
 	// VideoCapture capture(video_path);
 	VideoCapture capture;
-	capture.open(0); // 读取摄像头
+	capture.open(1); // 读取摄像头
 
 	VideoWriter writer;
 
@@ -137,13 +137,13 @@ int main(int argc, char** argv)
 		string save_path = argv[1];
 		writer.open(save_path, codec, fps, size, true);
 
-		writer.write(frame);
+		//writer.write(frame);
 		//writer << frame;
 
-		if (!writer.isOpened()) {
-			cout << "failed to open the video" << endl;
-			return -1;
-		}
+		//if (!writer.isOpened()) {
+		//	cout << "failed to open the video" << endl;
+		//	return -1;
+		//}
 
 		if (!capture.read(frame)) {
 			cout << "detection done!" << endl;

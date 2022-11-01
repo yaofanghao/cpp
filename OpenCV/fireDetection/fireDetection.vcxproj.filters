@@ -26,7 +26,7 @@
     <ClCompile Include="external_module\easylogging++.cc">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="fireDetection.cpp">
+    <ClCompile Include="fireDetection-camera.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
