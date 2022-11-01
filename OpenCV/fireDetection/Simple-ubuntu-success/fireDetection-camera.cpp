@@ -20,11 +20,11 @@ using namespace cv;
 using namespace std;
 
 // string video_path = "1.jpg";
-int hl = 0, hh = 50, sl = 100, sh = 255, vl = 200, vh = 255; // hsv阈值范围
-int kernal_size = 5; // 开运算核尺寸
-double conturs_ratio = 0.00001; // 轮廓参数设置
+int hl = 0, hh = 50, sl = 0, sh = 80, vl = 250, vh = 255; // hsv阈值范围
+int kernal_size = 3; // 开运算核尺寸
+double conturs_ratio = 0; // 轮廓参数设置
 double round_low = 0.2;
-int cntlen_low = 100;
+int cntlen_low = 10;
 
 Mat hsv_to_mask(Mat img, int hl, int hh, int sl, int sh, int vl, int vh);
 Mat imgopen(Mat mask, int kernal_size);
