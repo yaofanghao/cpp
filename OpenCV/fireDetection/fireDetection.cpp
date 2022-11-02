@@ -19,6 +19,14 @@ using namespace el;
 using namespace cv;
 using namespace std;
 
+// 11.1-新版--晚上火焰
+//int hl = 0, hh = 50, sl = 0, sh = 80, vl = 250, vh = 255; // hsv阈值范围
+//int kernal_size = 3; // 开运算核尺寸
+//double conturs_ratio = 0; // 轮廓参数设置
+//double round_low = 0.2;
+//int cntlen_low = 10;
+
+// 原版--白天天台火焰
 int hl = 0, hh = 50, sl = 100, sh = 255, vl = 200, vh = 255; // hsv阈值范围
 int kernal_size = 5; // 开运算核尺寸
 double conturs_ratio = 0.000005; // 轮廓参数设置
@@ -93,7 +101,7 @@ int main(int argc, char** argv)
 		Scalar lower(hl, sl, vl);
 		Scalar upper(hh, sh, vh);
 		inRange(hsv, lower, upper, mask);
-		//imshow("contours", mask);
+		imshow("show_hsv", mask);
 
 		// 开运算
 		mask = imgopen(mask, kernal_size);
