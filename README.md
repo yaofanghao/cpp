@@ -16,10 +16,13 @@ CMake
 
 2022.7-2022.9 PaddlePaddle / Paddle-Lite
 
-2022.7- 深入理解计算机系统（CSAPP）
+2022.7- **深入理解计算机系统（CSAPP）**
 
-2022.7- C++Primer
+2022.7- **C++Primer / EssentialC++ / EffectiveC++**
+* 辅助参考书：C++PrimerPlus / C++程序设计语言
 
-2022.8- 数据结构-邓俊辉 / 数据结构-王道考研
+2022.8- **数据结构-邓俊辉 / 数据结构-王道考研**
 
-2022.10- EssentialC++
+2022.9- 黑马C++网课
+
+
