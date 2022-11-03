@@ -20,19 +20,26 @@ using namespace cv;
 using namespace std;
 
 // string video_path = "1.jpg";
-int hl = 0, hh = 50, sl = 0, sh = 80, vl = 250, vh = 255; // hsv阈值范围
-int kernal_size = 3; // 开运算核尺寸
-double conturs_ratio = 0; // 轮廓参数设置
-double round_low = 0.2;
-int cntlen_low = 10;
+// 11.1-新版--晚上火焰
+//int hl = 0, hh = 50, sl = 0, sh = 80, vl = 250, vh = 255; // hsv阈值范围
+//int kernal_size = 3; // 开运算核尺寸
+//double conturs_ratio = 0; // 轮廓参数设置
+//double round_low = 0.2;
+//int cntlen_low = 10;
 
-Mat hsv_to_mask(Mat img, int hl, int hh, int sl, int sh, int vl, int vh);
+// 原版--白天天台火焰
+int hl = 0, hh = 50, sl = 100, sh = 255, vl = 200, vh = 255; // hsv阈值范围
+int kernal_size = 5; // 开运算核尺寸
+double conturs_ratio = 0.000005; // 轮廓参数设置
+double round_low = 0.2;
+int cntlen_low = 100;
+
 Mat imgopen(Mat mask, int kernal_size);
 
 static void help(char* progName) {
 	cout << endl
 		<< "Usage:" << endl
-		<< progName << " [save_path -- default out.mp4] " << endl << endl;
+		<< progName << " [save_path --default out.mp4] " << endl;
 }
 
 int main(int argc, char** argv)
@@ -52,58 +59,38 @@ int main(int argc, char** argv)
 	el::Loggers::reconfigureLogger("default", defaultConf);
 	el::Logger* defaultLogger = el::Loggers::getLogger("default");
 
-	// 以下几句有问题，未解决
-	//el::Configurations conf("myconfiguration_file");
-	//el::Loggers::reconfigureLogger("default", conf);
-	//el::Loggers::reconfigureAllLoggers(conf);
-
 	LOG(INFO) << "Start fire detect!";
 
-	if (argc <= 1) {
-		cout << "please enter the save_path" << endl;
-		return -1;
-	}
+	//if (argc <= 1) {
+	//	cout << "please enter the save_path" << endl;
+	//	return -1;
+	//}
 
 	// VideoCapture capture(video_path);
-
-	// frame = imread(video_path);
-	// frame = imread( argv[1], 1 );
 	VideoCapture capture;
 	capture.open(0); // 读取摄像头
 
 	VideoWriter writer;
 
-	//int flag = 0;
-
 	while (1)
 	{
 		Mat frame;
-
 		capture >> frame;
 		if (frame.empty())
 			break;
 
-		//flag += 1;
-		//cout << flag << endl;
-
-		//namedWindow("Control", CV_WINDOW_AUTOSIZE);
-
 		// hsv阈值分割
-		//Mat mask, hsv = hsv_to_mask(frame, hl, hh, sl, sh, vl, vh);
 		Mat img1, hsv, mask;
 		Mat kernel = getStructuringElement(MORPH_RECT, Size(3, 3));
 		dilate(frame, img1, kernel);
 		cvtColor(img1, hsv, CV_BGR2HSV);
 		Scalar lower(hl, sl, vl);
 		Scalar upper(hh, sh, vh);
-		inRange(hsv, lower, upper, mask);
-		//imshow("contours", mask);
+		inRange(hsv, lower, upper, mask);		
 
 		// 开运算
 		mask = imgopen(mask, kernal_size);
-		//imshow("contours", mask);
-
-		// 融合
+		imshow("show_hsv", mask);
 
 		// 轮廓提取
 		vector<vector<Point>>contours;
@@ -144,16 +131,17 @@ int main(int argc, char** argv)
 		int codec = VideoWriter::fourcc('m', 'p', '4', 'v');
 		double fps = 25.0;
 		Size size = Size(int(capture.get(CAP_PROP_FRAME_WIDTH)), int(capture.get(CAP_PROP_FRAME_HEIGHT)));
-		string save_path = argv[1];
+		//string save_path = argv[1];
+		string save_path = "out.mp4";
 		writer.open(save_path, codec, fps, size, true);
 
-		writer.write(frame);
+		//writer.write(frame);
 		//writer << frame;
 
-		if (!writer.isOpened()) {
-			cout << "failed to open the video" << endl;
-			return -1;
-		}
+		//if (!writer.isOpened()) {
+		//	cout << "failed to open the video" << endl;
+		//	return -1;
+		//}
 
 		if (!capture.read(frame)) {
 			cout << "detection done!" << endl;
@@ -163,24 +151,9 @@ int main(int argc, char** argv)
 		int c = waitKey(50);
 		if (c == 27) break;
 	}
-
 	capture.release();
-	//writer.release();
 
 	return 0;
-}
-
-// 这个函数有问题，暂时不用
-Mat hsv_to_mask(Mat img, int hl, int hh, int sl, int sh, int vl, int vh)
-{
-	Mat mask, img1, hsv;
-	Mat kernel = getStructuringElement(MORPH_RECT, Size(3, 3));
-	dilate(img, img1, kernel);
-	cvtColor(img1, hsv, CV_BGR2HSV);
-	Scalar lower(hl, sl, vl);
-	Scalar upper(hh, sh, vh);
-	inRange(hsv, lower, upper, mask);
-	return mask, hsv;
 }
 
 Mat imgopen(Mat mask, int kernal_size)
