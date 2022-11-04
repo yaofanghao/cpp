@@ -136,7 +136,7 @@
   <ItemGroup>
     <ClCompile Include="external_module\easylogging++.cc" />
     <ClCompile Include="external_module\external_module\easylogging++.cc" />
-    <ClCompile Include="main copy.cpp" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="external_module\easylogging++.h" />

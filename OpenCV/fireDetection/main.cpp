@@ -77,6 +77,9 @@ int main(int argc, char** argv)
 			if (frame.empty())
 				break;
 
+			cv::namedWindow("origin", cv::WINDOW_NORMAL);
+			cv::imshow("origin", frame);
+
 			processing(frame);
 
 			int codec = VideoWriter::fourcc('m', 'p', '4', 'v');
