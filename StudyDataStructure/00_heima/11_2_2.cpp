@@ -1,36 +1,48 @@
-// p171-184 
-// æ™®é€šå‡½æ•°ï¼šå¯ä»¥éšå¼ç±»åž‹è½¬æ¢
-// å‡½æ•°æ¨¡æ¿ï¼š
-//     1ã€è‡ªåŠ¨ç±»åž‹æŽ¨å¯¼ï¼Œä¸å¯ä»¥éšå¼ç±»åž‹è½¬æ¢ã€‚å› ä¸ºæ¨¡æ¿ä¸çŸ¥é“è¯¥æŽ¨å¯¼ä¸ºå“ªä¸€ç±»
-//     2ã€æ˜¾ç¤ºæŒ‡å®šç±»åž‹ï¼Œå¯ä»¥éšå¼ç±»åž‹è½¬æ¢
-// å¦‚æžœå‡½æ•°æ¨¡æ¿å’Œæ™®é€šå‡½æ•°éƒ½å¯ä»¥è°ƒç”¨ï¼Œä¼˜å…ˆè°ƒç”¨æ™®é€šå‡½æ•°
-// å¦‚æžœå‡½æ•°æ¨¡æ¿å¯ä»¥äº§ç”Ÿæ›´å¥½çš„åŒ¹é…ï¼Œä¼˜å…ˆè°ƒç”¨å‡½æ•°æ¨¡æ¿
+// p171-181 
+// ÆÕÍ¨º¯Êý£º¿ÉÒÔÒþÊ½ÀàÐÍ×ª»»
+// º¯ÊýÄ£°å£º
+//     1¡¢×Ô¶¯ÀàÐÍÍÆµ¼£¬²»¿ÉÒÔÒþÊ½ÀàÐÍ×ª»»¡£ÒòÎªÄ£°å²»ÖªµÀ¸ÃÍÆµ¼ÎªÄÄÒ»Àà
+//     2¡¢ÏÔÊ¾Ö¸¶¨ÀàÐÍ£¬¿ÉÒÔÒþÊ½ÀàÐÍ×ª»»
+// Èç¹ûº¯ÊýÄ£°åºÍÆÕÍ¨º¯Êý¶¼¿ÉÒÔµ÷ÓÃ£¬ÓÅÏÈµ÷ÓÃÆÕÍ¨º¯Êý
+// Èç¹ûº¯ÊýÄ£°å¿ÉÒÔ²úÉú¸üºÃµÄÆ¥Åä£¬ÓÅÏÈµ÷ÓÃº¯ÊýÄ£°å
 
-// ç±»æ¨¡æ¿ï¼š
-//     æ ¼å¼ï¼š template <typename T> 
-//            ç±»
-// ç±»æ¨¡æ¿å’Œå‡½æ•°æ¨¡æ¿çš„åŒºåˆ«ï¼šç±»æ¨¡æ¿æ²¡æœ‰è‡ªåŠ¨æŽ¨å¯¼å‚æ•°
+// ÀàÄ£°å£º
+//     ¸ñÊ½£º template <typename T> 
+//            Àà
+// ÀàÄ£°åºÍº¯ÊýÄ£°åµÄÇø±ð£ºÀàÄ£°åÃ»ÓÐ×Ô¶¯ÍÆµ¼²ÎÊý
+// ³ÉÔ±º¯ÊýÀàÍâÊµÏÖ
 
 #include <iostream>
 using namespace std;
 
-// ç±»æ¨¡æ¿ç¤ºä¾‹
-template <class NameType, class AgeType>
+// ÀàÄ£°åÊ¾Àý
+template <class T1, class T2>
 class Person
 {
     public:
-    Person(NameType name, AgeType age)
+    Person(T1 name, T2 age)
     {
         this->m_Name = name;
         this->m_Age = age;
     }
-    NameType m_Name;
-    AgeType m_Age;
+    T1 m_Name;
+    T2 m_Age;
+
+    void showPerson();
 };
+
+// ³ÉÔ±º¯ÊýÀàÍâÊµÏÖ
+template <class T1, class T2>
+void Person<T1, T2>::showPerson()
+{
+    cout << "name:" << m_Name << endl;
+    cout << "age:" << m_Age << endl;
+}
 
 void test01()
 {
-    Person<string, int> p1("åç§°", 20);
+    Person<string, int> p1("Hello", 20);
+    p1.showPerson();
 }
 
 int main(){

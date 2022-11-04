@@ -1,14 +1,19 @@
 # 学习进度
 * 2022.8.24-
-* 更新至 11.2
+* 更新至 11.4
 
 # 参考资料
 * **C程序设计语言-K&R**
+* C和指针
 * C PrimerPlus
 * 23王道考研数据结构
 * * **数据结构C++-邓俊辉**  
 * **C++ Primer**
-* Essential C++
+* **Essential C++**
+* **Effective C++**
+* More Effective C++
+* C++程序设计语言
+* C++ Primer Plus
 
 * **微软C++文档 https://docs.microsoft.com/en-us/cpp**
 
@@ -67,11 +72,9 @@
   * 文件操作fstream
   --
   * 模板 普通模板 函数模板 
-  * 类模板 类内实现 类外实现 类模板与友元
+  * 类模板 类内实现 类外实现
   --
-  * STL
-  --
-  * 
-  * 
+  * STL初识：容器、算法、迭代器
+  * 六大组件：容器、算法、迭代器、仿函数、适配器（配接器）、空间配置器
   * 向量vector
   * 
