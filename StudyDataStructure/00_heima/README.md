@@ -32,4 +32,4 @@
   * 11_2_3.cpp MyArray.hpp 类模板案例：数组类封装
 
 * STL初识
-  * vector容器
+  * 11_8.cpp vector容器的基本概念

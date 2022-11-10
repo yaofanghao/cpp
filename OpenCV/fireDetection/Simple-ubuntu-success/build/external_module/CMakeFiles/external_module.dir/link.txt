@@ -1,2 +1,0 @@
-/usr/bin/ar qc libexternal_module.a  CMakeFiles/external_module.dir/easylogging++.cc.o
-/usr/bin/ranlib libexternal_module.a

@@ -1,6 +1,0 @@
-/home/u/yao/fireDetection/build/CMakeFiles/rebuild_cache.dir
-/home/u/yao/fireDetection/build/CMakeFiles/fire_test.dir
-/home/u/yao/fireDetection/build/CMakeFiles/edit_cache.dir
-/home/u/yao/fireDetection/build/external_module/CMakeFiles/rebuild_cache.dir
-/home/u/yao/fireDetection/build/external_module/CMakeFiles/external_module.dir
-/home/u/yao/fireDetection/build/external_module/CMakeFiles/edit_cache.dir

@@ -64,7 +64,7 @@ int main(int argc, char** argv)
 	cin >> answer;
 	switch (answer) 
 	{
-		LOG(INFO) << "Start fire detect!";		
+		//LOG(INFO) << "Start fire detect!";		
 		// camera detection
 		case 'c':
 		{
