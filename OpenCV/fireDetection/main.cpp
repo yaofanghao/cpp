@@ -21,7 +21,7 @@ int CapHeight = 960;
 // 11.1-night fire
 int hl = 0, hh = 50, sl = 0, sh = 80, vl = 250, vh = 255; // range of hsv
 int kernal_size = 3; // open kernal size
-double contours_ratio = 0.001; // ratio = contours / area
+double contours_ratio = 0; // ratio = contours / area
 double round_low = 0.2; // round of coutours
 int cntlen_low = 10; // length of coutours
 

@@ -134,14 +134,11 @@
     <Image Include="1.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="external_module\easylogging++.cc" />
-    <ClCompile Include="external_module\external_module\easylogging++.cc" />
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="11月_偏心度_尖角特征测试.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="external_module\easylogging++.h" />
     <ClInclude Include="external_module\external_module\easylogging++.h" />
-    <ClInclude Include="fireDetection.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
