@@ -13,24 +13,25 @@ using namespace el;
 using namespace cv;
 using namespace std;
 
-// settings
+// general settings
 double fps = 25.0;
 int CapWidth = 1280;
 int CapHeight = 960;
+int ellipse_low = 5; // There should be at least 5 points to fit the ellipse
 
 // 11.1-night fire
-int hl = 0, hh = 50, sl = 0, sh = 80, vl = 250, vh = 255; // range of hsv
-int kernal_size = 3; // open kernal size
-double contours_ratio = 0; // ratio = contours / area
-double round_low = 0.2; // round of coutours
-int cntlen_low = 10; // length of coutours
+//int hl = 0, hh = 50, sl = 0, sh = 80, vl = 250, vh = 255; // range of hsv
+//int kernal_size = 3; // open kernal size
+//double contours_ratio = 0; // ratio = contours / area
+//double round_low = 0.2; // round of coutours
+//int cntlen_low = 10; // length of coutours
 
-// 7.1-day fire
-//int hl = 0, hh = 50, sl = 100, sh = 255, vl = 200, vh = 255; 
-//int kernal_size = 5; 
-//double conturs_ratio = 0.000005; 
-//double round_low = 0.2;
-//int cntlen_low = 100;
+// 11.19-day fire
+int hl = 0, hh = 200, sl = 0, sh = 200, vl = 250, vh = 255; 
+int kernal_size = 5; 
+double contours_ratio = 0; 
+double round_low = 0.1;
+int cntlen_low = 20;
 
 Mat imgopen(Mat mask, int kernal_size);
 void processing(Mat frame);
@@ -38,15 +39,15 @@ void processing(Mat frame);
 static void help(char* progName) {
 	cout << endl
 		<< "Usage:" << endl
-		<< progName << "[mode - c / v ]" << "[save_path -- default out.mp4]" << endl;
+		<< progName << "[mode - c / v / i ]" << "[save_path -- default out.mp4]" << endl;
 }
 
-int main(int argc, char** argv) 
+int main(int argc, char** argv)
 {
 	help(argv[0]);
 
 	// log setting
- 	// https://github.com/amrayn/easyloggingpp
+	// https://github.com/amrayn/easyloggingpp
 	el::Configurations defaultConf;
 	defaultConf.setToDefault();
 	el::Loggers::reconfigureLogger("default", defaultConf);
@@ -59,102 +60,122 @@ int main(int argc, char** argv)
 	//	return -1;
 	//}
 
+	LOG(INFO) << "Start fire detect!";
 	char answer = 0;
-	cout << "please enter the detect mode [c -camera / v -video]" << endl;
+	cout << "please enter the detect mode [c -camera / v -video / i -image]" << endl;
 	cin >> answer;
-	switch (answer) 
+	switch (answer)
 	{
-		LOG(INFO) << "Start fire detect!";		
-		// camera detection
-		case 'c':
+	// camera detection
+	case 'c':
+	{
+		VideoCapture capture;
+		capture.open(0); // choose camera index - 1 for usb camera
+		capture.set(CAP_PROP_FRAME_WIDTH, CapWidth);
+		capture.set(CAP_PROP_FRAME_HEIGHT, CapHeight);
+		if (!capture.isOpened()) {
+			cerr << "camera not open!" << endl;
+			return -1;
+		}
+		LOG(INFO) << "fps:" << fps;
+		LOG(INFO) << "width:" << int(capture.get(CAP_PROP_FRAME_WIDTH));
+		LOG(INFO) << "height:" << int(capture.get(CAP_PROP_FRAME_HEIGHT));
+		VideoWriter writer;
+		int codec = VideoWriter::fourcc('M', 'J', 'P', 'G');
+		Size size = Size(int(capture.get(CAP_PROP_FRAME_WIDTH)), int(capture.get(CAP_PROP_FRAME_HEIGHT)));
+		string save_path = "out.avi";
+		writer.open(save_path, codec, fps, size, true);
+
+		while (1)
 		{
-			VideoCapture capture;
-			capture.open(0); // choose camera index - 1 for usb camera
-			capture.set(CAP_PROP_FRAME_WIDTH, CapWidth);
-			capture.set(CAP_PROP_FRAME_HEIGHT, CapHeight);			
-			if (!capture.isOpened()) {
-				cerr << "camera not open!" << endl;
+			Mat frame;
+			capture >> frame;
+			if (frame.empty())
+				break;
+
+			processing(frame);
+
+			writer.write(frame);
+			if (!writer.isOpened()) {
+				cerr << "failed to open the video" << endl;
 				return -1;
-			}			
-			cout << "fps:" << fps << endl;
-			cout << "width:" << int(capture.get(CAP_PROP_FRAME_WIDTH)) << endl;
-			cout << "height:" << int(capture.get(CAP_PROP_FRAME_HEIGHT)) << endl;			
-			VideoWriter writer;			
-			int codec = VideoWriter::fourcc('M', 'J', 'P', 'G');
-			Size size = Size(int(capture.get(CAP_PROP_FRAME_WIDTH)), int(capture.get(CAP_PROP_FRAME_HEIGHT)));
-			string save_path = "out.avi";
-			writer.open(save_path, codec, fps, size, true);	
-
-			while (1)
-			{
-				Mat frame;
-				capture >> frame;
-				if (frame.empty())
-					break;
-
-				processing(frame);
-
-				writer.write(frame);
-				if (!writer.isOpened()) {
-					cerr << "failed to open the video" << endl;
-					return -1;
-				}
-				if (!capture.read(frame)) {
-					cout << "detection done!" << endl;
-					break;
-				}
-				int c = waitKey(50);
-				if (c == 27) break;
 			}
-			writer.release();
-			return 0;
+			if (!capture.read(frame)) {
+				cout << "detection done!" << endl;
+				break;
+			}
+			int c = waitKey(50);
+			if (c == 27) break;
 		}
-		
-		// video detection		
-		case 'v':
+		writer.release();
+		return 0;
+	}
+
+	// video detection		
+	case 'v':
+	{
+		VideoCapture capture("day.mp4"); // day.mp4 as example
+		VideoWriter writer;
+		int codec = VideoWriter::fourcc('M', 'J', 'P', 'G');
+		Size size = Size(int(capture.get(CAP_PROP_FRAME_WIDTH)), int(capture.get(CAP_PROP_FRAME_HEIGHT)));
+		string save_path = "out.avi";
+		writer.open(save_path, codec, fps, size, true);
+		Size dsize = Size(800, 450); // resize image for processing faster
+		while (1)
 		{
-			VideoCapture capture("day.mp4"); // day.mp4 as example
-			VideoWriter writer;
-			int codec = VideoWriter::fourcc('m', 'p', '4', 'v');
-			Size size = Size(int(capture.get(CAP_PROP_FRAME_WIDTH)), int(capture.get(CAP_PROP_FRAME_HEIGHT)));
-			string save_path = ("out.avi");
-			writer.open(save_path, codec, fps, size, true);
-			Size dsize = Size(800, 450); // resize image for processing faster
-			while (1)
-			{
-				Mat frame;
-				capture >> frame;
-				if (frame.empty())
-					break;
+			Mat frame;
+			capture >> frame;
+			if (frame.empty())
+				break;
 
-				resize(frame, frame, dsize, 0, 0, INTER_AREA);			
-				processing(frame);
+			resize(frame, frame, dsize, 0, 0, INTER_AREA);
+			processing(frame);
 
-				writer.write(frame);
-				if (!writer.isOpened()) {
-					cout << "failed to open the video" << endl;
-					return -1;
-				}
-				if (!capture.read(frame)) {
-					cout << "detection done!" << endl;
-					break;
-				}
-				int c = waitKey(50);
-				if (c == 27) break;
+			writer.write(frame);
+			if (!writer.isOpened()) {
+				cout << "failed to open the video" << endl;
+				return -1;
 			}
-			writer.release();
+			if (!capture.read(frame)) {
+				cout << "detection done!" << endl;
+				break;
+			}
+			int c = waitKey(50);
+			if (c == 27) break;
+		}
+		writer.release();
+		return 0;
+	}
+
+	// image detection
+	case 'i':
+	{
+		Mat img = cv::imread("1.jpg");
+		processing(img);
+		cv:imwrite("result.jpg", img);
+
+		int x;
+		cout << "enter 1 to exit:" ;
+		cin >> x;
+		if (x == 1){
+			cout << "detection done!" << endl;
 			return 0;
 		}
-		
-		// more functions : cascade classification -- see in fireCascade.cpp
-		case 'e':{
-			cerr << "Using opencv-cascade detection method. Not finished yet." << endl;
-			return -1;
-		}
-		default:{
-			cerr << "please enter the correct mode [c / v]" << endl;
-			return -1;
-		}
+	}
+
+	// more functions : cascade classification -- see in fireCascade.cpp
+	case 'e': 
+	{
+		cerr << "Using opencv-cascade detection method. Not finished yet." << endl;
+		return -1;
+	}
+
+	default: 
+	{
+		cerr << "please enter the correct mode [c / v / i]" << endl;
+		return -1;
+	}
+	
 	}
 	return 0;
 }
@@ -180,27 +201,36 @@ void processing(Mat frame)
 	mask = imgopen(mask, kernal_size);
 	cv::namedWindow("show_hsv", WINDOW_NORMAL);
 	cv::imshow("show_hsv", mask);
-	
+
 	vector<vector<Point>>contours;
 	vector<Vec4i>hierarchy;
 	cv::findContours(mask, contours, hierarchy, RETR_LIST, CHAIN_APPROX_SIMPLE);
-	cv::drawContours(frame, contours, -1, Scalar(0, 0, 255), 3);
+	// cv::drawContours(frame, contours, -1, Scalar(0, 0, 255), 3);
 	int image_area = frame.rows * frame.cols;
 	for (int i = 0; i < contours.size(); i++)
 	{
 		double area = contourArea(contours[i]);
 		double length = arcLength(contours[i], true);
 		double roundIndex = 4 * 3.1415926 * area / (length * length + 0.00001);
-		if ((area > contours_ratio * image_area) && (roundIndex > round_low) && (length > cntlen_low))
-		{
+
+		if ((area > contours_ratio * image_area) && (roundIndex > round_low) 
+			&& (length > cntlen_low) && (contours[i].size() > ellipse_low))
+		{		
 			Rect rect = boundingRect(contours[i]);
 			rectangle(frame, rect, (255, 0, 0), 5);
+			
+			RotatedRect box = fitEllipse(contours[i]);
+			double ellipseA = box.size.height;
+			double ellipseB = box.size.width;
+			double eccIndex = sqrt(abs(pow(ellipseA, 2) - pow(ellipseB, 2))) / 2;  // ¼ÆËãÆ«ÐÄ¶È	
+			
 			string text = "Warning!";
 			cv::Point origin;
 			origin.x = frame.cols / 2;
 			origin.y = frame.rows / 2;
-			putText(frame, text, origin, FONT_HERSHEY_SIMPLEX, 1, Scalar(0, 0, 255), 1);			
-			LOG(INFO) << "Find fire." << "-area:" << area << "-length:" << length << "-roundIndex:" << roundIndex;	
+			putText(frame, text, origin, FONT_HERSHEY_SIMPLEX, 1, Scalar(0, 0, 255), 1);
+
+			LOG(INFO) << "Find fire." << "-area:" << area << "-length:" << length << "-roundIndex:" << roundIndex << "-eccIndex:" << eccIndex;
 		}
 		//else {
 		//	LOG(INFO) << "No fire.";
@@ -209,4 +239,3 @@ void processing(Mat frame)
 	cv::namedWindow("result", WINDOW_NORMAL);
 	cv::imshow("result", frame);
 }
-	

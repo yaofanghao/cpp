@@ -134,14 +134,12 @@
     <Image Include="1.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="11月_偏心度_尖角特征测试.cpp" />
+    <ClCompile Include="external_module\easylogging++.cc" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="external_module\easylogging++.h" />
     <ClInclude Include="external_module\external_module\easylogging++.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="cpp.hint" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
