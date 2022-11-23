@@ -222,7 +222,7 @@ void processing(Mat frame)
 			RotatedRect box = fitEllipse(contours[i]);
 			double ellipseA = box.size.height;
 			double ellipseB = box.size.width;
-			double eccIndex = sqrt(abs(pow(ellipseA, 2) - pow(ellipseB, 2))) / 2;  // ����ƫ�Ķ�	
+			double eccIndex = sqrt(abs(pow(ellipseA, 2) - pow(ellipseB, 2))) / 2;  // ¼ÆËãÆ«ÐÄ¶È	
 			
 			string text = "Warning!";
 			cv::Point origin;
