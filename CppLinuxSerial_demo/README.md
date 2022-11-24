@@ -59,3 +59,6 @@ target_link_libraries(serial_test -lCppLinuxSerial)
 
 ## 11.23
 * 增加了一些功能，目前存在的问题：单次只能发送一个字符串，待修改
+  
+## 11.24
+* 使用string.append()方法实现了连续输出多个字符串，未完成循环读取，待修改
