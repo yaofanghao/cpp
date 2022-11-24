@@ -58,4 +58,4 @@ target_link_libraries(serial_test -lCppLinuxSerial)
 * 修改了串口，应使用ttyS0，硬件确保接线正确，成功实现树莓派与电脑通信
 
 ## 11.23
-* 增加了一些功能
+* 增加了一些功能，目前存在的问题：单次只能发送一个字符串，待修改

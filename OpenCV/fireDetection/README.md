@@ -1,4 +1,4 @@
-# fireDetection for C++ and RaspberryPi4B
+# fire detection for C++ and RaspberryPi-4B
 2022.7.1-
 
 ## 简介
@@ -22,7 +22,7 @@
   * OpenCV提供了CascadeClassifier类，调用该类中的方法detectMultiScale，对其预测结果detections画矩形框即可
 
 ## 部分代码说明
-* 初始化日志模块
+* 初始化日志模块 -2022.8
 ```cpp
 // log setting
 // https://github.com/amrayn/easyloggingpp
@@ -31,37 +31,50 @@ defaultConf.setToDefault();
 el::Loggers::reconfigureLogger("default", defaultConf);
 el::Logger* defaultLogger = el::Loggers::getLogger("default");
 ```
-* 轮廓提取，计算面积、周长、圆形度、偏心度特征
+* 轮廓提取，绘制凸包，计算面积、周长、圆形度、偏心度特征 -2022.11
 ```cpp
 vector<vector<Point>>contours;
 vector<Vec4i>hierarchy;
 cv::findContours(mask, contours, hierarchy, RETR_LIST, CHAIN_APPROX_SIMPLE);
-cv::drawContours(frame, contours, -1, Scalar(0, 0, 255), 3);
-int image_area = frame.rows * frame.cols;
-for (int i = 0; i < contours.size(); i++)
-{
-  double area = contourArea(contours[i]);
-  double length = arcLength(contours[i], true);
-  double roundIndex = 4 * 3.1415926 * area / (length * length + 0.00001);  // 圆形度
+//cv::drawContours(frame, contours, -1, Scalar(0, 0, 255), 3);
+vector<vector<Point>>hull(contours.size());	
 
-  if ((area > contours_ratio * image_area) && (roundIndex > round_low) 
-    && (length > cntlen_low) && (contours[i].size() > ellipse_low)){		
-    Rect rect = boundingRect(contours[i]);
-    rectangle(frame, rect, (255, 0, 0), 5);
-    
-    RotatedRect box = fitEllipse(contours[i]);
-    double ellipseA = box.size.height;
-    double ellipseB = box.size.width;
-    double eccIndex = sqrt(abs(pow(ellipseA, 2) - pow(ellipseB, 2))) / 2;  // 偏心度	
-    
-    string text = "Warning!";
-    cv::Point origin;
-    origin.x = frame.cols / 2;
-    origin.y = frame.rows / 2;
-    putText(frame, text, origin, FONT_HERSHEY_SIMPLEX, 1, Scalar(0, 0, 255), 1);
-  }
+int image_area = frame.rows * frame.cols;
+for (size_t i = 0; i < contours.size(); i++)
+{
+	convexHull(contours[i], hull[i]);  	// caculate convexhull
+	
+	double area = contourArea(contours[i]);
+	double length = arcLength(contours[i], true);
+	double roundIndex = 4 * 3.1415926 * area / (length * length + 0.00001);
+
+	if ((area > contours_ratio * image_area) && (roundIndex > round_low) 
+		&& (length > cntlen_low) && (contours[i].size() > ellipse_low)){		
+		Rect rect = boundingRect(contours[i]);
+		//rectangle(frame, rect, (255, 0, 0), 5);
+		
+		RotatedRect box = fitEllipse(contours[i]);
+		double ellipseA = box.size.height;
+		double ellipseB = box.size.width;
+		double eccIndex = sqrt(abs(pow(ellipseA, 2) - pow(ellipseB, 2))) / 2;  // 偏心度	
+		
+		string text = "Warning!";
+		cv::Point origin;
+		origin.x = frame.cols / 2;
+		origin.y = frame.rows / 2;
+		putText(frame, text, origin, FONT_HERSHEY_SIMPLEX, 1, Scalar(0, 0, 255), 1);
+		//putText(frame, std::to_string(ent.val[0]), origin, FONT_HERSHEY_SIMPLEX, 1, Scalar(255, 0, 0), 1);
+	}
+}
+
+// draw convexhull
+for (size_t i = 0; i < contours.size(); i++)
+{
+	//drawContours(mask, contours, (int)i, Scalar(0, 0, 255));
+	drawContours(frame, hull, (int)i, Scalar(255, 0, 0), 5);
+}
 ```
-* 计算图像的熵值--2022.11.23
+* 计算图像的熵值 -2022.11.23
 ```cpp
 //https://github.com/arnaudgelas/OpenCVExamples/blob/master/cvMat/Statistics/Entropy/Entropy.cpp
 cv::Scalar Entropy(cv::Mat image)
@@ -110,17 +123,16 @@ cv::Scalar Entropy(cv::Mat image)
 ```
 
 ## 已完成部分说明
-* 实现了摄像头、视频、图像三种检测模式的选择
-* 实现了对火焰图像圆形度、偏心率、熵值等特征值的计算
-* 实现了将检测日志打印并保存到myeasylog.log
+* 实现了摄像头、视频、图像三种检测模式的选择 -2022.8
+* 实现了对火焰图像圆形度、偏心率、熵值等特征值的计算 -2022.11
+* 实现了将检测日志打印并保存到myeasylog.log -2022.8
   * 程序运行需包含external_module
   * 包含打印日志的模块easylogging++库  
-* 实现了基于CppLinuxSerial库的串口通信  
-* 实现了将火焰特征值保存到csv/excel文件中
-  
+* 实现了基于CppLinuxSerial库的串口通信 -2022.11 
+* 实现了将火焰特征值保存到csv/excel文件中 -2022.11
+* 修改为每隔flag帧处理一次图像，减少计算量（抽帧处理） -2022.11  
+
 ## 待完成内容
-* 修改为每隔flag帧处理一次图像，减少计算量
-* 预处理的自适应分割
 * C++编写SVM模型，建立火焰和其他干扰项特征值数据集，实现输入特征-->预测有火/无火
 
 ## 参考资料

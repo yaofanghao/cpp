@@ -14,17 +14,11 @@ using namespace cv;
 using namespace std;
 
 // general settings
+long long flag = 100000000;  // 抽帧处理参数
 double fps = 25.0;
 int CapWidth = 1280;
 int CapHeight = 960;
 int ellipse_low = 5; // There should be at least 5 points to fit the ellipse
-
-// 11.1-night fire
-//int hl = 0, hh = 50, sl = 0, sh = 80, vl = 250, vh = 255; // range of hsv
-//int kernal_size = 3; // open kernal size
-//double contours_ratio = 0; // ratio = contours / area
-//double round_low = 0.2; // round of coutours
-//int cntlen_low = 10; // length of coutours
 
 // 11.19-day fire
 int hl = 0, hh = 200, sl = 0, sh = 200, vl = 250, vh = 255; 
@@ -32,6 +26,13 @@ int kernal_size = 5;
 double contours_ratio = 0; 
 double round_low = 0.1;
 int cntlen_low = 20;
+
+// 11.1-night fire
+//int hl = 0, hh = 50, sl = 0, sh = 80, vl = 250, vh = 255; // range of hsv
+//int kernal_size = 3; // open kernal size
+//double contours_ratio = 0; // ratio = contours / area
+//double round_low = 0.2; // round of coutours
+//int cntlen_low = 10; // length of coutours
 
 static void help(char* progName) {
 	cout << "Usage:" << endl
@@ -92,7 +93,7 @@ cv::Scalar Entropy(cv::Mat image)
 	return e;
 }
 
-// main processing program for image
+// main processing program for image. &oFile -- save path for csv
 void processing(Mat frame, ofstream &oFile)
 {
 	Mat img1, hsv, mask;
@@ -113,10 +114,14 @@ void processing(Mat frame, ofstream &oFile)
 	vector<vector<Point>>contours;
 	vector<Vec4i>hierarchy;
 	cv::findContours(mask, contours, hierarchy, RETR_LIST, CHAIN_APPROX_SIMPLE);
-	// cv::drawContours(frame, contours, -1, Scalar(0, 0, 255), 3);
+	//cv::drawContours(frame, contours, -1, Scalar(0, 0, 255), 3);
+	vector<vector<Point>>hull(contours.size());	
+	
 	int image_area = frame.rows * frame.cols;
-	for (int i = 0; i < contours.size(); i++)
+	for (size_t i = 0; i < contours.size(); i++)
 	{
+		convexHull(contours[i], hull[i]);  	// caculate convexhull
+		
 		double area = contourArea(contours[i]);
 		double length = arcLength(contours[i], true);
 		double roundIndex = 4 * 3.1415926 * area / (length * length + 0.00001);
@@ -124,7 +129,7 @@ void processing(Mat frame, ofstream &oFile)
 		if ((area > contours_ratio * image_area) && (roundIndex > round_low) 
 			&& (length > cntlen_low) && (contours[i].size() > ellipse_low)){		
 			Rect rect = boundingRect(contours[i]);
-			rectangle(frame, rect, (255, 0, 0), 5);
+			//rectangle(frame, rect, (255, 0, 0), 5);
 			
 			RotatedRect box = fitEllipse(contours[i]);
 			double ellipseA = box.size.height;
@@ -145,10 +150,19 @@ void processing(Mat frame, ofstream &oFile)
 				<< "-length:" << length << "-roundIndex:" << roundIndex 
 				<< "-eccIndex:" << eccIndex << "-entropy:" << ent.val[0];
 		}
+
 		//else {
 		//	LOG(INFO) << "No fire.";
 		//}
 	}
+
+	// draw convexhull
+	for (size_t i = 0; i < contours.size(); i++)
+	{
+		//drawContours(mask, contours, (int)i, Scalar(0, 0, 255));
+		drawContours(frame, hull, (int)i, Scalar(255, 0, 0), 5);
+	}
+
 	cv::namedWindow("result", WINDOW_NORMAL);
 	cv::imshow("result", frame);
 }
@@ -173,6 +187,7 @@ int main(int argc, char** argv)
 
 	LOG(INFO) << "Start fire detect!";
 	LOG(INFO) << "Detect result save to detect_result.csv";
+	LOG(INFO) << "Detect per " << flag ;
 	char answer = 0;
 	cout << "please enter the detect mode [c -camera / v -video / i -image]" << endl;
 	cin >> answer;
@@ -197,25 +212,30 @@ int main(int argc, char** argv)
 		string save_path = "out.avi";
 		writer.open(save_path, codec, fps, size, true);
 
+		int frame_num = 0;  // caculate number of frame
 		while (1){
-			Mat frame;
-			capture >> frame;
-			if (frame.empty())
-				break;
+			frame_num += 1;
+			if (frame_num % flag == 0){
+				Mat frame;
+				capture >> frame;
+				if (frame.empty())
+					break;
 
-			processing(frame, oFile);
+				//cout << "detect No." << frame_num << " frame" << endl;
+				processing(frame, oFile);
 
-			writer.write(frame);
-			if (!writer.isOpened()){
-				cerr << "failed to open the video" << endl;
-				return -1;
+				writer.write(frame);
+				if (!writer.isOpened()) {
+					cerr << "failed to open the video" << endl;
+					return -1;
+				}
+				if (!capture.read(frame)) {
+					cout << "detection done!" << endl;
+					break;
+				}
+				int c = waitKey(50);
+				if (c == 27) break;
 			}
-			if (!capture.read(frame)){
-				cout << "detection done!" << endl;
-				break;
-			}
-			int c = waitKey(50);
-			if (c == 27) break;
 		}
 		writer.release();
 		return 0;
@@ -226,29 +246,37 @@ int main(int argc, char** argv)
 		VideoCapture capture("day.mp4"); // day.mp4 as example
 		VideoWriter writer;
 		int codec = VideoWriter::fourcc('M', 'J', 'P', 'G');
+		int fps = capture.get(CAP_PROP_FRAME_COUNT);
 		Size size = Size(int(capture.get(CAP_PROP_FRAME_WIDTH)), int(capture.get(CAP_PROP_FRAME_HEIGHT)));
 		string save_path = "out.avi";
 		writer.open(save_path, codec, fps, size, true);
 		Size dsize = Size(800, 450); // resize image for processing faster
-		while (1)
-		{
-			Mat frame;
-			capture >> frame;
-			if (frame.empty())
-				break;
-			resize(frame, frame, dsize, 0, 0, INTER_AREA);
-			processing(frame, oFile);
-			writer.write(frame);
-			if (!writer.isOpened()){
-				cout << "failed to open the video" << endl;
-				return -1;
+		
+		int frame_num = 0;  // caculate number of frame
+		while (1){
+			frame_num += 1;
+			if (frame_num % flag == 0){
+				Mat frame;
+				capture >> frame;
+				if (frame.empty())
+					break;
+
+				//cout << "detect No." << frame_num << " frame" << endl;
+				resize(frame, frame, dsize, 0, 0, INTER_AREA);
+				processing(frame, oFile);
+
+				writer.write(frame);
+				if (!writer.isOpened()) {
+					cerr << "failed to open the video" << endl;
+					return -1;
+				}
+				if (!capture.read(frame)) {
+					cout << "detection done!" << endl;
+					break;
+				}
+				int c = waitKey(50);
+				if (c == 27) break;
 			}
-			if (!capture.read(frame)){
-				cout << "detection done!" << endl;
-				break;
-			}
-			int c = waitKey(50);
-			if (c == 27) break;
 		}
 		writer.release();
 		return 0;
