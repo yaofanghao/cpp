@@ -36,4 +36,7 @@
   * 11_14.cpp string容器的基本概念和常用操作
   * 11_18.cpp vector容器的常用操作
   * 11_21.cpp deque容器的常用操作
+  * stack list map 等容器略
+
+* 仿函数
   * 

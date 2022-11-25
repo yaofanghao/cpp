@@ -68,4 +68,4 @@
   * vector容器
   * string容器
   * deque容器
-  * 
+  * 仿函数
