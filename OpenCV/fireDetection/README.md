@@ -137,6 +137,7 @@ cv::Scalar Entropy(cv::Mat image)
 
 ## ²Î¿¼×ÊÁÏ
 * https://docs.opencv.org/4.x/df/d0d/tutorial_find_contours.html
+* https://docs.opencv.org/4.x/d5/d04/samples_2cpp_2convexhull_8cpp-example.html#a12
 * https://github.com/amrayn/easyloggingpp
 * https://github.com/gbmhunter/CppLinuxSerial.git
 * https://github.com/arnaudgelas/OpenCVExamples/blob/master/cvMat/Statistics/Entropy/Entropy.cpp
