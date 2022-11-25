@@ -1,8 +1,0 @@
-﻿################################################################################
-# 此 .gitignore 文件已由 Microsoft(R) Visual Studio 自动创建。
-################################################################################
-
-/高性能计算中心
-
-/OpenCV/fireDetection/cascade_data/cascade2.0/opencv_world3415d.dll
-/StudyDataStructure/.history
