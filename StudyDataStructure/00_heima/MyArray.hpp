@@ -1,4 +1,4 @@
-// 11_4.cpp调用的类模板
+// 11_2_3.cpp调用的类模板
 // 需求分析：
 //  class MyArray
 //  private 

@@ -124,16 +124,19 @@ cv::Scalar Entropy(cv::Mat image)
 
 ## 已完成部分说明
 * 实现了摄像头、视频、图像三种检测模式的选择 -2022.8
-* 实现了对火焰图像圆形度、偏心率、熵值等特征值的计算 -2022.11
+
 * 实现了将检测日志打印并保存到myeasylog.log -2022.8
   * 程序运行需包含external_module
   * 包含打印日志的模块easylogging++库  
+* 实现了对火焰图像圆形度、偏心率、熵值等特征值的计算 -2022.11
 * 实现了基于CppLinuxSerial库的串口通信 -2022.11 
+  * 详见CppLinuxSerial_demo文件夹
 * 实现了将火焰特征值保存到csv/excel文件中 -2022.11
 * 修改为每隔flag帧处理一次图像，减少计算量（抽帧处理） -2022.11  
 
 ## 待完成内容
-* C++编写SVM模型，建立火焰和其他干扰项特征值数据集，实现输入特征-->预测有火/无火
+* 制作火焰和其他干扰项特征值数据集
+* 建立SVM模型，实现输入特征-->预测有火/无火
 
 ## 参考资料
 * https://docs.opencv.org/4.x/df/d0d/tutorial_find_contours.html
@@ -142,3 +145,4 @@ cv::Scalar Entropy(cv::Mat image)
 * https://github.com/gbmhunter/CppLinuxSerial.git
 * https://github.com/arnaudgelas/OpenCVExamples/blob/master/cvMat/Statistics/Entropy/Entropy.cpp
 * https://www.csie.ntu.edu.tw/~cjlin/libsvm/
+* https://blog.csdn.net/jsgaobiao/article/details/50202757
