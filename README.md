@@ -21,6 +21,8 @@
   * 深度相机使用的简单介绍
 * project_code
   * 师兄H的项目代码
+* serial_demo
+  * 基于C++方法的串口通信，CppLinuxSerial、WiringPi、WZSerial库的实现示例
 * **STLSourceCodeNote**
   * STL源码阅读
 * **StudyDataStructure**
