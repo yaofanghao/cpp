@@ -1,13 +1,6 @@
-﻿// reference:
-// https://github.com/ayowin/WzSerialportPlus
-// https://learn.microsoft.com/en-us/cpp/standard-library/string-functions
-// https://blog.csdn.net/weixin_44353958/article/details/104156394
-// https://blog.csdn.net/Touch_Dream/article/details/82915553
-
-// 2022.11.27 -@yaofanghao 
+﻿// 2022.11.27
 // convert char to double --stod() 
 // change mode for read double num
-
 
 #include <iostream>
 #include <string.h>
