@@ -24,6 +24,8 @@
   * 基于C++的OpenCV简单应用
   * paddle-lite的简单介绍
   * https://docs.opencv.org/4.x/index.html
+  * https://github.com/opencv/opencv
+  * https://github.com/oreillymedia/Learning-OpenCV-3_examples
   * https://www.paddlepaddle.org.cn/
   * https://github.com/PaddlePaddle/Paddle-Lite  * 
 * OpenNI
@@ -49,11 +51,11 @@
   * 王道考研数据结构学习记录
   * C++入门学习记录
   * 《数据结构（邓俊辉）》参考代码
-
+  * https://dsa.cs.tsinghua.edu.cn/~deng/ds/dsacpp/index.htm
+  * https://github.com/0voice/introduce_c-cpp_manual
+  * https://blog.csdn.net/qq_40679299/article/details/107721116
 
 # 
-CMake
-
 2022.6-2022.9 OpenCV
 
 2022.7-2022.8 C程序设计语言-K&R / C和指针

@@ -3,11 +3,11 @@
 // https://learn.microsoft.com/en-us/cpp/standard-library/string-functions
 // https://blog.csdn.net/weixin_44353958/article/details/104156394
 // https://blog.csdn.net/Touch_Dream/article/details/82915553
-// https://blog.csdn.net/electrocrazy/article/details/72876022
 
 // 2022.11.27 -@yaofanghao 
 // convert char to double --stod() 
-// change mode for read double
+// change mode for read double num
+
 
 #include <iostream>
 #include <string.h>
