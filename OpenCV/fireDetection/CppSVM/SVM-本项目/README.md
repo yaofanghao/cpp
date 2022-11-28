@@ -10,8 +10,6 @@
 * 实现在main.cpp，编译**需包含svm.cpp和svm.h文件**
 * 数据集
   * train.txt 训练集和验证集
-  * eval.txt 测试集
-  * real_value.txt 测试集的真实值
 * 数据清理
   * 避免各类特征值权重对模型的影响，以及防止训练时数值计算的困难，将输入特征统一**归一化**到[0,1]之间
 * 调用方法和参数说明--不清楚的设置参数先选择默认值
@@ -80,3 +78,10 @@
   * SVM是一个二分类器，当遇到多类别的时候，一般采取如下两种策略。 
   a.一对多法（one-versus-rest,简称1-v-r SVMs）。训练时依次把某个类别的样本归为一类,其他剩余的样本归为另一类，这样k个类别的样本就构造出了k个SVM。分类时将未知样本分类为具有最大分类函数值的那类。
   b.一对一法（one-versus-one,简称1-v-1 SVMs）。其做法是在任意两类样本之间设计一个SVM，因此k个类别的样本就需要设计k(k-1)/2个SVM。当对一个未知样本进行分类时，最后得 票最多的类别即为该未知样本的类别。Libsvm中的多类分类就是根据这个方法实现的
+
+* csv批量合并的command指令：
+  * copy *.csv all.csv
+* csv转excel格式工具
+  * https://tableconvert.com/zh-cn/csv-to-excel
+* excel转txt格式工具
+  * https://cdkm.com/cn/xls-to-txt
