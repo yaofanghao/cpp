@@ -13,8 +13,6 @@ using namespace std;
 #pragma warning (disable: 4514 4786)
 #endif
 
-
-
 svm_parameter param;
 svm_problem prob;
 svm_model *svmModel;
@@ -25,6 +23,7 @@ const int nTstTimes=10;
 vector<int> predictvalue;
 vector<int> realvalue;
 int trainNum=0;
+
 void setParam()
 {
     param.svm_type = C_SVC;
@@ -43,6 +42,7 @@ void setParam()
 	param.weight = NULL;
     param.weight_label =NULL;
 }
+
 void train(char *filePath)
 {
 	
@@ -62,8 +62,7 @@ void train(char *filePath)
 		 	fscanf(fp,"%d",&temp);
            
 			cout << "training... line" << line; 
-			cout << " temp:" << temp << endl;	
-				
+			cout << " temp:" << temp << endl;					
 	         
 			features[k].index = k + 1;
 			features[k].value = temp/(MAX*1.0) ;
@@ -110,6 +109,7 @@ void train(char *filePath)
 	delete [] prob.x;
 	svm_free_and_destroy_model(&svmModel);
 }
+
 void predict(char *filePath)
 {
    svm_model *svmModel = svm_load_model("model.txt");
@@ -144,6 +144,7 @@ void predict(char *filePath)
 	}
 
 }
+
 void writeValue(vector<int> &v,string filePath)
 {
   
@@ -165,6 +166,7 @@ void writeValue(vector<int> &v,string filePath)
 	fclose(pfile);
     delete c;
 }
+
 bool getRealValue()
 {
     FILE *fp;
@@ -182,6 +184,7 @@ bool getRealValue()
 	}
 	return true;
 }
+
 double getAccuracy()
 {
     if(!getRealValue())
@@ -200,6 +203,7 @@ double getAccuracy()
     //cout<<realvalue.size()<<endl;  //目标值为1的记录测试真确的个数
 	return counter*1.0/realvalue.size();
 }
+
 int main()
 {
     clock_t t1,t2,t3;

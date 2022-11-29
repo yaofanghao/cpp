@@ -7,7 +7,8 @@
 * https://blog.csdn.net/jsgaobiao/article/details/50202757
 
 ## 实现过程
-* 实现在main.cpp，编译**需包含svm.cpp和svm.h文件**
+* **模型训练代码在train.cpp，预测代码在predict.cpp**
+* 编译需**包含svm.cpp和svm.h文件**
 * 数据集
   * train.txt 训练集和验证集
 * 数据清理
@@ -79,9 +80,18 @@
   a.一对多法（one-versus-rest,简称1-v-r SVMs）。训练时依次把某个类别的样本归为一类,其他剩余的样本归为另一类，这样k个类别的样本就构造出了k个SVM。分类时将未知样本分类为具有最大分类函数值的那类。
   b.一对一法（one-versus-one,简称1-v-1 SVMs）。其做法是在任意两类样本之间设计一个SVM，因此k个类别的样本就需要设计k(k-1)/2个SVM。当对一个未知样本进行分类时，最后得 票最多的类别即为该未知样本的类别。Libsvm中的多类分类就是根据这个方法实现的
 
-* csv批量合并的command指令：
-  * copy *.csv all.csv
-* csv转excel格式工具
-  * https://tableconvert.com/zh-cn/csv-to-excel
-* excel转txt格式工具
-  * https://cdkm.com/cn/xls-to-txt
+
+## 遇到的问题
+* 11.28 数据集制作
+  * csv批量合并的command指令
+    * copy *.csv all.csv
+  * csv转excel格式工具
+    * https://tableconvert.com/zh-cn/csv-to-excel
+  * excel转txt格式工具
+    * https://cdkm.com/cn/xls-to-txt
+* 11.29 无法读取train.txt文件
+  * 解决方法：
+  * 将txt转为UTF-8的编码格式
+  * 对于读取txt小数，部分代码需修改为
+    * float temp;
+    * fscanf(fp,"%f",&temp); 	
