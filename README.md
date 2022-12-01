@@ -11,6 +11,10 @@
   * https://google.github.io/styleguide/cppguide.html
   * https://learn.microsoft.com/en-us/cpp/?view=msvc-170
   * https://www.bilibili.com/video/BV1z64y1U7hs/?mid=213757645
+* C++Concurrency
+  * C++并发编程入门学习
+  * https://www.bogotobogo.com/cplusplus/C11/
+  * https://www.bookstack.cn/read/Cpp_Concurrency_In_Action/README.md
 * CppDesignPatterns
   * 基于C++《设计模式》的学习记录
   * https://github.com/liu-jianhao/Cpp-Design-Patterns
@@ -70,7 +74,7 @@
 
 2022.8- **数据结构-邓俊辉 / 数据结构-王道考研**
 
-2022.9- 黑马C++网课
+2022.9-2022.11 黑马C++网课
 
 2022.11 CppLinuxSerial / wiringPi / WZSerialPort 串口通信
 
@@ -79,3 +83,5 @@
 2022.11- **STL源码剖析**
 
 2022.11- **现代C++语言核心特性解析**
+
+2022.11- C++并发编程

@@ -66,7 +66,7 @@ int main(int argumentCount, const char* argumentValues[])
 			if (typeid(num_of_buf)==typeid(double) && num_of_buf!=0){
 				cout << "receive a double number: " << num_of_buf << endl;
 			}
-			// else {
+			// else { 
 			// 	cout << "fail" << endl;
 			// }
 		}

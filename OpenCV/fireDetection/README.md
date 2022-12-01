@@ -139,6 +139,7 @@ cv::Scalar Entropy(cv::Mat image)
   * 实现过程详见CppSVM文件夹
   
 ## 待完成部分
+* 学习C++并发编程，线程切换，串口通信和图像处理任务间切换
 * 树莓派接收STM32发送数据，并将SVM模型预测结果的值传回STM32
 
 ## 参考资料
@@ -149,3 +150,4 @@ cv::Scalar Entropy(cv::Mat image)
 * https://github.com/arnaudgelas/OpenCVExamples/blob/master/cvMat/Statistics/Entropy/Entropy.cpp
 * https://www.csie.ntu.edu.tw/~cjlin/libsvm/
 * https://blog.csdn.net/jsgaobiao/article/details/50202757
+* https://www.bookstack.cn/read/Cpp_Concurrency_In_Action/README.md

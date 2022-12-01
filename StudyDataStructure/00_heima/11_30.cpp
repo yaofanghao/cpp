@@ -1,0 +1,30 @@
+// p243-263 STL常用算法介绍
+// 代码略
+// --------
+// 遍历 
+    // for_each 
+    // transform 
+// 查找 
+    // find 
+    // find_if 
+    // adjacent_find 
+    // binary_search 
+    // count 
+    // count_if
+// 排序 
+    // sort 
+    // random_shuffle 
+    // merge 
+    // reverse
+// 拷贝和替换 
+    // copy 
+    // replace 
+    // replace_if 
+    // swap
+// 算术生成 
+    // accumulate 
+    // fill 
+// 集合 
+    // set_intersection 
+    // set_union 
+    // set_diference
