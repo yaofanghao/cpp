@@ -9,4 +9,4 @@
 # target_include_directories(barcode_idf
 #           INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}
 #           )
-add_library(external_module easylogging++.cc)
+add_library(external_module easylogging++.cc WzSerialPort.cpp)

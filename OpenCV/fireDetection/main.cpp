@@ -5,7 +5,12 @@
 #include <opencv2/videoio.hpp>
 #include <iostream>
 #include <opencv2/highgui/highgui_c.h>
+#include <string.h>
+#include <stdlib.h>
+#include <typeinfo>
+#include <vector>
 #include "easylogging++.h"
+#include "WzSerialPort.h"
 
 #define _CRT_SECURE_NO_WARNINGS 1
 INITIALIZE_EASYLOGGINGPP
@@ -15,6 +20,7 @@ using namespace std;
 
 // general settings
 long long flag = 100000000;  // 抽帧处理参数
+int receive_preiod = 5; //  每间隔recieve_preiod*flag 接收一次串口的数据
 double fps = 25.0;
 int CapWidth = 1280;
 int CapHeight = 960;
@@ -93,6 +99,63 @@ cv::Scalar Entropy(cv::Mat image)
 	return e;
 }
 
+void receiveDemo() {
+	WzSerialPort w;
+	std::cout << "this is a receive demo" << std::endl;
+	if (w.open("/dev/ttyS0", 115200, 0, 8, 1)){
+		w.send("helloworld ", 10);
+		std::cout << "--------connect to STM32... wait for serial open" << std::endl;
+
+		char buf[1024];   // buf存放接收到的数据
+		vector<double> receive_num; // 将接收到的四个数据存放至此，格式为double
+		while (true){
+			memset(buf, 0, 1024);
+			w.receive(buf, 1024);
+			// cout << buf;
+
+			char delims[] = " ";
+			char* result = NULL;
+			char* ptr;
+			double ret;
+			result = strtok(buf, delims);	// 收到的字符串按空格作为割
+			int i = 0;
+			while (result != NULL) {
+				// printf("result is \"%s\"\n", result);
+				ret = strtod(result, &ptr);
+				if (typeid(ret) == typeid(double)) {
+					//cout << "receive a double number: " << ret << endl;
+					receive_num.push_back(ret);
+					i++;
+				}
+				result = strtok(NULL, delims);
+
+				if (i == 4) {
+					cout << "success received!" << endl;
+					cout << "receive num is: ";
+					// 基于vecotr迭代器读取数据，用于后续SVM模型的处理
+					for (auto i : receive_num) {
+						if (typeid(i) == typeid(double)) {
+							cout << i << " ";
+						}
+						else {
+							cout << i << "is not a number" << endl;
+						}
+					}
+					// 读完四个数关闭串口，后续可以优化
+					 cout << endl;
+					 cout << "--------close serial!" << endl;
+					 w.close();
+					 return;				
+				}
+			}
+		}
+	}
+	else {
+		cout << "open serial port failed...";
+	}
+	w.close();
+}
+
 // main processing program for image. &oFile -- save path for csv
 void processing(Mat frame, ofstream &oFile)
 {
@@ -146,11 +209,10 @@ void processing(Mat frame, ofstream &oFile)
 			//write data to excel
 			oFile << area << "," << length << "," << roundIndex << "," 
 				<< eccIndex << "," << ent.val[0] << endl;
-			LOG(INFO) << "Find fire." << "-area:" << area 
-				<< "-length:" << length << "-roundIndex:" << roundIndex 
-				<< "-eccIndex:" << eccIndex << "-entropy:" << ent.val[0];
+			//LOG(INFO) << "Find fire." << "-area:" << area 
+			//	<< "-length:" << length << "-roundIndex:" << roundIndex 
+			//	<< "-eccIndex:" << eccIndex << "-entropy:" << ent.val[0];
 		}
-
 		//else {
 		//	LOG(INFO) << "No fire.";
 		//}
@@ -162,7 +224,6 @@ void processing(Mat frame, ofstream &oFile)
 		//drawContours(mask, contours, (int)i, Scalar(0, 0, 255));
 		drawContours(frame, hull, (int)i, Scalar(255, 0, 0), 5);
 	}
-
 	cv::namedWindow("result", WINDOW_NORMAL);
 	cv::imshow("result", frame);
 }
@@ -196,14 +257,15 @@ int main(int argc, char** argv)
 	// camera detection
 	case 'c':{
 		VideoCapture capture;
-		capture.open(0); // choose camera index - 1 for usb camera
+		capture.open(0); // choose camera index -0/1
 		capture.set(CAP_PROP_FRAME_WIDTH, CapWidth);
 		capture.set(CAP_PROP_FRAME_HEIGHT, CapHeight);
+		//double fps = capture.get(CAP_PROP_FRAME_COUNT);
 		if (!capture.isOpened()){
 			cerr << "camera not open!" << endl;
 			return -1;
 		}
-		LOG(INFO) << "fps:" << fps;
+		//LOG(INFO) << "fps:" << fps;
 		LOG(INFO) << "width:" << int(capture.get(CAP_PROP_FRAME_WIDTH));
 		LOG(INFO) << "height:" << int(capture.get(CAP_PROP_FRAME_HEIGHT));
 		VideoWriter writer;
@@ -221,8 +283,14 @@ int main(int argc, char** argv)
 				if (frame.empty())
 					break;
 
-				//cout << "detect No." << frame_num << " frame" << endl;
+				cout << "image processing... frame num:" << frame_num << endl;
 				processing(frame, oFile);
+
+				// goto open serial port and receive data from STM32
+				if (frame_num % (receive_preiod * flag) == 0) {
+					cout << "receive data... frame num:" << frame_num << " frame" << endl;
+					receiveDemo();
+				}
 
 				writer.write(frame);
 				if (!writer.isOpened()) {
@@ -246,8 +314,11 @@ int main(int argc, char** argv)
 		VideoCapture capture("day.mp4"); // day.mp4 as example
 		VideoWriter writer;
 		int codec = VideoWriter::fourcc('M', 'J', 'P', 'G');
-		int fps = capture.get(CAP_PROP_FRAME_COUNT);
+		double fps = capture.get(CAP_PROP_FRAME_COUNT);
 		Size size = Size(int(capture.get(CAP_PROP_FRAME_WIDTH)), int(capture.get(CAP_PROP_FRAME_HEIGHT)));
+		LOG(INFO) << "fps:" << fps;
+		LOG(INFO) << "width:" << int(capture.get(CAP_PROP_FRAME_WIDTH));
+		LOG(INFO) << "height:" << int(capture.get(CAP_PROP_FRAME_HEIGHT));
 		string save_path = "out.avi";
 		writer.open(save_path, codec, fps, size, true);
 		Size dsize = Size(800, 450); // resize image for processing faster
@@ -261,9 +332,15 @@ int main(int argc, char** argv)
 				if (frame.empty())
 					break;
 
-				//cout << "detect No." << frame_num << " frame" << endl;
 				resize(frame, frame, dsize, 0, 0, INTER_AREA);
+				cout << "image processing... frame num:" << frame_num << endl;
 				processing(frame, oFile);
+
+				// goto open serial port and receive data from STM32
+				if (frame_num % (receive_preiod * flag) == 0) {
+					cout << "receive data... frame num:" << frame_num << " frame" << endl;
+					receiveDemo();
+				}
 
 				writer.write(frame);
 				if (!writer.isOpened()) {
