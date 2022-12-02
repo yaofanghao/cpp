@@ -6,9 +6,11 @@
 #include <iostream>
 #include <opencv2/highgui/highgui_c.h>
 #include <string.h>
+#include <numeric>
 #include <stdlib.h>
 #include <typeinfo>
 #include <vector>
+#include <ctime>
 #include "easylogging++.h"
 #include "WzSerialPort.h"
 
@@ -19,12 +21,14 @@ using namespace cv;
 using namespace std;
 
 // general settings
-long long flag = 100000000;  // 抽帧处理参数
-int receive_preiod = 5; //  每间隔recieve_preiod*flag 接收一次串口的数据
+long long flag = 10000000;  // 抽帧处理参数
+int receive_preiod = 3; //  每间隔recieve_preiod*flag 接收一次串口的数据
 double fps = 25.0;
 int CapWidth = 1280;
 int CapHeight = 960;
 int ellipse_low = 5; // There should be at least 5 points to fit the ellipse
+std::vector<double> receive_num;  // 存放从32接收到数据的容器
+std::vector<double> processing_result; // 存放每帧图片图片后的特征值（圆形度、偏心率、熵）的容器
 
 // 11.19-day fire
 int hl = 0, hh = 200, sl = 0, sh = 200, vl = 250, vh = 255; 
@@ -45,8 +49,7 @@ static void help(char* progName) {
 		 << progName << "[mode - c / v / i ]" << "[save_path -- default out.mp4]" << endl;
 }
 
-Mat imgopen(Mat mask, int kernal_size)
-{
+Mat imgopen(Mat mask, int kernal_size){
 	Mat element, maskDst;
 	element = getStructuringElement(MORPH_RECT, Size(kernal_size, kernal_size));
 	morphologyEx(mask, maskDst, MORPH_OPEN, element);
@@ -55,8 +58,7 @@ Mat imgopen(Mat mask, int kernal_size)
 
 // caculate entropy for a gray image
 //https://github.com/arnaudgelas/OpenCVExamples/blob/master/cvMat/Statistics/Entropy/Entropy.cpp
-cv::Scalar Entropy(cv::Mat image)
-{
+cv::Scalar Entropy(cv::Mat image){
 	std::vector<cv::Mat> channels;
 	cv::split(image, channels);
 	int histSize = 256;
@@ -99,20 +101,19 @@ cv::Scalar Entropy(cv::Mat image)
 	return e;
 }
 
-void receiveDemo() {
+std::vector<double> receiveDemo() {
 	WzSerialPort w;
-	std::cout << "this is a receive demo" << std::endl;
 	if (w.open("/dev/ttyS0", 115200, 0, 8, 1)){
-		w.send("helloworld ", 10);
-		std::cout << "--------connect to STM32... wait for serial open" << std::endl;
+		// w.send("helloworld ", 10);
+		std::cout << "connect to STM32... wait for serial open" << std::endl;
 
 		char buf[1024];   // buf存放接收到的数据
-		vector<double> receive_num; // 将接收到的四个数据存放至此，格式为double
+		std::vector<double> receive_num; // 将接收到的四个数据存放至此，格式为double
 		while (true){
 			memset(buf, 0, 1024);
 			w.receive(buf, 1024);
 			// cout << buf;
-
+			
 			char delims[] = " ";
 			char* result = NULL;
 			char* ptr;
@@ -130,22 +131,10 @@ void receiveDemo() {
 				result = strtok(NULL, delims);
 
 				if (i == 4) {
-					cout << "success received!" << endl;
-					cout << "receive num is: ";
-					// 基于vecotr迭代器读取数据，用于后续SVM模型的处理
-					for (auto i : receive_num) {
-						if (typeid(i) == typeid(double)) {
-							cout << i << " ";
-						}
-						else {
-							cout << i << "is not a number" << endl;
-						}
-					}
-					// 读完四个数关闭串口，后续可以优化
-					 cout << endl;
-					 cout << "--------close serial!" << endl;
-					 w.close();
-					 return;				
+					// 读完四个数关闭串口，后续可以优化					
+					cout << "success received, close serial!" << endl;
+					w.close();
+					return receive_num;				
 				}
 			}
 		}
@@ -157,9 +146,13 @@ void receiveDemo() {
 }
 
 // main processing program for image. &oFile -- save path for csv
-void processing(Mat frame, ofstream &oFile)
-{
+// return processing_result vector
+std::vector<double> processing(Mat frame, ofstream &oFile){
 	Mat img1, hsv, mask;
+	std::vector<double> processing_result;  // 存放每帧图片图片后的特征值（圆形度、偏心率、熵）的容器
+	std::vector<double> roundIndex_result;
+	std::vector<double> eccIndex_result;
+	std::vector<double> entropy_result;
 	Mat kernel = getStructuringElement(MORPH_RECT, Size(3, 3));
 	
 	//entropy -2022.11.23
@@ -183,12 +176,10 @@ void processing(Mat frame, ofstream &oFile)
 	int image_area = frame.rows * frame.cols;
 	for (size_t i = 0; i < contours.size(); i++)
 	{
-		convexHull(contours[i], hull[i]);  	// caculate convexhull
-		
+		convexHull(contours[i], hull[i]);  	// caculate convexhull		
 		double area = contourArea(contours[i]);
 		double length = arcLength(contours[i], true);
 		double roundIndex = 4 * 3.1415926 * area / (length * length + 0.00001);
-
 		if ((area > contours_ratio * image_area) && (roundIndex > round_low) 
 			&& (length > cntlen_low) && (contours[i].size() > ellipse_low)){		
 			Rect rect = boundingRect(contours[i]);
@@ -212,6 +203,9 @@ void processing(Mat frame, ofstream &oFile)
 			//LOG(INFO) << "Find fire." << "-area:" << area 
 			//	<< "-length:" << length << "-roundIndex:" << roundIndex 
 			//	<< "-eccIndex:" << eccIndex << "-entropy:" << ent.val[0];
+			roundIndex_result.push_back(roundIndex);
+			eccIndex_result.push_back(eccIndex);
+			entropy_result.push_back(ent.val[0]);
 		}
 		//else {
 		//	LOG(INFO) << "No fire.";
@@ -224,8 +218,30 @@ void processing(Mat frame, ofstream &oFile)
 		//drawContours(mask, contours, (int)i, Scalar(0, 0, 255));
 		drawContours(frame, hull, (int)i, Scalar(255, 0, 0), 5);
 	}
+
+	// calculate average of roundindex, eccindex, entropy
+	double mean_roundIndex = 0.0;
+	double mean_eccIndex = 0.0;
+	double mean_entropy = 0.0;
+	if (!roundIndex_result.empty()) { mean_roundIndex = 0.0; }
+	if (!eccIndex_result.empty()) { mean_eccIndex = 0.0; }
+	if (!entropy_result.empty()) { mean_entropy = 0.0; }	
+	if(!roundIndex_result.empty()&& !eccIndex_result.empty() && !entropy_result.empty())
+	{
+		double sum_roundIndex = accumulate(begin(roundIndex_result), end(roundIndex_result), 0.0); 
+		mean_roundIndex = sum_roundIndex / roundIndex_result.size(); // 求单张图中圆形度的均值，以下类似
+		double sum_eccIndex = accumulate(begin(eccIndex_result), end(eccIndex_result), 0.0);
+		mean_eccIndex = sum_eccIndex / eccIndex_result.size();
+		double sum_entropy = accumulate(begin(entropy_result), end(entropy_result), 0.0);
+		mean_entropy = sum_entropy / entropy_result.size();
+	}
+	processing_result.push_back(mean_roundIndex);
+	processing_result.push_back(mean_eccIndex);
+	processing_result.push_back(mean_entropy);
+
 	cv::namedWindow("result", WINDOW_NORMAL);
 	cv::imshow("result", frame);
+	return processing_result;
 }
 
 int main(int argc, char** argv)
@@ -275,21 +291,39 @@ int main(int argc, char** argv)
 		writer.open(save_path, codec, fps, size, true);
 
 		int frame_num = 0;  // caculate number of frame
-		while (1){
-			frame_num += 1;
+		int a =0;			
+		while (1){	
+			frame_num++;	
 			if (frame_num % flag == 0){
 				Mat frame;
 				capture >> frame;
 				if (frame.empty())
-					break;
-
-				cout << "image processing... frame num:" << frame_num << endl;
-				processing(frame, oFile);
+					break;					
+				
+				// image process
+				clock_t t1,t2,t3;
+				t1 = clock();
+				cout << "image processing... total time1: " <<  1.0*t1/CLOCKS_PER_SEC << " s" << endl;				
+				std::vector<double> processing_result = processing(frame, oFile);
+				a++;
 
 				// goto open serial port and receive data from STM32
 				if (frame_num % (receive_preiod * flag) == 0) {
-					cout << "receive data... frame num:" << frame_num << " frame" << endl;
-					receiveDemo();
+					receive_num = receiveDemo();
+					t2 = clock();					
+					cout << "image processing total frame: " << a << endl;
+					cout << "receive data from STM32: ";
+					for (auto i : receive_num) {
+						cout << i << " ";
+					}
+					cout << endl;
+					cout << "mean roundIndex, eccIndex, entropy is: ";
+					for (auto i : processing_result) {
+						cout << i << " ";
+					}
+					cout << endl;
+					cout << "total time2: " <<  1.0*t2/CLOCKS_PER_SEC << " s" << endl;
+					cout << "-----------------------------------------" << endl;
 				}
 
 				writer.write(frame);
@@ -312,34 +346,50 @@ int main(int argc, char** argv)
 	// video detection		
 	case 'v':{
 		VideoCapture capture("day.mp4"); // day.mp4 as example
-		VideoWriter writer;
-		int codec = VideoWriter::fourcc('M', 'J', 'P', 'G');
-		double fps = capture.get(CAP_PROP_FRAME_COUNT);
-		Size size = Size(int(capture.get(CAP_PROP_FRAME_WIDTH)), int(capture.get(CAP_PROP_FRAME_HEIGHT)));
 		LOG(INFO) << "fps:" << fps;
 		LOG(INFO) << "width:" << int(capture.get(CAP_PROP_FRAME_WIDTH));
 		LOG(INFO) << "height:" << int(capture.get(CAP_PROP_FRAME_HEIGHT));
-		string save_path = "out.avi";
+		VideoWriter writer;
+		int codec = VideoWriter::fourcc('M', 'J', 'P', 'G');
+		Size size = Size(int(capture.get(CAP_PROP_FRAME_WIDTH)), int(capture.get(CAP_PROP_FRAME_HEIGHT)));
+		string save_path = "out001.avi";
 		writer.open(save_path, codec, fps, size, true);
-		Size dsize = Size(800, 450); // resize image for processing faster
+		// Size dsize = Size(800, 450); // resize image for processing faster
 		
 		int frame_num = 0;  // caculate number of frame
-		while (1){
-			frame_num += 1;
+		int a = 0;	
+		while (1){	
+			frame_num++;	
 			if (frame_num % flag == 0){
 				Mat frame;
 				capture >> frame;
 				if (frame.empty())
-					break;
-
-				resize(frame, frame, dsize, 0, 0, INTER_AREA);
-				cout << "image processing... frame num:" << frame_num << endl;
-				processing(frame, oFile);
+					break;					
+				
+				// image process
+				clock_t t1,t2,t3;
+				t1 = clock();
+				cout << "image processing... total time1: " <<  1.0*t1/CLOCKS_PER_SEC << " s" << endl;				
+				std::vector<double> processing_result = processing(frame, oFile);
+				a++;
 
 				// goto open serial port and receive data from STM32
 				if (frame_num % (receive_preiod * flag) == 0) {
-					cout << "receive data... frame num:" << frame_num << " frame" << endl;
-					receiveDemo();
+					receive_num = receiveDemo();
+					t2 = clock();					
+					cout << "image processing total frame: " << a << endl;
+					cout << "receive data from STM32: ";
+					for (auto i : receive_num) {
+						cout << i << " ";
+					}
+					cout << endl;
+					cout << "mean roundIndex, eccIndex, entropy is: ";
+					for (auto i : processing_result) {
+						cout << i << " ";
+					}
+					cout << endl;
+					cout << "total time2: " <<  1.0*t2/CLOCKS_PER_SEC << " s" << endl;
+					cout << "-----------------------------------------" << endl;
 				}
 
 				writer.write(frame);
