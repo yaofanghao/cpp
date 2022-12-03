@@ -250,8 +250,8 @@ std::vector<double> processing(Mat frame){
 	//LOG(INFO) << "mean-area:" << mean_area 
 	//<< "-length:" << mean_length << "-roundIndex:" << mean_roundIndex 
 	//<< "-eccIndex:" << mean_eccIndex << "-entropy:" << mean_entropy;	
-	//cv::namedWindow("result", WINDOW_NORMAL);
-	//cv::imshow("result", frame);
+	cv::namedWindow("result", WINDOW_NORMAL);
+	cv::imshow("result", frame);
 	return processing_result;
 }
 

@@ -14,17 +14,21 @@ using namespace cv;
 using namespace std;
 
 // general settings
-long long flag = 0;  // 抽帧处理参数
+long long flag = 1000000;  // 抽帧处理参数
 double fps = 25.0;
 int CapWidth = 1280;
 int CapHeight = 960;
 int ellipse_low = 5; // There should be at least 5 points to fit the ellipse
 
-int area_low = 1000; // 判定面积的最小阈值
-int kernal_size = 3; 
+int area_low = 2000; // 判定面积的最小阈值 qiqiu-1000 daizi-1000 deng-? dadeng-2000 
+int kernal_size = 1; 
 double contours_ratio = 0; 
 double round_low = 0;
 int cntlen_low = 0;
+
+//std::string video_name = "10_cut.mp4";
+//std::string csv_name = "10_cut.csv";
+//int hl = 15, hh = 80, sl = 0, sh = 100, vl = 250, vh = 255;
 
 // 11.27 不同类别的干扰对照组的参数设置
 //1、袋子
@@ -35,12 +39,17 @@ int cntlen_low = 0;
 //2、灯
 //std::string video_name = "deng.mp4";
 //std::string csv_name = "deng.csv";
-//int hl = 15, hh = 80, sl = 0, sh = 100, vl = 250, vh = 255;
+//int hl = 20, hh = 50, sl = 0, sh = 20, vl = 250, vh = 255;
 
 //3、气球
-std::string video_name = "qiqiu.mp4";
-std::string csv_name = "qiqiu.csv";
-int hl = 20, hh = 40, sl = 50, sh = 160, vl = 130, vh = 210;
+//std::string video_name = "qiqiu.mp4";
+//std::string csv_name = "qiqiu.csv";
+//int hl = 20, hh = 40, sl = 50, sh = 160, vl = 130, vh = 210;
+
+//4、大灯
+std::string video_name = "dadeng.mp4";
+std::string csv_name = "dadeng.csv";
+int hl = 0, hh = 50, sl = 0, sh = 50, vl = 250, vh = 255;
 
 Mat imgopen(Mat mask, int kernal_size)
 {
@@ -195,11 +204,11 @@ int main(int argc, char** argv)
 	VideoCapture capture(video_name);
 	VideoWriter writer;
 	int codec = VideoWriter::fourcc('M', 'J', 'P', 'G');
-	//int fps = capture.get(CAP_PROP_FRAME_COUNT);
-	//Size size = Size(int(capture.get(CAP_PROP_FRAME_WIDTH)), int(capture.get(CAP_PROP_FRAME_HEIGHT)));
-	//string save_path = "out.avi";
-	//writer.open(save_path, codec, fps, size, true);
-	//Size dsize = Size(800, 450); // resize image for processing faster
+	int fps = capture.get(CAP_PROP_FRAME_COUNT);
+	Size size = Size(int(capture.get(CAP_PROP_FRAME_WIDTH)), int(capture.get(CAP_PROP_FRAME_HEIGHT)));
+	string save_path = "out.avi";
+	writer.open(save_path, codec, fps, size, true);
+	Size dsize = Size(800, 450); // resize image for processing faster
 
 	int frame_num = 0;  // caculate number of frame
 	while (1) {
@@ -211,7 +220,7 @@ int main(int argc, char** argv)
 				break;
 
 			//cout << "detect No." << frame_num << " frame" << endl;
-			//resize(frame, frame, dsize, 0, 0, INTER_AREA);
+			resize(frame, frame, dsize, 0, 0, INTER_AREA);
 			processing(frame, oFile);
 
 			//writer.write(frame);

@@ -1,9 +1,9 @@
 import cv2
 import os
 
-video_name = '10-iphone'
+video_name = '10-cut'
 
-output_dir = '10-iphone/'
+output_dir = '10-cut/'
 
 vc = cv2.VideoCapture(video_name + '.MOV')  # 读入视频文件
 

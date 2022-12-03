@@ -267,13 +267,13 @@ int main(int argc, char** argv)
 	el::Logger* defaultLogger = el::Loggers::getLogger("default");
 
 	// ofstream setting: write data to excel
-	ofstream oFile;
-	oFile.open("detect_result.csv", ios::out | ios::trunc);
-	oFile << "-1:" << "," << "-2:" << ","  
-		<< "-3:" << "," << "-4:" << ","  
-		<< "-area:" << "," << "-length:" << ","
-		<< "-roundIndex:" << "," << "-eccIndex:" << ","
-		<< "-entropy:" << endl;
+	// ofstream oFile;
+	// oFile.open("detect_result.csv", ios::out | ios::trunc);
+	// oFile << "-1:" << "," << "-2:" << ","  
+	// 	<< "-3:" << "," << "-4:" << ","  
+	// 	<< "-area:" << "," << "-length:" << ","
+	// 	<< "-roundIndex:" << "," << "-eccIndex:" << ","
+	// 	<< "-entropy:" << endl;
 
 	LOG(INFO) << "Start fire detect!";
 	LOG(INFO) << "Detect result save to detect_result.csv";
@@ -316,108 +316,34 @@ int main(int argc, char** argv)
 				clock_t t1,t2,t3;
 				t1 = clock();
 				cout << "image processing... total time1: " <<  1.0*t1/CLOCKS_PER_SEC << " s" << endl;				
-				std::vector<double> processing_result = processing(frame);
+				// std::vector<double> processing_result = processing(frame);
 				a++;
 
 				// goto open serial port and receive data from STM32
-				if (frame_num % (receive_preiod * flag) == 0) {
-					receive_num = receiveDemo();
-					t2 = clock();					
-					cout << "image processing total frame: " << a << endl;
-					cout << "receive data from STM32: ";
-					for (auto i : receive_num) {
-						cout << i << " ";
-					}
-					cout << endl;
-					cout << "mean area, length, roundIndex, eccIndex, entropy is: ";
-					for (auto i : processing_result) {
-						cout << i << " ";
-					}
-					cout << endl;
-					cout << "total time2: " <<  1.0*t2/CLOCKS_PER_SEC << " s" << endl;
-					//write data to excel
-					oFile << receive_num[0] << "," << receive_num[1] << ","
-					<< receive_num[2] << "," << receive_num[3] << ","
-					<< processing_result[0] << "," << processing_result[1] << ","
-					<< processing_result[2] << "," << processing_result[3] << ","
-					<< processing_result[4] << endl;	
-					cout << "success write to excel" << endl;				
-					cout << "-----------------------------------------" << endl;
-				}
-
-				writer.write(frame);
-				if (!writer.isOpened()) {
-					cerr << "failed to open the video" << endl;
-					return -1;
-				}
-				if (!capture.read(frame)) {
-					cout << "detection done!" << endl;
-					break;
-				}
-				int c = waitKey(50);
-				if (c == 27) break;
-			}
-		}
-		writer.release();
-		return 0;
-	}
-
-	// video detection		
-	case 'v':{
-		VideoCapture capture("day.mp4"); // day.mp4 as example
-		LOG(INFO) << "fps:" << fps;
-		LOG(INFO) << "width:" << int(capture.get(CAP_PROP_FRAME_WIDTH));
-		LOG(INFO) << "height:" << int(capture.get(CAP_PROP_FRAME_HEIGHT));
-		VideoWriter writer;
-		int codec = VideoWriter::fourcc('M', 'J', 'P', 'G');
-		Size size = Size(int(capture.get(CAP_PROP_FRAME_WIDTH)), int(capture.get(CAP_PROP_FRAME_HEIGHT)));
-		string save_path = "out001.avi";
-		writer.open(save_path, codec, fps, size, true);
-		// Size dsize = Size(800, 450); // resize image for processing faster
-		
-		int frame_num = 0;  // caculate number of frame
-		int a = 0;	
-		while (1){	
-			frame_num++;	
-			if (frame_num % flag == 0){
-				Mat frame;
-				capture >> frame;
-				if (frame.empty())
-					break;					
-				
-				// image process
-				clock_t t1,t2,t3;
-				t1 = clock();
-				cout << "image processing... total time1: " <<  1.0*t1/CLOCKS_PER_SEC << " s" << endl;				
-				std::vector<double> processing_result = processing(frame);
-				a++;
-
-				// goto open serial port and receive data from STM32
-				if (frame_num % (receive_preiod * flag) == 0) {
-					receive_num = receiveDemo();
-					t2 = clock();					
-					cout << "image processing total frame: " << a << endl;
-					cout << "receive data from STM32: ";
-					for (auto i : receive_num) {
-						cout << i << " ";
-					}
-					cout << endl;
-					cout << "mean area, length, roundIndex, eccIndex, entropy is: ";
-					for (auto i : processing_result) {
-						cout << i << " ";
-					}
-					cout << endl;
-					cout << "total time2: " <<  1.0*t2/CLOCKS_PER_SEC << " s" << endl;
-					//write data to excel
-					oFile << receive_num[0] << "," << receive_num[1] << ","
-					<< receive_num[2] << "," << receive_num[3] << ","
-					<< processing_result[0] << "," << processing_result[1] << ","
-					<< processing_result[2] << "," << processing_result[3] << ","
-					<< processing_result[4] << endl;	
-					cout << "success write to excel" << endl;				
-					cout << "-----------------------------------------" << endl;
-				}
-
+				// if (frame_num % (receive_preiod * flag) == 0) {
+				// 	receive_num = receiveDemo();
+				// 	t2 = clock();					
+				// 	cout << "image processing total frame: " << a << endl;
+				// 	cout << "receive data from STM32: ";
+				// 	for (auto i : receive_num) {
+				// 		cout << i << " ";
+				// 	}
+				// 	cout << endl;
+				// 	cout << "mean area, length, roundIndex, eccIndex, entropy is: ";
+				// 	for (auto i : processing_result) {
+				// 		cout << i << " ";
+				// 	}
+				// 	cout << endl;
+				// 	cout << "total time2: " <<  1.0*t2/CLOCKS_PER_SEC << " s" << endl;
+				// 	//write data to excel
+				// 	oFile << receive_num[0] << "," << receive_num[1] << ","
+				// 	<< receive_num[2] << "," << receive_num[3] << ","
+				// 	<< processing_result[0] << "," << processing_result[1] << ","
+				// 	<< processing_result[2] << "," << processing_result[3] << ","
+				// 	<< processing_result[4] << endl;	
+				// 	cout << "success write to excel" << endl;				
+				// 	cout << "-----------------------------------------" << endl;
+				// }
 
 				writer.write(frame);
 				if (!writer.isOpened()) {
@@ -463,6 +389,6 @@ int main(int argc, char** argv)
 	}	
 	
 	}
-	oFile.close();
+	// oFile.close();
 	return 0;
 }

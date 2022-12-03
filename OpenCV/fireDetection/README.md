@@ -122,6 +122,45 @@ cv::Scalar Entropy(cv::Mat image)
 }
 ```
 
+* 串口通信的简单实现，读取STM32发送的四个数据（依据空格分割）
+```cpp
+	WzSerialPort w;
+	if (w.open("/dev/ttyS0", 115200, 0, 8, 1)){
+		// w.send("helloworld ", 10);
+		std::cout << "connect to STM32... wait for serial open" << std::endl;
+
+		char buf[1024];   
+		std::vector<double> receive_num; 
+		while (true){
+			memset(buf, 0, 1024);
+			w.receive(buf, 1024);
+			// cout << buf;			
+			char delims[] = " ";
+			char* result = NULL;
+			char* ptr;
+			double ret;
+			result = strtok(buf, delims);	// 收到的字符串按空格作为割
+			int i = 0;
+			while (result != NULL) {
+				// printf("result is \"%s\"\n", result);
+				ret = strtod(result, &ptr);
+				if (typeid(ret) == typeid(double)) {
+					receive_num.push_back(ret);
+					i++;
+				}
+				result = strtok(NULL, delims);
+
+				if (i == 4) {
+					// 读完四个数关闭串口，后续可以优化				
+					cout << "success received, close serial!" << endl;
+					w.close();
+					return receive_num;				
+				}
+			}
+		}
+	}
+```
+
 ## 已完成部分
 * -2022.8 实现了摄像头、视频、图像三种检测模式的选择 
 * -2022.8 实现了将检测日志打印并保存到myeasylog.log 
@@ -138,9 +177,14 @@ cv::Scalar Entropy(cv::Mat image)
 * -2022.11.29 建立SVM模型，实现输入特征-->预测有火/无火 
   * 实现过程详见CppSVM文件夹
 * -2022.12.2 将串口通信加入图像处理模块，两种任务轮流切换
-  ![](demo1.png "结果示例") 
-* -2022.12.2 基于vector容器算法，计算每帧图像提取出的圆形度、偏心率、熵的均值  
-  
+  * 树莓派端接线：黑-GND，红-TX，棕-RX
+  * STM32接线：紫-GND，绿-TX，蓝-RX	
+  	![](demo2.jpg "结果示例") 
+	![](demo3.jpg "结果示例")   
+* -2022.12.2 基于vector容器算法计算每帧图像提取出的面积、周长、圆形度、偏心率、信息熵的均值  
+  	![](demo1.png "结果示例")   
+
+
 ## 待完成部分
 * 树莓派结合STM32的数据和图像处理的特征，进行SVM模型预测
 * 预测结果的值传回STM32

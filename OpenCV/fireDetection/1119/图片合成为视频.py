@@ -1,15 +1,15 @@
 import os
 import cv2
 
-path = '10-iphone/'  # 原图片的路径
+path = '10-cut/'  # 原图片的路径
 filelist = os.listdir(path)
 
-fps = 60 # 视频每秒帧数
-size = (1280, 960)  # 需要转为视频的图片的尺寸，图片的尺寸多大
+fps = 5 # 视频每秒帧数
+size = (500, 500)  # 需要转为视频的图片的尺寸，图片的尺寸多大
 # 可以使用cv2.resize()进行修改
 
 # 视频的名称为VideoTest1，格式为.avi
-video = cv2.VideoWriter("10-iphone.avi",
+video = cv2.VideoWriter("10-cut.avi",
                         cv2.VideoWriter_fourcc(*'XVID'),
                         fps, size)
 # 视频保存在当前目录下
