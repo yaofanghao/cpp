@@ -23,13 +23,13 @@ using namespace std;
 // general settings
 std::string video_name = "dadeng.mp4";
 long long flag = 5000000;  // 抽帧处理参数
-//int receive_preiod = 1; //  每间隔recieve_preiod*flag 接收一次串口的数据
+int receive_preiod = 3; //  每间隔recieve_preiod*flag 接收一次串口的数据
 int ellipse_low = 5; // There should be at least 5 points to fit the ellipse
 double fps = 25.0;
 //std::vector<double> receive_num;  // 存放从32接收到数据的容器
 std::vector<double> processing_result; // 存放每帧图片图片后的特征值（圆形度、偏心率、熵）的容器
 
-int hl = 0, hh = 50, sl = 0, sh = 50, vl = 200, vh = 255;
+int hl = 0, hh = 50, sl = 0, sh = 80, vl = 250, vh = 255; 
 int kernal_size = 1;
 double contours_ratio = 0; 
 double round_low = 0;
@@ -260,9 +260,7 @@ int main(int argc, char** argv)
 	// ofstream setting: write data to excel
 	ofstream oFile;
 	oFile.open("detect_result.csv", ios::out | ios::trunc);
-	oFile << "-1:" << "," << "-2:" << ","  
-		<< "-3:" << "," << "-4:" << ","  
-		<< "-area:" << "," << "-length:" << ","
+	oFile <<  "-area:" << "," << "-length:" << ","
 		<< "-roundIndex:" << "," << "-eccIndex:" << ","
 		<< "-entropy:" << endl;
 
@@ -270,35 +268,77 @@ int main(int argc, char** argv)
 	LOG(INFO) << "Detect result save to detect_result.csv";
 	LOG(INFO) << "Detect per " << flag ;
 
-	// video detection	
-
-	VideoCapture capture(video_name); // day.mp4 as example
+	// camera detection
+	VideoCapture capture;
+	capture.open(0); // choose camera index -0/1
+	capture.set(CAP_PROP_FRAME_WIDTH, 1280);
+	capture.set(CAP_PROP_FRAME_HEIGHT, 960);
+	//double fps = capture.get(CAP_PROP_FRAME_COUNT);
+	if (!capture.isOpened()){
+		cerr << "camera not open!" << endl;
+		return -1;
+	}
 	LOG(INFO) << "width:" << int(capture.get(CAP_PROP_FRAME_WIDTH));
 	LOG(INFO) << "height:" << int(capture.get(CAP_PROP_FRAME_HEIGHT));
 	VideoWriter writer;
 	int codec = VideoWriter::fourcc('M', 'J', 'P', 'G');
 	Size size = Size(int(capture.get(CAP_PROP_FRAME_WIDTH)), int(capture.get(CAP_PROP_FRAME_HEIGHT)));
-	string save_path = "out001.avi";
+	string save_path = "out.avi";
 	writer.open(save_path, codec, fps, size, true);
-	// Size dsize = Size(800, 450); // resize image for processing faster
-		
+
 	int frame_num = 0;  // caculate number of frame
-	int a = 0;	
-	while (1){	
+	int a =0;			
+	while (1)
+	{	
 		frame_num++;	
-		if (frame_num % flag == 0){
+		if (frame_num % flag == 0)
+		{
 			Mat frame;
 			capture >> frame;
 			if (frame.empty())
 				break;					
-				
+			
 			// image process
 			clock_t t1,t2,t3;
 			t1 = clock();
-			cout << "image processing... total time1: " <<  1.0*t1/CLOCKS_PER_SEC << " s" << endl;
-			cout << a << endl;
-			std::vector<double> processing_result = processing(frame);
+			cout << "image processing... total time1: " <<  1.0*t1/CLOCKS_PER_SEC << " s" << endl;				
+
 			a++;
+
+			// goto open serial port and receive data from STM32
+			if (frame_num % (receive_preiod * flag) == 0) {
+				std::vector<double> processing_result = processing(frame);					
+
+				cout << "mean area, length, roundIndex, eccIndex, entropy is: ";
+				for (auto i : processing_result) {
+					cout << i << " ";
+				}
+				cout << endl;
+				
+				// receive_num = receiveDemo();
+				// t2 = clock();					
+				// cout << "image processing total frame: " << a << endl;
+				// cout << "receive data from STM32: ";
+				// for (auto i : receive_num) {
+				// 	cout << i << " ";
+				// }
+				cout << endl;					
+				cout << "total time2: " <<  1.0*t2/CLOCKS_PER_SEC << " s" << endl;
+				//write data to excel
+				// oFile << receive_num[0] << "," << receive_num[1] << ","
+				// << receive_num[2] << "," << receive_num[3] << ","
+				// << processing_result[0] << "," << processing_result[1] << ","
+				// << processing_result[2] << "," << processing_result[3] << ","
+				// << processing_result[4] << endl;	
+
+
+				oFile << processing_result[0] << "," << processing_result[1] << ","
+				<< processing_result[2] << "," << processing_result[3] << ","
+				<< processing_result[4] << endl;	
+
+				cout << "success write to excel" << endl;				
+				cout << "-----------------------------------------" << endl;
+			}
 
 			writer.write(frame);
 			if (!writer.isOpened()) {
@@ -312,7 +352,7 @@ int main(int argc, char** argv)
 			int c = waitKey(50);
 			if (c == 27) break;
 		}
-	}
+	} 
 	writer.release();
 
 	oFile.close();

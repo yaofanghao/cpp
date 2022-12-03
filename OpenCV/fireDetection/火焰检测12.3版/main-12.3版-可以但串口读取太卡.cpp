@@ -1,4 +1,4 @@
-#include <opencv2/core.hpp>
+﻿#include <opencv2/core.hpp>
 #include <opencv2/imgproc.hpp>
 #include <opencv2/opencv.hpp>
 #include <opencv2/highgui/highgui.hpp> 
@@ -22,7 +22,7 @@ using namespace std;
 
 // general settings
 long long flag = 5000000;  // 抽帧处理参数
-int receive_preiod = 1; //  每间隔recieve_preiod*flag 接收一次串口的数据
+int receive_preiod = 3; //  每间隔recieve_preiod*flag 接收一次串口的数据
 double fps = 25.0;
 int CapWidth = 1280;
 int CapHeight = 960;
@@ -30,19 +30,17 @@ int ellipse_low = 5; // There should be at least 5 points to fit the ellipse
 std::vector<double> receive_num;  // 存放从32接收到数据的容器
 std::vector<double> processing_result; // 存放每帧图片图片后的特征值（圆形度、偏心率、熵）的容器
 
-// 11.19-day fire
-int hl = 0, hh = 200, sl = 0, sh = 200, vl = 250, vh = 255; 
-int kernal_size = 1; 
+int kernal_size = 3; 
+int area_low = 200;
 double contours_ratio = 0; 
 double round_low = 0.001;
 int cntlen_low = 20;
 
+// 11.19-day fire
+int hl = 0, hh = 200, sl = 0, sh = 200, vl = 250, vh = 255; 
+
 // 11.1-night fire
 //int hl = 0, hh = 50, sl = 0, sh = 80, vl = 250, vh = 255; // range of hsv
-//int kernal_size = 3; // open kernal size
-//double contours_ratio = 0; // ratio = contours / area
-//double round_low = 0.2; // round of coutours
-//int cntlen_low = 10; // length of coutours
 
 static void help(char* progName) {
 	cout << "Usage:" << endl
@@ -143,6 +141,7 @@ std::vector<double> receiveDemo() {
 		cout << "open serial port failed...";
 	}
 	w.close();
+	return receive_num;	
 }
 
 // main processing program for image
@@ -182,7 +181,7 @@ std::vector<double> processing(Mat frame){
 		double area = contourArea(contours[i]);
 		double length = arcLength(contours[i], true);
 		double roundIndex = 4 * 3.1415926 * area / (length * length + 0.00001);
-		if ((area > contours_ratio * image_area) && (roundIndex > round_low) 
+		if ((area > area_low) && (roundIndex > round_low) 
 			&& (length > cntlen_low) && (contours[i].size() > ellipse_low)){		
 			Rect rect = boundingRect(contours[i]);
 			//rectangle(frame, rect, (255, 0, 0), 5);
@@ -267,13 +266,13 @@ int main(int argc, char** argv)
 	el::Logger* defaultLogger = el::Loggers::getLogger("default");
 
 	// ofstream setting: write data to excel
-	// ofstream oFile;
-	// oFile.open("detect_result.csv", ios::out | ios::trunc);
-	// oFile << "-1:" << "," << "-2:" << ","  
-	// 	<< "-3:" << "," << "-4:" << ","  
-	// 	<< "-area:" << "," << "-length:" << ","
-	// 	<< "-roundIndex:" << "," << "-eccIndex:" << ","
-	// 	<< "-entropy:" << endl;
+	ofstream oFile;
+	oFile.open("detect_result.csv", ios::out | ios::trunc);
+	oFile << "-1:" << "," << "-2:" << ","  
+		<< "-3:" << "," << "-4:" << ","  
+		<< "-area:" << "," << "-length:" << ","
+		<< "-roundIndex:" << "," << "-eccIndex:" << ","
+		<< "-entropy:" << endl;
 
 	LOG(INFO) << "Start fire detect!";
 	LOG(INFO) << "Detect result save to detect_result.csv";
@@ -312,41 +311,112 @@ int main(int argc, char** argv)
 				if (frame.empty())
 					break;					
 				
-				cv::namedWindow("origin", WINDOW_NORMAL);
-				cv::imshow("origin", frame);
-	
 				// image process
 				clock_t t1,t2,t3;
 				t1 = clock();
 				cout << "image processing... total time1: " <<  1.0*t1/CLOCKS_PER_SEC << " s" << endl;				
-				// std::vector<double> processing_result = processing(frame);
+				std::vector<double> processing_result = processing(frame);
 				a++;
 
 				// goto open serial port and receive data from STM32
-				// if (frame_num % (receive_preiod * flag) == 0) {
-				// 	receive_num = receiveDemo();
-				// 	t2 = clock();					
-				// 	cout << "image processing total frame: " << a << endl;
-				// 	cout << "receive data from STM32: ";
-				// 	for (auto i : receive_num) {
-				// 		cout << i << " ";
-				// 	}
-				// 	cout << endl;
-				// 	cout << "mean area, length, roundIndex, eccIndex, entropy is: ";
-				// 	for (auto i : processing_result) {
-				// 		cout << i << " ";
-				// 	}
-				// 	cout << endl;
-				// 	cout << "total time2: " <<  1.0*t2/CLOCKS_PER_SEC << " s" << endl;
-				// 	//write data to excel
-				// 	oFile << receive_num[0] << "," << receive_num[1] << ","
-				// 	<< receive_num[2] << "," << receive_num[3] << ","
-				// 	<< processing_result[0] << "," << processing_result[1] << ","
-				// 	<< processing_result[2] << "," << processing_result[3] << ","
-				// 	<< processing_result[4] << endl;	
-				// 	cout << "success write to excel" << endl;				
-				// 	cout << "-----------------------------------------" << endl;
-				// }
+				if (frame_num % (receive_preiod * flag) == 0) {
+					receive_num = receiveDemo();
+					t2 = clock();					
+					cout << "image processing total frame: " << a << endl;
+					cout << "receive data from STM32: ";
+					for (auto i : receive_num) {
+						cout << i << " ";
+					}
+					cout << endl;
+					cout << "mean area, length, roundIndex, eccIndex, entropy is: ";
+					for (auto i : processing_result) {
+						cout << i << " ";
+					}
+					cout << endl;
+					cout << "total time2: " <<  1.0*t2/CLOCKS_PER_SEC << " s" << endl;
+					//write data to excel
+					oFile << receive_num[0] << "," << receive_num[1] << ","
+					<< receive_num[2] << "," << receive_num[3] << ","
+					<< processing_result[0] << "," << processing_result[1] << ","
+					<< processing_result[2] << "," << processing_result[3] << ","
+					<< processing_result[4] << endl;	
+					cout << "success write to excel" << endl;				
+					cout << "-----------------------------------------" << endl;
+				}
+
+				writer.write(frame);
+				if (!writer.isOpened()) {
+					cerr << "failed to open the video" << endl;
+					return -1;
+				}
+				if (!capture.read(frame)) {
+					cout << "detection done!" << endl;
+					break;
+				}
+				int c = waitKey(50);
+				if (c == 27) break;
+			}
+		}
+		writer.release();
+		return 0;
+	}
+
+	// video detection		
+	case 'v':{
+		VideoCapture capture("day.mp4"); // day.mp4 as example
+		LOG(INFO) << "fps:" << fps;
+		LOG(INFO) << "width:" << int(capture.get(CAP_PROP_FRAME_WIDTH));
+		LOG(INFO) << "height:" << int(capture.get(CAP_PROP_FRAME_HEIGHT));
+		VideoWriter writer;
+		int codec = VideoWriter::fourcc('M', 'J', 'P', 'G');
+		Size size = Size(int(capture.get(CAP_PROP_FRAME_WIDTH)), int(capture.get(CAP_PROP_FRAME_HEIGHT)));
+		string save_path = "out001.avi";
+		writer.open(save_path, codec, fps, size, true);
+		// Size dsize = Size(800, 450); // resize image for processing faster
+		
+		int frame_num = 0;  // caculate number of frame
+		int a = 0;	
+		while (1){	
+			frame_num++;	
+			if (frame_num % flag == 0){
+				Mat frame;
+				capture >> frame;
+				if (frame.empty())
+					break;					
+				
+				// image process
+				clock_t t1,t2,t3;
+				t1 = clock();
+				cout << "image processing... total time1: " <<  1.0*t1/CLOCKS_PER_SEC << " s" << endl;				
+				std::vector<double> processing_result = processing(frame);
+				a++;
+
+				// goto open serial port and receive data from STM32
+				if (frame_num % (receive_preiod * flag) == 0) {
+					receive_num = receiveDemo();
+					t2 = clock();					
+					cout << "image processing total frame: " << a << endl;
+					cout << "receive data from STM32: ";
+					for (auto i : receive_num) {
+						cout << i << " ";
+					}
+					cout << endl;
+					cout << "mean area, length, roundIndex, eccIndex, entropy is: ";
+					for (auto i : processing_result) {
+						cout << i << " ";
+					}
+					cout << endl;
+					cout << "total time2: " <<  1.0*t2/CLOCKS_PER_SEC << " s" << endl;
+					//write data to excel
+					oFile << receive_num[0] << "," << receive_num[1] << ","
+					<< receive_num[2] << "," << receive_num[3] << ","
+					<< processing_result[0] << "," << processing_result[1] << ","
+					<< processing_result[2] << "," << processing_result[3] << ","
+					<< processing_result[4] << endl;	
+					cout << "success write to excel" << endl;				
+					cout << "-----------------------------------------" << endl;
+				}
+
 
 				writer.write(frame);
 				if (!writer.isOpened()) {
@@ -392,6 +462,6 @@ int main(int argc, char** argv)
 	}	
 	
 	}
-	// oFile.close();
+	oFile.close();
 	return 0;
 }
