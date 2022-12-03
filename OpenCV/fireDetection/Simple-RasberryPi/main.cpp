@@ -21,8 +21,8 @@ using namespace cv;
 using namespace std;
 
 // general settings
-long long flag = 10000000;  // 抽帧处理参数
-int receive_preiod = 3; //  每间隔recieve_preiod*flag 接收一次串口的数据
+long long flag = 5000000;  // 抽帧处理参数
+int receive_preiod = 1; //  每间隔recieve_preiod*flag 接收一次串口的数据
 double fps = 25.0;
 int CapWidth = 1280;
 int CapHeight = 960;
@@ -32,9 +32,9 @@ std::vector<double> processing_result; // 存放每帧图片图片后的特征�
 
 // 11.19-day fire
 int hl = 0, hh = 200, sl = 0, sh = 200, vl = 250, vh = 255; 
-int kernal_size = 5; 
+int kernal_size = 1; 
 double contours_ratio = 0; 
-double round_low = 0.1;
+double round_low = 0.001;
 int cntlen_low = 20;
 
 // 11.1-night fire
@@ -145,11 +145,13 @@ std::vector<double> receiveDemo() {
 	w.close();
 }
 
-// main processing program for image. &oFile -- save path for csv
+// main processing program for image
 // return processing_result vector
-std::vector<double> processing(Mat frame, ofstream &oFile){
+std::vector<double> processing(Mat frame){
 	Mat img1, hsv, mask;
 	std::vector<double> processing_result;  // 存放每帧图片图片后的特征值（圆形度、偏心率、熵）的容器
+	std::vector<double> area_result;
+	std::vector<double> length_result;
 	std::vector<double> roundIndex_result;
 	std::vector<double> eccIndex_result;
 	std::vector<double> entropy_result;
@@ -188,7 +190,8 @@ std::vector<double> processing(Mat frame, ofstream &oFile){
 			RotatedRect box = fitEllipse(contours[i]);
 			double ellipseA = box.size.height;
 			double ellipseB = box.size.width;
-			double eccIndex = sqrt(abs(pow(ellipseA, 2) - pow(ellipseB, 2))) / 2;  // 偏心度	
+			// double eccIndex = sqrt(abs(pow(ellipseA, 2) - pow(ellipseB, 2))) / ellipseA;  // 偏心度	
+			double eccIndex = (abs(ellipseA - ellipseB)) / ellipseA;  // 偏心度	
 			
 			string text = "Warning!";
 			cv::Point origin;
@@ -196,13 +199,9 @@ std::vector<double> processing(Mat frame, ofstream &oFile){
 			origin.y = frame.rows / 2;
 			putText(frame, text, origin, FONT_HERSHEY_SIMPLEX, 1, Scalar(0, 0, 255), 1);
 			//putText(frame, std::to_string(ent.val[0]), origin, FONT_HERSHEY_SIMPLEX, 1, Scalar(255, 0, 0), 1);
-			
-			//write data to excel
-			oFile << area << "," << length << "," << roundIndex << "," 
-				<< eccIndex << "," << ent.val[0] << endl;
-			//LOG(INFO) << "Find fire." << "-area:" << area 
-			//	<< "-length:" << length << "-roundIndex:" << roundIndex 
-			//	<< "-eccIndex:" << eccIndex << "-entropy:" << ent.val[0];
+					
+			area_result.push_back(area);
+			length_result.push_back(length);
 			roundIndex_result.push_back(roundIndex);
 			eccIndex_result.push_back(eccIndex);
 			entropy_result.push_back(ent.val[0]);
@@ -220,14 +219,22 @@ std::vector<double> processing(Mat frame, ofstream &oFile){
 	}
 
 	// calculate average of roundindex, eccindex, entropy
+	double mean_area = 0.0;
+	double mean_length = 0.0;
 	double mean_roundIndex = 0.0;
 	double mean_eccIndex = 0.0;
 	double mean_entropy = 0.0;
+	if (!area_result.empty()) { mean_area = 0.0; }
+	if (!length_result.empty()) { mean_length = 0.0; }
 	if (!roundIndex_result.empty()) { mean_roundIndex = 0.0; }
 	if (!eccIndex_result.empty()) { mean_eccIndex = 0.0; }
 	if (!entropy_result.empty()) { mean_entropy = 0.0; }	
 	if(!roundIndex_result.empty()&& !eccIndex_result.empty() && !entropy_result.empty())
 	{
+		double sum_area = accumulate(begin(area_result), end(area_result), 0.0);
+		mean_area = sum_area / area_result.size(); 
+		double sum_length = accumulate(begin(length_result), end(length_result), 0.0);
+		mean_length = sum_length / length_result.size();
 		double sum_roundIndex = accumulate(begin(roundIndex_result), end(roundIndex_result), 0.0); 
 		mean_roundIndex = sum_roundIndex / roundIndex_result.size(); // 求单张图中圆形度的均值，以下类似
 		double sum_eccIndex = accumulate(begin(eccIndex_result), end(eccIndex_result), 0.0);
@@ -235,12 +242,16 @@ std::vector<double> processing(Mat frame, ofstream &oFile){
 		double sum_entropy = accumulate(begin(entropy_result), end(entropy_result), 0.0);
 		mean_entropy = sum_entropy / entropy_result.size();
 	}
+	processing_result.push_back(mean_area);
+	processing_result.push_back(mean_length);
 	processing_result.push_back(mean_roundIndex);
 	processing_result.push_back(mean_eccIndex);
 	processing_result.push_back(mean_entropy);
-
-	cv::namedWindow("result", WINDOW_NORMAL);
-	cv::imshow("result", frame);
+	//LOG(INFO) << "mean-area:" << mean_area 
+	//<< "-length:" << mean_length << "-roundIndex:" << mean_roundIndex 
+	//<< "-eccIndex:" << mean_eccIndex << "-entropy:" << mean_entropy;	
+	//cv::namedWindow("result", WINDOW_NORMAL);
+	//cv::imshow("result", frame);
 	return processing_result;
 }
 
@@ -258,7 +269,9 @@ int main(int argc, char** argv)
 	// ofstream setting: write data to excel
 	ofstream oFile;
 	oFile.open("detect_result.csv", ios::out | ios::trunc);
-	oFile << "-area:" << "," << "-length:" << ","
+	oFile << "-1:" << "," << "-2:" << ","  
+		<< "-3:" << "," << "-4:" << ","  
+		<< "-area:" << "," << "-length:" << ","
 		<< "-roundIndex:" << "," << "-eccIndex:" << ","
 		<< "-entropy:" << endl;
 
@@ -281,7 +294,6 @@ int main(int argc, char** argv)
 			cerr << "camera not open!" << endl;
 			return -1;
 		}
-		//LOG(INFO) << "fps:" << fps;
 		LOG(INFO) << "width:" << int(capture.get(CAP_PROP_FRAME_WIDTH));
 		LOG(INFO) << "height:" << int(capture.get(CAP_PROP_FRAME_HEIGHT));
 		VideoWriter writer;
@@ -304,7 +316,7 @@ int main(int argc, char** argv)
 				clock_t t1,t2,t3;
 				t1 = clock();
 				cout << "image processing... total time1: " <<  1.0*t1/CLOCKS_PER_SEC << " s" << endl;				
-				std::vector<double> processing_result = processing(frame, oFile);
+				std::vector<double> processing_result = processing(frame);
 				a++;
 
 				// goto open serial port and receive data from STM32
@@ -317,12 +329,19 @@ int main(int argc, char** argv)
 						cout << i << " ";
 					}
 					cout << endl;
-					cout << "mean roundIndex, eccIndex, entropy is: ";
+					cout << "mean area, length, roundIndex, eccIndex, entropy is: ";
 					for (auto i : processing_result) {
 						cout << i << " ";
 					}
 					cout << endl;
 					cout << "total time2: " <<  1.0*t2/CLOCKS_PER_SEC << " s" << endl;
+					//write data to excel
+					oFile << receive_num[0] << "," << receive_num[1] << ","
+					<< receive_num[2] << "," << receive_num[3] << ","
+					<< processing_result[0] << "," << processing_result[1] << ","
+					<< processing_result[2] << "," << processing_result[3] << ","
+					<< processing_result[4] << endl;	
+					cout << "success write to excel" << endl;				
 					cout << "-----------------------------------------" << endl;
 				}
 
@@ -370,7 +389,7 @@ int main(int argc, char** argv)
 				clock_t t1,t2,t3;
 				t1 = clock();
 				cout << "image processing... total time1: " <<  1.0*t1/CLOCKS_PER_SEC << " s" << endl;				
-				std::vector<double> processing_result = processing(frame, oFile);
+				std::vector<double> processing_result = processing(frame);
 				a++;
 
 				// goto open serial port and receive data from STM32
@@ -383,14 +402,22 @@ int main(int argc, char** argv)
 						cout << i << " ";
 					}
 					cout << endl;
-					cout << "mean roundIndex, eccIndex, entropy is: ";
+					cout << "mean area, length, roundIndex, eccIndex, entropy is: ";
 					for (auto i : processing_result) {
 						cout << i << " ";
 					}
 					cout << endl;
 					cout << "total time2: " <<  1.0*t2/CLOCKS_PER_SEC << " s" << endl;
+					//write data to excel
+					oFile << receive_num[0] << "," << receive_num[1] << ","
+					<< receive_num[2] << "," << receive_num[3] << ","
+					<< processing_result[0] << "," << processing_result[1] << ","
+					<< processing_result[2] << "," << processing_result[3] << ","
+					<< processing_result[4] << endl;	
+					cout << "success write to excel" << endl;				
 					cout << "-----------------------------------------" << endl;
 				}
+
 
 				writer.write(frame);
 				if (!writer.isOpened()) {
@@ -412,7 +439,7 @@ int main(int argc, char** argv)
 	// image detection
 	case 'i':{
 		Mat img = cv::imread("1.jpg");
-		processing(img, oFile);
+		processing(img);
 		//cv:imwrite("result.jpg", img);
 
 		int x;

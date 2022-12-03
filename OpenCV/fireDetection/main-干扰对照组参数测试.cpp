@@ -20,31 +20,27 @@ int CapWidth = 1280;
 int CapHeight = 960;
 int ellipse_low = 5; // There should be at least 5 points to fit the ellipse
 
+int area_low = 1000; // 判定面积的最小阈值
+int kernal_size = 3; 
+double contours_ratio = 0; 
+double round_low = 0;
+int cntlen_low = 0;
+
 // 11.27 不同类别的干扰对照组的参数设置
 //1、袋子
 //std::string video_name = "daizi.mp4";
 //std::string csv_name = "daizi.csv";
-//int hl = 20, hh = 30, sl = 70, sh = 130, vl = 120, vh = 220; 
-//int kernal_size = 3; 
-//double contours_ratio = 0; 
-//double round_low = 0;
-//int cntlen_low = 0;
+//int hl = 20, hh = 40, sl = 70, sh = 150, vl = 120, vh = 200; 
+
 //2、灯
 //std::string video_name = "deng.mp4";
 //std::string csv_name = "deng.csv";
-//int hl = 20, hh = 50, sl = 0, sh = 20, vl = 250, vh = 255;
-//int kernal_size = 3;
-//double contours_ratio = 0;
-//double round_low = 0;
-//int cntlen_low = 0;
+//int hl = 15, hh = 80, sl = 0, sh = 100, vl = 250, vh = 255;
+
 //3、气球
 std::string video_name = "qiqiu.mp4";
 std::string csv_name = "qiqiu.csv";
-int hl = 25, hh = 35, sl = 55, sh = 130, vl = 130, vh = 210;
-int kernal_size = 3;
-double contours_ratio = 0;
-double round_low = 0;
-int cntlen_low = 0;
+int hl = 20, hh = 40, sl = 50, sh = 160, vl = 130, vh = 210;
 
 Mat imgopen(Mat mask, int kernal_size)
 {
@@ -133,7 +129,7 @@ void processing(Mat frame, ofstream &oFile)
 		double length = arcLength(contours[i], true);
 		double roundIndex = 4 * 3.1415926 * area / (length * length + 0.00001);
 
-		if ((area > contours_ratio * image_area) && (roundIndex > round_low) 
+		if ((area > area_low) && (roundIndex > round_low) 
 			&& (length > cntlen_low) && (contours[i].size() > ellipse_low)){		
 			Rect rect = boundingRect(contours[i]);
 			//rectangle(frame, rect, (255, 0, 0), 5);
@@ -141,8 +137,9 @@ void processing(Mat frame, ofstream &oFile)
 			RotatedRect box = fitEllipse(contours[i]);
 			double ellipseA = box.size.height;
 			double ellipseB = box.size.width;
-			double eccIndex = sqrt(abs(pow(ellipseA, 2) - pow(ellipseB, 2))) / 2;  // 偏心度	
-			
+			// double eccIndex = sqrt(abs(pow(ellipseA, 2) - pow(ellipseB, 2))) / ellipseA;  // 偏心度	
+			double eccIndex = (abs(ellipseA - ellipseB)) / ellipseA;  // 偏心度	
+
 			string text = "Warning!";
 			cv::Point origin;
 			origin.x = frame.cols / 2;

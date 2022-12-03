@@ -23,18 +23,12 @@
     <ClCompile Include="external_module\easylogging++.cc">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="external_module\WzSerialPort.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="main-干扰对照组参数测试.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="external_module\easylogging++.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="external_module\WzSerialPort.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

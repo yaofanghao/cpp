@@ -136,12 +136,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="external_module\easylogging++.cc" />
-    <ClCompile Include="external_module\WzSerialPort.cpp" />
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="main-干扰对照组参数测试.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="external_module\easylogging++.h" />
-    <ClInclude Include="external_module\WzSerialPort.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
