@@ -12,6 +12,8 @@
   * 程序运行结果如图所示
   ![main.cpp](demo.png "main.cpp的演示说明") 
 
+* 12.2 初步实现了串口通信和图像处理任务切换
+  * 详见 OpenCV\fireDetection\main.cpp
 
 ## 参考来源
 * https://github.com/ayowin/WzSerialPort

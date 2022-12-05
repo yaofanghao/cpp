@@ -20,15 +20,15 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="external_module\easylogging++.cc">
+    <ClCompile Include="1205\video_process\main-特征值提取.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="main-干扰对照组参数测试.cpp">
+    <ClCompile Include="1205\video_process\external_module\easylogging++.cc">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="external_module\easylogging++.h">
+    <ClInclude Include="1205\video_process\external_module\easylogging++.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,8 +1,8 @@
 import cv2
 import os
 
-video_name = 'out001'
-output_dir = 'out001/'
+video_name = '101'
+output_dir = '101/'
 vc = cv2.VideoCapture(video_name + '.avi')  # 读入视频文件
 
 if not os.path.exists(output_dir):

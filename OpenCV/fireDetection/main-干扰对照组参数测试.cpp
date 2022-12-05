@@ -26,9 +26,9 @@ double contours_ratio = 0;
 double round_low = 0;
 int cntlen_low = 0;
 
-//std::string video_name = "10_cut.mp4";
-//std::string csv_name = "10_cut.csv";
-//int hl = 15, hh = 80, sl = 0, sh = 100, vl = 250, vh = 255;
+std::string video_name = "101.mp4";
+std::string csv_name = "10_cut.csv";
+int hl = 15, hh = 80, sl = 0, sh = 100, vl = 250, vh = 255;
 
 // 11.27 不同类别的干扰对照组的参数设置
 //1、袋子
@@ -47,9 +47,9 @@ int cntlen_low = 0;
 //int hl = 20, hh = 40, sl = 50, sh = 160, vl = 130, vh = 210;
 
 //4、大灯
-std::string video_name = "dadeng.mp4";
-std::string csv_name = "dadeng.csv";
-int hl = 0, hh = 50, sl = 0, sh = 50, vl = 250, vh = 255;
+//std::string video_name = "dadeng.mp4";
+//std::string csv_name = "dadeng.csv";
+//int hl = 0, hh = 50, sl = 0, sh = 50, vl = 250, vh = 255;
 
 Mat imgopen(Mat mask, int kernal_size)
 {
@@ -202,12 +202,12 @@ int main(int argc, char** argv)
 
 	// video detection		
 	VideoCapture capture(video_name);
-	VideoWriter writer;
-	int codec = VideoWriter::fourcc('M', 'J', 'P', 'G');
-	int fps = capture.get(CAP_PROP_FRAME_COUNT);
-	Size size = Size(int(capture.get(CAP_PROP_FRAME_WIDTH)), int(capture.get(CAP_PROP_FRAME_HEIGHT)));
-	string save_path = "out.avi";
-	writer.open(save_path, codec, fps, size, true);
+	//VideoWriter writer;
+	//int codec = VideoWriter::fourcc('M', 'J', 'P', 'G');
+	//int fps = capture.get(CAP_PROP_FRAME_COUNT);
+	//Size size = Size(int(capture.get(CAP_PROP_FRAME_WIDTH)), int(capture.get(CAP_PROP_FRAME_HEIGHT)));
+	//string save_path = "out.avi";
+	//writer.open(save_path, codec, fps, size, true);
 	Size dsize = Size(800, 450); // resize image for processing faster
 
 	int frame_num = 0;  // caculate number of frame
@@ -236,7 +236,7 @@ int main(int argc, char** argv)
 			if (c == 27) break;
 		}
 	}
-	writer.release();
+	//writer.release();
 	oFile.close();
 	return 0;
 }
