@@ -1,4 +1,4 @@
-﻿#include <opencv2/core.hpp>
+#include <opencv2/core.hpp>
 #include <opencv2/imgproc.hpp>
 #include <opencv2/opencv.hpp>
 #include <opencv2/highgui/highgui.hpp> 
@@ -21,8 +21,8 @@ using namespace cv;
 using namespace std;
 
 // general settings
-long long flag = 5000000;  // 抽帧处理参数
-int receive_preiod = 3; //  每间隔recieve_preiod*flag 接收一次串口的数据
+long long flag = 500000;  // 抽帧处理参数
+int receive_preiod = 4; //  每间隔recieve_preiod*flag 接收一次串口的数据
 double fps = 25.0;
 int CapWidth = 1280;
 int CapHeight = 960;
@@ -30,17 +30,16 @@ int ellipse_low = 5; // There should be at least 5 points to fit the ellipse
 std::vector<double> receive_num;  // 存放从32接收到数据的容器
 std::vector<double> processing_result; // 存放每帧图片图片后的特征值（圆形度、偏心率、熵）的容器
 
-int kernal_size = 3; 
-int area_low = 200;
-double contours_ratio = 0; 
+int kernal_size = 1; 
+int area_low = 1000;
 double round_low = 0.001;
 int cntlen_low = 20;
 
 // 11.19-day fire
-int hl = 0, hh = 200, sl = 0, sh = 200, vl = 250, vh = 255; 
+// int hl = 0, hh = 200, sl = 0, sh = 200, vl = 250, vh = 255; 
 
 // 11.1-night fire
-//int hl = 0, hh = 50, sl = 0, sh = 80, vl = 250, vh = 255; // range of hsv
+int hl = 0, hh = 50, sl = 0, sh = 80, vl = 250, vh = 255; // range of hsv
 
 static void help(char* progName) {
 	cout << "Usage:" << endl
@@ -121,11 +120,8 @@ std::vector<double> receiveDemo() {
 			while (result != NULL) {
 				// printf("result is \"%s\"\n", result);
 				ret = strtod(result, &ptr);
-				if (typeid(ret) == typeid(double)) {
-					//cout << "receive a double number: " << ret << endl;
-					receive_num.push_back(ret);
-					i++;
-				}
+				receive_num.push_back(ret);
+				i++;
 				result = strtok(NULL, delims);
 
 				if (i == 4) {
@@ -141,7 +137,7 @@ std::vector<double> receiveDemo() {
 		cout << "open serial port failed...";
 	}
 	w.close();
-	return receive_num;	
+	return receive_num;
 }
 
 // main processing program for image
@@ -249,8 +245,8 @@ std::vector<double> processing(Mat frame){
 	//LOG(INFO) << "mean-area:" << mean_area 
 	//<< "-length:" << mean_length << "-roundIndex:" << mean_roundIndex 
 	//<< "-eccIndex:" << mean_eccIndex << "-entropy:" << mean_entropy;	
-	cv::namedWindow("result", WINDOW_NORMAL);
-	cv::imshow("result", frame);
+	// cv::namedWindow("result", WINDOW_NORMAL);
+	// cv::imshow("result", frame);
 	return processing_result;
 }
 
@@ -315,11 +311,19 @@ int main(int argc, char** argv)
 				clock_t t1,t2,t3;
 				t1 = clock();
 				cout << "image processing... total time1: " <<  1.0*t1/CLOCKS_PER_SEC << " s" << endl;				
-				std::vector<double> processing_result = processing(frame);
+
 				a++;
 
 				// goto open serial port and receive data from STM32
 				if (frame_num % (receive_preiod * flag) == 0) {
+					std::vector<double> processing_result = processing(frame);					
+
+					cout << "mean area, length, roundIndex, eccIndex, entropy is: ";
+					for (auto i : processing_result) {
+						cout << i << " ";
+					}
+					cout << endl;
+					
 					receive_num = receiveDemo();
 					t2 = clock();					
 					cout << "image processing total frame: " << a << endl;
@@ -327,12 +331,7 @@ int main(int argc, char** argv)
 					for (auto i : receive_num) {
 						cout << i << " ";
 					}
-					cout << endl;
-					cout << "mean area, length, roundIndex, eccIndex, entropy is: ";
-					for (auto i : processing_result) {
-						cout << i << " ";
-					}
-					cout << endl;
+					cout << endl;					
 					cout << "total time2: " <<  1.0*t2/CLOCKS_PER_SEC << " s" << endl;
 					//write data to excel
 					oFile << receive_num[0] << "," << receive_num[1] << ","
@@ -388,11 +387,19 @@ int main(int argc, char** argv)
 				clock_t t1,t2,t3;
 				t1 = clock();
 				cout << "image processing... total time1: " <<  1.0*t1/CLOCKS_PER_SEC << " s" << endl;				
-				std::vector<double> processing_result = processing(frame);
+
 				a++;
 
 				// goto open serial port and receive data from STM32
 				if (frame_num % (receive_preiod * flag) == 0) {
+					std::vector<double> processing_result = processing(frame);					
+
+					cout << "mean area, length, roundIndex, eccIndex, entropy is: ";
+					for (auto i : processing_result) {
+						cout << i << " ";
+					}
+					cout << endl;
+					
 					receive_num = receiveDemo();
 					t2 = clock();					
 					cout << "image processing total frame: " << a << endl;
@@ -400,12 +407,7 @@ int main(int argc, char** argv)
 					for (auto i : receive_num) {
 						cout << i << " ";
 					}
-					cout << endl;
-					cout << "mean area, length, roundIndex, eccIndex, entropy is: ";
-					for (auto i : processing_result) {
-						cout << i << " ";
-					}
-					cout << endl;
+					cout << endl;					
 					cout << "total time2: " <<  1.0*t2/CLOCKS_PER_SEC << " s" << endl;
 					//write data to excel
 					oFile << receive_num[0] << "," << receive_num[1] << ","
