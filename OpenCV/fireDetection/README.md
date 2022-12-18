@@ -1,5 +1,6 @@
-# fire detection for C++ and RaspberryPi-4B
+# fire detection / C++ / RaspberryPi-4B
 2022.7.1-
+2022.12.12 已不再更新，后续如有空闲时间继续整理
 
 ## 简介
 ----------
