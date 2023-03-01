@@ -241,6 +241,11 @@ plt.show()
 * https://github.com/PaddlePaddle/PaddleX/blob/develop/deploy/cpp/docs/deployment.md
 
 ### 转换为.nb格式（不确定能否在arm工控机上使用）
+
+* 参考网站 https://paddlepaddle.github.io/Paddle-Lite/
+* paddle-lite版本 https://github.com/PaddlePaddle/Paddle-Lite/releases
+
+
 * 示例：
 * 在命令行终端输入，得到inference_model文件夹：
 ```
