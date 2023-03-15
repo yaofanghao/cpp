@@ -12,7 +12,7 @@ def empty(a):
     print(h_min, h_max, s_min, s_max, v_min, v_max)
     return h_min, h_max, s_min, s_max, v_min, v_max
 
-path = 'fire.jpg'
+path = '10.jpg'
 # 创建一个窗口，放置6个滑动条
 cv2.namedWindow("TrackBars")
 cv2.resizeWindow("TrackBars", 640, 240)
@@ -45,7 +45,7 @@ while True:
     mask = cv2.inRange(imgHSV, lower, upper)
     mask = cv2.dilate(mask, kernel)
 
-    _, contours, hierarchy = cv2.findContours(mask, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
+    contours, hierarchy = cv2.findContours(mask, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
 
     empty_img = np.zeros((img.shape[0], img.shape[1], 3), np.uint8)
     empty_img.fill(0)
