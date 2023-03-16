@@ -11,6 +11,7 @@
   * https://google.github.io/styleguide/cppguide.html
   * https://learn.microsoft.com/en-us/cpp/?view=msvc-170
   * https://www.bilibili.com/video/BV1z64y1U7hs/?mid=213757645
+  * https://www.w3cschool.cn/cpp/
 * CppDesignPatterns
   * 基于C++《设计模式》的学习记录
   * https://github.com/liu-jianhao/Cpp-Design-Patterns
