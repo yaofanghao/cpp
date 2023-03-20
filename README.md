@@ -1,11 +1,12 @@
 # 勿于浮沙筑高台
 
-# 我的C++相关内容学习记录
+# C++相关内容学习记录
 * 持续更新中
-* 2022.2.19起- @yaofanghao
+* 2022.2.19起- 
+* @yaofanghao
 
 # 记录说明及参考来源
-* **C++_Primer**
+* C++_Primer
   * 《C++ Primer》参考代码
   * https://github.com/Mooophy/Cpp-Primer
   * https://google.github.io/styleguide/cppguide.html
@@ -15,7 +16,7 @@
 * CppDesignPatterns
   * 基于C++《设计模式》的学习记录
   * https://github.com/liu-jianhao/Cpp-Design-Patterns
-* **CSAPP**
+* CSAPP
   * 《深入理解计算机系统》参考代码
   * http://csapp.cs.cmu.edu/
 * EssentialC++
@@ -28,7 +29,7 @@
   * https://github.com/opencv/opencv
   * https://github.com/oreillymedia/Learning-OpenCV-3_examples
   * https://www.paddlepaddle.org.cn/
-  * https://github.com/PaddlePaddle/Paddle-Lite  * 
+  * https://github.com/PaddlePaddle/Paddle-Lite  
 * OpenNI
   * 深度相机使用的简单介绍
   * https://documentation.help/OpenNI-2.0/index.html
@@ -45,10 +46,10 @@
   * https://github.com/gbmhunter/CppLinuxSerial
   * https://github.com/WiringPi/WiringPi
   * https://github.com/ayowin/WzSerialportPlus
-* **STLSourceCode-SGI**
+* STLSourceCode-SGI
   * 《STL源码剖析》参考代码
   * https://github.com/steveLauwh/SGI-STL
-* **StudyDataStructure**
+* StudyDataStructure
   * 王道考研数据结构学习记录
   * C++入门学习记录
   * 《数据结构（邓俊辉）》参考代码
@@ -57,27 +58,31 @@
   * https://blog.csdn.net/qq_40679299/article/details/107721116
 
 # 
-2022.6-2022.9 OpenCV
+2022.06-2022.09 OpenCV
 
-2022.7-2022.8 C程序设计语言-K&R / C和指针
+2022.07-2022.08 C程序设计语言-K&R / C和指针
 
-2022.7-2022.9 OpenNI / primesense
+2022.07-2022.09 OpenNI / primesense / 双目视觉
 
-2022.7-2022.9 PaddlePaddle / Paddle-Lite
+2022.07-2022.09 PaddlePaddle / Paddle-Lite
 
-2022.7- **深入理解计算机系统（CSAPP）**
+2022.07- 深入理解计算机系统（CSAPP）
 
-2022.7-2022.12 **C++Primer / EssentialC++ / EffectiveC++ / C++程序设计语言**
+2022.07-2022.12 C++Primer / EssentialC++ / EffectiveC++ / C++程序设计语言
 
-2022.8- **数据结构-邓俊辉 / 数据结构-王道考研**
+2022.08- 数据结构-邓俊辉 / 数据结构-王道考研
 
-2022.9-2022.11 黑马C++网课
+2022.09-2022.11 黑马C++网课
 
 2022.11 CppLinuxSerial / wiringPi / WZSerialPort 串口通信
 
 2022.11- 设计模式入门
 
-2022.11- **STL源码剖析**
+2022.11- STL源码剖析
 
-2022.11- **现代C++语言核心特性解析**
+2022.11- 现代C++语言核心特性解析
+
+2023.03- 计算机组成原理 / 操作系统 / 计算机网络 入门知识
+
+2023.03- C++网络编程项目实践
 
