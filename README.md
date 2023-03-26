@@ -1,11 +1,13 @@
 # 勿于浮沙筑高台
 
 # C++相关内容学习记录
+
 * 持续更新中
-* 2022.2.19起- 
+* 2022.2.19起-
 * @yaofanghao
 
 # 记录说明及参考来源
+
 * C++_Primer
   * 《C++ Primer》参考代码
   * https://github.com/Mooophy/Cpp-Primer
@@ -29,7 +31,7 @@
   * https://github.com/opencv/opencv
   * https://github.com/oreillymedia/Learning-OpenCV-3_examples
   * https://www.paddlepaddle.org.cn/
-  * https://github.com/PaddlePaddle/Paddle-Lite  
+  * https://github.com/PaddlePaddle/Paddle-Lite
 * OpenNI
   * 深度相机使用的简单介绍
   * https://documentation.help/OpenNI-2.0/index.html
@@ -57,7 +59,6 @@
   * https://github.com/0voice/introduce_c-cpp_manual
   * https://blog.csdn.net/qq_40679299/article/details/107721116
 
-# 
 2022.06-2022.09 OpenCV
 
 2022.07-2022.08 C程序设计语言-K&R / C和指针
@@ -82,7 +83,8 @@
 
 2022.11- 现代C++语言核心特性解析
 
+2023.03- 嵌入式C / 嵌入式软开基础知识
+
 2023.03- 计算机组成原理 / 操作系统 / 计算机网络 入门知识
 
 2023.03- C++网络编程项目实践
-
