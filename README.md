@@ -1,13 +1,11 @@
 # 勿于浮沙筑高台
 
 # C++相关内容学习记录
-
 * 持续更新中
-* 2022.2.19起-
+* 2022.02.19起-
 * @yaofanghao
 
 # 记录说明及参考来源
-
 * C++_Primer
   * 《C++ Primer》参考代码
   * https://github.com/Mooophy/Cpp-Primer
@@ -58,6 +56,8 @@
   * https://dsa.cs.tsinghua.edu.cn/~deng/ds/dsacpp/index.htm
   * https://github.com/0voice/introduce_c-cpp_manual
   * https://blog.csdn.net/qq_40679299/article/details/107721116
+* uCOSII
+  * ucosII操作系统作业代码
 
 2022.06-2022.09 OpenCV
 
@@ -71,7 +71,7 @@
 
 2022.07-2022.12 C++Primer / EssentialC++ / EffectiveC++ / C++程序设计语言
 
-2022.08- 数据结构-邓俊辉 / 数据结构-王道考研
+2022.08-2023.02 数据结构-邓俊辉 / 数据结构-王道考研 大致学习
 
 2022.09-2022.11 黑马C++网课
 
@@ -85,6 +85,12 @@
 
 2023.03- 嵌入式C / 嵌入式软开基础知识
 
-2023.03- 计算机组成原理 / 操作系统 / 计算机网络 入门知识
+2023.03- 计算机组成原理 入门知识
+
+2023.03- 操作系统 入门知识
+
+2023.03- 计算机网络 入门知识
+
+2023.03- Linux系统编程
 
 2023.03- C++网络编程项目实践
