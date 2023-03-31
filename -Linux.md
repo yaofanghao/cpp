@@ -9,8 +9,6 @@
 * 操作系统导论 √
 * 嵌入式软件开发笔试面试指南
 * linux/unix系统编程手册
-* 王道-计算机组成原理
-* 王道-操作系统
 * http://www.cyc2018.xyz/
 * 【史上最强最细腻的linux嵌入式C语言学习教程【李慧芹老师】】 https://www.bilibili.com/video/BV18p4y167Md/?share_source=copy_web&vd_source=85816208bdca2a40c310bef0b0d541b4
 * 【黑马程序员-Linux网络编程】 https://www.bilibili.com/video/BV1iJ411S7UA/?share_source=copy_web&vd_source=85816208bdca2a40c310bef0b0d541b4
