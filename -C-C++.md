@@ -7,7 +7,6 @@
 * **https://learn.microsoft.com/en-us/cpp/?view=msvc-170**
 * **https://google.github.io/styleguide/cppguide.html**
 * **C++Primer**
-* CS-Notes
 * 嵌入式软件开发笔试面试指南
 * linux/unix系统编程手册
 * 剑指offer √
