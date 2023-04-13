@@ -1,7 +1,7 @@
 * 学习时间：
   * 2023.03.15-
 * 更新日期：
-  * 2023.04.06
+  * 2023.04.11
 
 # 参考资料
 * **https://learn.microsoft.com/en-us/cpp/?view=msvc-170**
@@ -14,10 +14,10 @@
 * 现代C++语言核心特性解析
 * 王道-数据结构
 * http://www.cyc2018.xyz/
-* 【史上最强最细腻的linux嵌入式C语言学习教程【李慧芹老师】】 https://www.bilibili.com/video/BV18p4y167Md/?share_source=copy_web&vd_source=85816208bdca2a40c310bef0b0d541b4
-* 【《C++ Primer 第五版》】 https://www.bilibili.com/video/BV1z64y1U7hs/?share_source=copy_web&vd_source=85816208bdca2a40c310bef0b0d541b4
-* 【黑马程序员-Linux网络编程】 https://www.bilibili.com/video/BV1iJ411S7UA/?share_source=copy_web&vd_source=85816208bdca2a40c310bef0b0d541b4
-* 【彻底搞懂 进程&线程、进程池&线程池】 https://www.bilibili.com/video/BV1V84y1Y77s/?share_source=copy_web&vd_source=85816208bdca2a40c310bef0b0d541b4
+* 【史上最强最细腻的linux嵌入式C语言学习教程【李慧芹老师】】 https://www.bilibili.com/video/BV18p4y167Md
+* 【《C++ Primer 第五版》】 https://www.bilibili.com/video/BV1z64y1U7hs
+* 【黑马程序员-Linux网络编程】 https://www.bilibili.com/video/BV1iJ411S7UA
+* 【彻底搞懂 进程&线程、进程池&线程池】 https://www.bilibili.com/video/BV1V84y1Y77s
 
 # C / C++ 基本概念
 * 字符串默认每个占用1字节，末尾还要加上\0
@@ -31,6 +31,16 @@
   * 把操作数第n位置1，其他不变 num = num | 1<<n;
   * 把操作数第n为清零，其他不变 num = num &~ (1<<n);
 
+* **const**
+  * 不可改变值
+  * 约束某些内容不可更改
+* const float pi = 3.14
+  * 指定常量，同时指定了类别
+* **指针常量和常量指针**
+  * const int *p
+  * int const *p
+  * int *const p
+
 * static
   * 默认初始化为0
   * 只用一块空间
@@ -42,9 +52,6 @@
 * extern
   * 扩大了作用范围
   * 可以用于另一个文件中声明全局变量或函数
-* const
-  * 不可改变值
-  * 约束某些内容不可更改
 * extern const
   * 在另一文件中引用const常量
 * extern"C"
@@ -54,8 +61,12 @@
   * union有数据对齐
 
 * 静态库 动态库
-  * 静态库是先吃撑了，防止之后饿
-  * 动态库是把粮食带着，等饿了再吃
+  * 静态库
+    * libxx.a
+    * 是先吃撑了，防止之后饿
+  * 动态库
+    * libxx.so
+    * 是把粮食带着，等饿了再吃
 
 * 声明和定义
   * 声明不分配空间
@@ -93,6 +104,7 @@
 * 动态内存
   * new delete
   * malloc需要人为计算申请内存大小，而new可以自动计算申请内存大小
+  * realloc
   * new分配的内存块保存在**堆区**
 
 * 内存管理
