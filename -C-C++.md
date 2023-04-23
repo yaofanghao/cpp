@@ -1,25 +1,30 @@
-* 学习时间：
-  * 2023.03.15-
-* 更新日期：
-  * 2023.04.11
+<!--
+ * @Author: yao fanghao
+ * @Date: 2023-04-14 22:13:52
+ * @LastEditTime: 2023-04-23 11:41:47
+ * @LastEditors: yao fanghao
+-->
 
 # 参考资料
-* **https://learn.microsoft.com/en-us/cpp/?view=msvc-170**
-* **https://google.github.io/styleguide/cppguide.html**
+
+* **<https://learn.microsoft.com/en-us/cpp/?view=msvc-170>**
+* **<https://google.github.io/styleguide/cppguide.html>**
 * **C++Primer**
 * 嵌入式软件开发笔试面试指南
 * linux/unix系统编程手册
+* **APUE**
 * 剑指offer √
-* C专家编程
+* C专家编程 √
+* **STL源码剖析**
 * 现代C++语言核心特性解析
 * 王道-数据结构
-* http://www.cyc2018.xyz/
-* 【史上最强最细腻的linux嵌入式C语言学习教程【李慧芹老师】】 https://www.bilibili.com/video/BV18p4y167Md
-* 【《C++ Primer 第五版》】 https://www.bilibili.com/video/BV1z64y1U7hs
-* 【黑马程序员-Linux网络编程】 https://www.bilibili.com/video/BV1iJ411S7UA
-* 【彻底搞懂 进程&线程、进程池&线程池】 https://www.bilibili.com/video/BV1V84y1Y77s
+* 【史上最强最细腻的linux嵌入式C语言学习教程【李慧芹老师】】 <https://www.bilibili.com/video/BV18p4y167Md>
+* 【《C++ Primer 第五版》】 <https://www.bilibili.com/video/BV1z64y1U7hs>
+* 【黑马程序员-Linux网络编程】 <https://www.bilibili.com/video/BV1iJ411S7UA>
+* 【彻底搞懂 进程&线程、进程池&线程池】 <https://www.bilibili.com/video/BV1V84y1Y77s>
 
 # C / C++ 基本概念
+
 * 字符串默认每个占用1字节，末尾还要加上\0
 
 * 左值和右值
@@ -80,6 +85,7 @@
   * 区分不同库中的相同函数、变量等
 
 # 面向对象
+
 * 类成员默认为私有 private
   
 * 友元函数 friend
@@ -97,6 +103,7 @@
   * 深拷贝在析构时，各自对象占用资源不会冲突
 
 # C++ 新特性
+
 * 异常处理
   * try ... catch
   * throw

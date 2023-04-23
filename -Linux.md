@@ -1,9 +1,10 @@
-# 已不更新-转移至 MyLinuxProgramming 仓库
-
-* 学习时间：
-  * 2023.03.15-
-* 更新日期：
-  * 2023.03.30
+<!--
+ * @Author: yao fanghao
+ * @Date: 2023-04-14 22:13:52
+ * @LastEditTime: 2023-04-23 11:42:29
+ * @LastEditors: yao fanghao
+-->
+# 已不更新-- 转移至 MyLinuxProgramming 仓库
 
 ## 参考资料
 
@@ -12,13 +13,13 @@
 * 操作系统导论 √
 * 嵌入式软件开发笔试面试指南
 * linux/unix系统编程手册
-* APUE
+* **APUE**
 * <http://www.cyc2018.xyz/>
-* 【史上最强最细腻的linux嵌入式C语言学习教程【李慧芹老师】】 <https://www.bilibili.com/video/BV18p4y167Md/?share_source=copy_web&vd_source=85816208bdca2a40c310bef0b0d541b4>
-* 【黑马程序员-Linux网络编程】 <https://www.bilibili.com/video/BV1iJ411S7UA/?share_source=copy_web&vd_source=85816208bdca2a40c310bef0b0d541b4>
-* 【[过期] 2020 南京大学 “操作系统：设计与实现” (蒋炎岩)】 <https://www.bilibili.com/video/BV1N741177F5/?share_source=copy_web&vd_source=85816208bdca2a40c310bef0b0d541b4>
-* 【彻底搞懂 进程&线程、进程池&线程池】 <https://www.bilibili.com/video/BV1V84y1Y77s/?share_source=copy_web&vd_source=85816208bdca2a40c310bef0b0d541b4>
-* 【[原创] 每个程序员都应该知道的内存知识 (带你走读Ulrich Drepper的经典论文)】 <https://www.bilibili.com/video/BV1Xy4y1b7SK/?share_source=copy_web&vd_source=85816208bdca2a40c310bef0b0d541b4>
+* 【史上最强最细腻的linux嵌入式C语言学习教程【李慧芹老师】】 <https://www.bilibili.com/video/BV18p4y167Md/>
+* 【黑马程序员-Linux网络编程】 <https://www.bilibili.com/video/BV1iJ411S7UA/>
+* 【[过期] 2020 南京大学 “操作系统：设计与实现” (蒋炎岩)】 <https://www.bilibili.com/video/BV1N741177F5/>
+* 【彻底搞懂 进程&线程、进程池&线程池】 <https://www.bilibili.com/video/BV1V84y1Y77s/>
+* 【[原创] 每个程序员都应该知道的内存知识 (带你走读Ulrich Drepper的经典论文)】 <https://www.bilibili.com/video/BV1Xy4y1b7SK/>
 
 ## Linux 基本概念
 
@@ -169,5 +170,3 @@
   * 脏页的标记
   
 * 超线程
-
-
