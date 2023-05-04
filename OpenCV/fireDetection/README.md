@@ -187,7 +187,8 @@ if (w.open("/dev/ttyS0", 115200, 0, 8, 1))
 * 对提取的候选区域做凸包处理，填充孔洞
 * 将凸包处理后的区域拟合为椭圆，计算偏心率
 * 将提取到的区域绘制在图像上并实时显示
-* 对单张图中检测到区域的面积、周长、圆形度、偏心率、熵值取平均，作为一组特征值，结合STM32采集过的四种特征值数据，共。。。个特征，输入SVM模型预测。。。
+* 对单张图中检测到区域的面积、周长、圆形度、偏心率、熵值取平均，作为一组特征值
+* 结合STM32采集过的四种特征值数据，共9个特征，输入SVM模型预测
 
 ## 已完成部分
 
@@ -210,7 +211,7 @@ if (w.open("/dev/ttyS0", 115200, 0, 8, 1))
   * 树莓派端接线：黑-GND，红-TX，棕-RX
   * STM32接线：紫-GND，绿-TX，蓝-RX
   ![1](demo2.jpg "结果示例")
-	![2](demo3.jpg "结果示例")
+  ![2](demo3.jpg "结果示例")
 
 * -2022.12.02 基于vector容器计算每帧图像提取出的面积、周长、圆形度、偏心率、信息熵的均值  
  ![3](demo1.png "结果示例")
@@ -223,7 +224,7 @@ if (w.open("/dev/ttyS0", 115200, 0, 8, 1))
 
 * 暂无
 
-## 参考资料 Acknowledgement
+## Acknowledgement
 
 * <https://docs.opencv.org/4.x/df/d0d/tutorial_find_contours.html>
 * <https://docs.opencv.org/4.x/d5/d04/samples_2cpp_2convexhull_8cpp-example.html#a12>
