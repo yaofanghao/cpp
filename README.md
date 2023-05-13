@@ -72,7 +72,7 @@
 
 2022.07- 深入理解计算机系统（CSAPP）
 
-2022.07-2022.12 C++Primer / EssentialC++ / EffectiveC++ / C++程序设计语言
+2022.07- C++Primer / EssentialC++ / EffectiveC++ / C++程序设计语言
 
 2022.08-2023.02 数据结构-邓俊辉 / 数据结构-王道考研 入门知识
 
