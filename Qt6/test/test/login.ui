@@ -59,7 +59,7 @@
     </font>
    </property>
    <property name="text">
-    <string>确认</string>
+    <string>生成随机数</string>
    </property>
   </widget>
   <widget class="QWidget" name="horizontalLayoutWidget_2">
@@ -92,6 +92,24 @@
      </widget>
     </item>
    </layout>
+  </widget>
+  <widget class="QPushButton" name="showimgButton">
+   <property name="geometry">
+    <rect>
+     <x>220</x>
+     <y>250</y>
+     <width>121</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>图片查看器</string>
+   </property>
   </widget>
  </widget>
  <resources/>

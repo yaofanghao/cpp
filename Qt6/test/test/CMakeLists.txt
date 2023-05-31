@@ -16,10 +16,14 @@ set(PROJECT_SOURCES
         main.cpp
         login.cpp
         home.cpp
+        showimg.cpp
         login.h
         home.h
+        showimg.h
         login.ui
         home.ui
+        showimg.ui
+        img_src.qrc
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
@@ -35,12 +39,14 @@ else()
     if(ANDROID)
         add_library(test SHARED
             ${PROJECT_SOURCES}
+            ${qrc_FILES}
         )
 # Define properties for Android with Qt 5 after find_package() calls as:
 #    set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
     else()
         add_executable(test
             ${PROJECT_SOURCES}
+            ${qrc_FILES}
         )
     endif()
 endif()

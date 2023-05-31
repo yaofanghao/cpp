@@ -41,5 +41,10 @@ void Widget::on_loginButton_clicked()
     delete msgbox;
 }
 
-
+void Widget::on_showimgButton_clicked()
+{
+    qDebug()<<"this is on_showimgButton_clicked()";
+    showimg.show();
+    this->close();
+}
 
