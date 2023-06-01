@@ -22,8 +22,6 @@
 * CSAPP
   * 《深入理解计算机系统》参考代码
   * http://csapp.cs.cmu.edu/
-* EssentialC++
-  * 《Essential C++》参考代码
 * OpenCV
   * 图像相关资料存放于此
   * 基于C++的OpenCV简单应用
@@ -41,7 +39,7 @@
   * https://kheresy.wordpress.com/index_of_openni_and_kinect/documents-of-openni-2-x/
   * https://github.com/CMU-Perceptual-Computing-Lab/openpose
 * project_code
-  * 师兄H的项目代码
+  * H项目代码
   * https://april.eecs.umich.edu/software/apriltag.html
   * https://github.com/AprilRobotics/apriltag
 * serial_demo
@@ -95,7 +93,5 @@
 2023.03-2023.05 计算机网络 / 计算机网络-自顶向下方法 入门知识
 
 2023.03- Linux系统编程 / APUE / UNP
-
-2023.04-2023.05 编程珠玑
 
 2023.05- C++ Qt6

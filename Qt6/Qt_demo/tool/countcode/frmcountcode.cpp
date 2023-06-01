@@ -2,8 +2,6 @@
 
 #include "frmcountcode.h"
 #include "ui_frmcountcode.h"
-#include "qfile.h"
-#include "qtextstream.h"
 #include "qfiledialog.h"
 #include "qfileinfo.h"
 #include "qdebug.h"
@@ -90,7 +88,7 @@ void frmCountCode::countCode(const QString &filePath)
     QDir dir(filePath);
     QFileInfoList fileInfos = dir.entryInfoList();
     foreach (QFileInfo fileInfo, fileInfos) {
-        QString fileName = fileInfo.fileName();
+        QString   = fileInfo.fileName();
         if (fileInfo.isFile()) {
             if (checkFile(fileName)) {
                 listFile << fileInfo.filePath();
