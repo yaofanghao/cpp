@@ -16,9 +16,6 @@
 * Computer-Networking-A-Top-Down-Approach-NOTES-master
   * 《计算机网络-自顶向下方法》参考代码
   * https://github.com/moranzcw/Computer-Networking-A-Top-Down-Approach-NOTES
-* CppDesignPatterns
-  * 基于C++《设计模式》的学习记录
-  * https://github.com/liu-jianhao/Cpp-Design-Patterns
 * CSAPP
   * 《深入理解计算机系统》参考代码
   * http://csapp.cs.cmu.edu/
@@ -78,8 +75,6 @@
 
 2022.11 CppLinuxSerial / wiringPi / WZSerialPort 串口通信
 
-2022.11- 设计模式
-
 2022.11- STL源码剖析
 
 2022.11- 现代C++语言核心特性解析
@@ -88,9 +83,9 @@
 
 2023.03- 计算机组成原理 入门知识
 
-2023.03- 操作系统 入门知识
+2023.03-2023.06 操作系统 入门知识
 
-2023.03-2023.05 计算机网络 / 计算机网络-自顶向下方法 入门知识
+2023.03- 计算机网络 入门知识
 
 2023.03- Linux系统编程 / APUE / UNP
 
