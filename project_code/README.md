@@ -1,7 +1,7 @@
 <!--
  * @Author: yao fanghao
  * @Date: 2023-05-08 17:56:32
- * @LastEditTime: 2023-05-08 22:33:37
+ * @LastEditTime: 2023-06-16 10:07:47
  * @LastEditors: yao fanghao
 -->
 
@@ -15,34 +15,33 @@
 
 * 识别障碍物与距离检测算法
 * 工控机图像处理模块与LabVIEW上位机调试软件
-* 撰写测试报告和测试方案
-
+* 撰写测试方案与测试报告
+  
 * heavy car
-* read_buffer
-  * 0xb0 预测
-    * 日志打印时间
-    * Predict_Result 的编码
-    * 显示检测图片
-  * 0xb1 测距 runFunctionB1Distance
-    * 根据fun2TagSize 计算真实距离 imageRealDistance
-    * 日志打印distanceResult
-  * 0xb2 标定 runFunctionB2Hoist
-    * 根据fun2TagSize 计算真实距离 heightCheckResult
-    * 日志打印checkResult
+  * read_buffer
+    * 0xb0 预测
+      * 日志打印时间
+      * Predict_Result 的编码
+      * 显示检测图片
+    * 0xb1 测距 runFunctionB1Distance
+      * 根据fun2TagSize 计算真实距离 imageRealDistance
+      * 日志打印distanceResult
+    * 0xb2 标定 runFunctionB2Hoist
+      * 根据fun2TagSize 计算真实距离 heightCheckResult
+      * 日志打印checkResult
 
 * light car
-* read_buffer
-  * 0x01 识别条形码
-  * 0x02 process模块 -> 模型预测
-  * 0x03 显示图片
-  * 0x04 process并保存图片
+  * read_buffer
+    * 0x01 识别条形码
+    * 0x02 process模块 -> 模型预测
+    * 0x03 显示图片
+    * 0x04 process并保存图片
 
 ## 说明
 
 * hoistCheckParameter
   * 提升机
-* write_buffer由对方提供，特定的13位，用于通讯交流
-*
+* write_buffer由对方提供，特定的13位，用于串口通信
 
 ## 开发环境和依赖
 

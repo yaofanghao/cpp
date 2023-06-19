@@ -11,7 +11,7 @@
 #include <algorithm>
 #include "easylogging++.h"
 
-#include "fireDetection.h"
+#include "fireCascadeDetection.h"
 
 #define _CRT_SECURE_NO_WARNINGS 1
 
@@ -22,9 +22,9 @@ using namespace std;
 using namespace cv;
 
 // string video_path = "1.jpg";
-int hl = 0, hh = 50, sl = 100, sh = 255, vl = 200, vh = 255; // hsvãÐÖµ·¶Î§
-int kernal_size = 5; // ¿ªÔËËãºË³ß´ç
-double conturs_ratio = 0.00001; // ÂÖÀª²ÎÊýÉèÖÃ
+int hl = 0, hh = 50, sl = 100, sh = 255, vl = 200, vh = 255; // hsvï¿½ï¿½Öµï¿½ï¿½Î§
+int kernal_size = 5; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë³ß´ï¿½
+double conturs_ratio = 0.00001; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 double round_low = 0.2;
 int cntlen_low = 100;
 
@@ -38,7 +38,7 @@ int main(int argc, char** argv)
 {
 	help(argv[0]);
 
-	// ÅäÖÃÈÕÖ¾ÐÅÏ¢
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¾ï¿½ï¿½Ï¢
 	// https://github.com/amrayn/easyloggingpp
 	el::Configurations defaultConf;
 	defaultConf.setToDefault();
@@ -71,7 +71,7 @@ int main(int argc, char** argv)
 		if (frame.empty())
 			break;
 
-		// »ðÑæ¼ì²âÊ¾Àý          
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½          
 		LOG(INFO) << "Detect start!";
 		LOG(INFO) << "Enter esc to exit.";
 		
@@ -85,7 +85,7 @@ int main(int argc, char** argv)
 
 			LOG(INFO) << "Find fire! At " << myfirePoint;
 
-			// ÒÑÔÚÍ·ÎÄ¼þÖÐ¸øÊ¶±ðÄ¿±ê»­Ô²£¬ÔÚÕâÀï²»ÐèÒªÔÙ»­
+			// ï¿½ï¿½ï¿½ï¿½Í·ï¿½Ä¼ï¿½ï¿½Ð¸ï¿½Ê¶ï¿½ï¿½Ä¿ï¿½ê»­Ô²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï²»ï¿½ï¿½Òªï¿½Ù»ï¿½
 			putText(frame, "warning!", myfirePoint[n], FONT_HERSHEY_PLAIN, 2, Scalar(0, 0, 255));
 
 		}
