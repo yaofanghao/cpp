@@ -15,21 +15,8 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="1.jpg">
-      <Filter>资源文件</Filter>
-    </Image>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="1205-120实验数据\video_process\main-特征值提取.cpp">
+    <ClCompile Include="fire7.4.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="1205-120实验数据\video_process\external_module\easylogging++.cc">
-      <Filter>源文件</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="1205-120实验数据\video_process\external_module\easylogging++.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>
