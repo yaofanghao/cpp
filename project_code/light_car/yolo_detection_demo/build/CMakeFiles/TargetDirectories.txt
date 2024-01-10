@@ -1,6 +1,0 @@
-/home/teamhd/code/light_car/yolo_detection_demo/build/CMakeFiles/rebuild_cache.dir
-/home/teamhd/code/light_car/yolo_detection_demo/build/CMakeFiles/yolo_detection_demo.dir
-/home/teamhd/code/light_car/yolo_detection_demo/build/CMakeFiles/edit_cache.dir
-/home/teamhd/code/light_car/yolo_detection_demo/build/external_module/CMakeFiles/rebuild_cache.dir
-/home/teamhd/code/light_car/yolo_detection_demo/build/external_module/CMakeFiles/external_module.dir
-/home/teamhd/code/light_car/yolo_detection_demo/build/external_module/CMakeFiles/edit_cache.dir
