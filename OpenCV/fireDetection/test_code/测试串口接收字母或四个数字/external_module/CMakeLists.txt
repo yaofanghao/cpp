@@ -1,1 +1,0 @@
-add_library(external_module WzSerialPort.cpp)
